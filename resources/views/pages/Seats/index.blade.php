@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    المقاعد
+    التصميم
 @stop
 @endsection
 @section('page-header')

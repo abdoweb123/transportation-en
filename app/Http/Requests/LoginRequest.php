@@ -18,7 +18,7 @@ class LoginRequest extends FormRequest
         return [
             'email'=>'required',
             'password'=>'required',
-            'type'=>'required|in:superVisor,admin,employee,web',
+//            'type'=>'required|in:superVisor,admin,employee,web',
         ];
     }
 
@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
         return [
           'email.required'=>' البريد الإلكتروني مطلوب',
           'password.required'=>'كلمة المرور مطلوبة',
-          'type.required'=>'نوع المستخدم مطلوب',
+//          'type.required'=>'نوع المستخدم مطلوب',
         ];
     }
 }

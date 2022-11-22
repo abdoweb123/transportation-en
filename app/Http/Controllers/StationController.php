@@ -27,8 +27,8 @@ class StationController extends Controller
         try {
             $station = new Station();
             $station->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
-            $station->type = $request->type;
             $station->city_id = $request->city_id;
+            $station->admin_id = auth('admin')->id();
             $station->save();
             return redirect()->route('stations.index')->with('alert-success',trans('main_trans.success'));
         }
@@ -46,8 +46,8 @@ class StationController extends Controller
         try {
             $station = Station::findOrFail($request->id);
             $station->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
-            $station->type = $request->type;
             $station->city_id = $request->city_id;
+            $station->admin_id = auth('admin')->id();
             $station->update();
             return redirect()->route('stations.index')->with('alert-success',trans('main_trans.success'));
         }
@@ -62,7 +62,9 @@ class StationController extends Controller
     /*** destroy function  ***/
     public function destroy(Request $request)
     {
-        $Grades = Station::findOrFail($request->id)->delete();
+        $station = Station::findOrFail($request->id)->delete();
         return redirect()->route('stations.index')->with('alert-success',trans('main_trans.danger'));
     }
-}
+
+
+} //end of class

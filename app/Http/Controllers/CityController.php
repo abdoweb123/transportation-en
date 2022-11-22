@@ -26,6 +26,7 @@ class CityController extends Controller
         try {
             $city = new City();
             $city->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+            $city->admin_id = auth('admin')->id();
             $city->save();
             return redirect()->route('cities.index')->with('alert-success',trans('main_trans.success'));
         }
@@ -43,6 +44,7 @@ class CityController extends Controller
         try {
             $city = City::findOrFail($request->id);
             $city->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+            $city->admin_id = auth('admin')->id();
             $city->update();
             return redirect()->route('cities.index')->with('alert-info',trans('main_trans.info'));
         }
@@ -58,16 +60,10 @@ class CityController extends Controller
     /*** destroy function  ***/
     public function destroy(Request $request)
     {
-        $city_id = Station::where('city_id',$request->id)->pluck('city_id');
 
-        if($city_id->count() == 0)
-        {
-            $city = City::findOrFail($request->id)->delete();
-            return redirect()->route('cities.index')->with('alert-success',trans('main_trans.danger'));
-        }
-        else{
-            return redirect()->route('cities.index')->with('alert-danger',trans('main_trans.delete_error'));
-        }
+        $city = City::findOrFail($request->id)->delete();
+        return redirect()->route('cities.index')->with('alert-success',trans('main_trans.danger'));
+
     }
 
 } //end of class

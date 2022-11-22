@@ -51,8 +51,8 @@
                                 <th>#</th>
                                 <th>{{ trans('stations_trans.station_name_ar') }}</th>
                                 <th>{{ trans('stations_trans.station_name_en') }}</th>
-                                <th>{{ trans('stations_trans.station_type') }}</th>
                                 <th>{{ trans('stations_trans.city_name') }}</th>
+                                <th>مدخل البيانات</th>
                                 <th>{{ trans('main_trans.processes') }}</th>
                             </tr>
                             </thead>
@@ -62,12 +62,8 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $item->getTranslation('name', 'ar')  }}</td>
                                     <td>{{ $item->getTranslation('name', 'en')  }}</td>
-                                    @if(App::getLocale() == 'ar')
-                                        <td>@if($item->type == 1) صعود @elseif($item->type == 2) نزول @elseif($item->type == 3) صعود ونزول @endif</td>
-                                    @else
-                                        <td>@if($item->type == 1) Boarding @elseif($item->type == 2) Getting off @elseif($item->type == 3) Boarding and Getting off @endif</td>
-                                    @endif
-                                    <td>{{ $item->city->name }}</td>
+                                    <td>@isset($item->city->name)  {{ $item->city->name }} @else لا يوجد @endisset</td>
+                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
                                     <td>
                                         <div class="dropdown show">
                                             <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -48,6 +48,20 @@
                             <div class="m-5 p-4" style="border:1px solid #ddd; width:30%">
                                 <h6 style="font-family: 'Cairo', sans-serif;color: blue">إضافة مقاعد</h6><br>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group length">
+                                            <label>الطول : <span class="text-danger">*</span></label>
+                                            <input type="number" name="length" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group width">
+                                            <label>العرض : <span class="text-danger">*</span></label>
+                                            <input type="number" name="width" class="form-control">
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-12">
                                         <div class="form-group slug">
                                             <label>عدد المقاعد: <span class="text-danger">*</span></label>
@@ -55,28 +69,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group length">
-                                            <label>الطول : <span class="text-danger">*</span></label>
-                                            <input type="text" name="length" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group width">
-                                            <label>العرض : <span class="text-danger">*</span></label>
-                                            <input type="text" name="width" class="form-control">
-                                        </div>
-                                    </div>
-
-
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="Classroom_id">الحافلة التابع لها : <span class="text-danger">*</span></label>
-                                            <select class="custom-select mr-sm-2" name="bus_id">
-                                                <option selected disabled>--اختر الحافلة--</option>
-                                                @foreach($buses as $bus)
-                                                    <option value="{{$bus->id}}">{{$bus->name}}</option>
+                                            <label for="Classroom_id">الأسطول التابع لها : <span class="text-danger">*</span></label>
+                                            <select class="custom-select mr-sm-2" name="busType_id">
+                                                <option selected disabled>--اختر الأسطول--</option>
+                                                @foreach($busTypes as $busType)
+                                                    <option value="{{$busType->id}}">{{$busType->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -89,7 +88,8 @@
                         </div>
 
                         <br>
-                        <button type="button" id="show_seats" class="btn btn-info btn-sm nextBtn btn-lg pull-right mx-3">عرض المقاعد</button>
+                        <button type="button" id="show_seats" class="btn btn-info btn-sm nextBtn btn-lg pull-right"
+                                style="margin-right:28px; margin-left:25px">عرض المقاعد</button>
                         <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">حفظ</button>
                     </form>
                 </div>
@@ -146,9 +146,9 @@
                         '<a>'
                         + '<select id="#my_select" name="type['+array[i]+']" class="select" style="position:absolute; top:0; right:-65px; display:none">'
                         +    '<option value=" ">اختر</option>'
-                        +    '<option value="driver">سائق</option>'
-                        +    '<option value="acceptable">متاح</option>'
-                        +    '<option value="unacceptable">غير متاح</option>'
+                        +    '<option value="3">سائق</option>'
+                        +    '<option value="1">متاح</option>'
+                        +    '<option value="2">غير متاح</option>'
                         + '</select>'
                         +'</a>' + array[i] + '</div>');
                 }
@@ -171,19 +171,19 @@
             {
                 let option_val = $(this).find('option:selected').val();
                 let option = $(this).find('option:selected').parents().eq(2);
-                if (option_val === 'driver'){
+                if (option_val === '3'){
                     option.css({
                         backgroundColor:'#c4c40b',
                         color:'white',
                     })
                 }
-                if(option_val === 'unacceptable'){
+                if(option_val === '2'){
                     option.css({
                         backgroundColor:'red',
                         color:'white',
                     })
                 }
-                if(option_val === 'acceptable'){
+                if(option_val === '1'){
                     option.css({
                         backgroundColor:'beige',
                         color:'black',

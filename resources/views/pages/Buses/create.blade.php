@@ -17,14 +17,17 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            <label for="code" class="mr-sm-2">كود الحافلة
-                                :</label>
+                            <label for="code" class="mr-sm-2">كود الحافلة :</label>
                             <input id="code" type="text" name="code" class="form-control">
                         </div>
                         <div class="col">
-                            <label for="name" class="mr-sm-2">اسم الحافلة
-                                :</label>
-                            <input type="text" class="form-control" name="name">
+                            <label for="Classroom_id">الأسطول التابع لها : <span class="text-danger">*</span></label>
+                            <select class="form-control mr-sm-2 p-2" name="busType_id">
+                                <option selected disabled>--اختر الأسطول--</option>
+                                @foreach($busTypes as $busType)
+                                    <option value="{{$busType->id}}">{{$busType->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <br><br>

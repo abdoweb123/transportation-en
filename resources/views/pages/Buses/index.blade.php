@@ -50,7 +50,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>كود الحافلة</th>
-                                <th>اسم الحافلة</th>
+                                <th>الأسطول التابع له</th>
+                                <th>السائق</th>
+                                <th>مدخل البيانات</th>
                                 <th>العمليات</th>
                             </tr>
                             </thead>
@@ -58,14 +60,17 @@
                             @foreach ($buses as $item)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $item->code  }}</td>
-                                    <td>{{ $item->name  }}</td>
+                                    <td>{{ $item->code }}</td>
+                                    <td><a href="{{route('show.bus.seats',$item->id)}}" style="color:red"> {{ $item->busType->name }} </a> </td>
+                                    <td>@isset($item->driver->name)  {{ $item->driver->name }} @else لا يوجد @endisset</td>
+                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
                                     <td>
                                         <div class="dropdown show">
                                             <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 العمليات
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
                                                 <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
                                                    data-target="#edit{{ $item->id }}" title="تعديل">
                                                    <i style="color:#a3a373" class="fa fa-edit"></i>&nbsp; تعديل</a>
@@ -73,13 +78,6 @@
                                                 <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
                                                    data-target="#delete{{ $item->id }}" title="حذف">
                                                    <i style="color:red" class="fa fa-trash"></i>&nbsp; حذف</a>
-
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#show{{ $item->id }}" title="عرض">
-                                                    <i style="color:green" class="fa fa-eye"></i>&nbsp; عرض</a>
-
-                                                <a href="{{route('show.bus.seats',$item->id)}}" class="dropdown-item" style="cursor:pointer" title="عرض التفاصيل">
-                                                    <i style="color:green" class="fa fa-eye"></i>&nbsp; عرض التفاصيل</a>
 
                                             </div>
                                         </div>

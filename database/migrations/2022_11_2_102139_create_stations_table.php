@@ -17,14 +17,14 @@ class CreateStationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('city_id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('type')->nullable();
+            $table->unsignedBigInteger('admin_id');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('city_id')->references('id')->on('cities')
                   ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('user_id')->references('id')->on('users')
+            $table->foreign('admin_id')->references('id')->on('admins')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

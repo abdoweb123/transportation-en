@@ -4,14 +4,127 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin  extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes;
 
-    protected $fillable = ['name', 'email', 'password', 'SuperVisor_id'];
+    protected $fillable = ['name', 'email', 'password', 'type', 'admin_id'];
 
 
+    public function getTypeAttribute($val)
+    {
+        switch ($val)
+        {
+            case 1: echo 'المشرف العام'; break;
+            case 2: echo 'مدير الفرع'; break;
+            case 3: echo 'موظف البيانات'; break;
+        }
+    }
+
+
+
+    /*** start relations ***/
+
+    public function parent()
+    {
+        return $this->belongsTo(Admin::class,'admin_id');
+    }
+
+
+    public function children()
+    {
+        return $this->hasMany(Admin::class,'admin_id');
+    }
+
+
+    public function cities()
+    {
+        return $this->hasMany(City::class,'admin_id');
+    }
+
+
+    public function buses()
+    {
+        return $this->hasMany(Bus::class,'admin_id');
+    }
+
+
+    public function seats()
+    {
+        return $this->hasMany(Seat::class,'admin_id');
+    }
+
+
+    public function drivers()
+    {
+        return $this->hasMany(Driver::class,'admin_id');
+    }
+
+
+    public function stations()
+    {
+        return $this->hasMany(Station::class,'admin_id');
+    }
+
+
+    public function busTypes()
+    {
+        return $this->hasMany(BusType::class,'admin_id');
+    }
+
+
+    public function users()
+    {
+        return $this->hasMany(User::class,'admin_id');
+    }
+
+
+    public function offices()
+    {
+        return $this->hasMany(Office::class,'admin_id');
+    }
+
+
+    public function degrees()
+    {
+        return $this->hasMany(Degree::class,'admin_id');
+    }
+
+
+    public function tripData()
+    {
+        return $this->hasMany(TripData::class,'admin_id');
+    }
+
+
+    public function tripStations()
+    {
+        return $this->hasMany(TripStation::class,'admin_id');
+    }
+
+
+    public function lines()
+    {
+        return $this->hasMany(Line::class,'admin_id');
+    }
+
+
+    public function adminRunTrips()
+    {
+        return $this->hasMany(RunTrip::class,'admin_id');
+    }
+
+
+    public function hostRunTrips()
+    {
+        return $this->hasMany(RunTrip::class,'host_id');
+    }
+
+
+
+    /*** end relations ***/
 
 } //end of class

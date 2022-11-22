@@ -16,17 +16,17 @@ class RedirectIfAuthenticated
             return redirect(RouteServiceProvider::HOME);
         }
 
-        if (auth('superVisor')->check()) {
-            return redirect(RouteServiceProvider::SUPERVISOR);
-        }
+//        if (auth('superVisor')->check()) {
+//            return redirect(RouteServiceProvider::SUPERVISOR);
+//        }
 
         if (auth('admin')->check()) {
             return redirect(RouteServiceProvider::ADMIN);
         }
 
-        if (auth('employee')->check()) {
-            return redirect(RouteServiceProvider::EMPLOYEE);
-        }
+//        if (auth('employee')->check()) {
+//            return redirect(RouteServiceProvider::EMPLOYEE);
+//        }
 
         return $next($request);
     }

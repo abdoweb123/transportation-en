@@ -51,6 +51,7 @@
                                 <th>#</th>
                                 <th>{{ trans('cities_trans.city_name_ar') }}</th>
                                 <th>{{ trans('cities_trans.city_name_en') }}</th>
+                                <th>مدخل البيانات</th>
                                 <th>{{ trans('main_trans.processes') }}</th>
                             </tr>
                             </thead>
@@ -60,6 +61,7 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $item->getTranslation('name', 'ar')  }}</td>
                                     <td>{{ $item->getTranslation('name', 'en')  }}</td>
+                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
                                     <td>
                                         <div class="dropdown show">
                                             <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

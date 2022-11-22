@@ -40,6 +40,7 @@ preloader -->
     <!--=================================
 login-->
 
+
     <section class="height-100vh d-flex align-items-center page-section-ptb login"
              style="background-image: url('{{ asset('assets/images/sativa.png')}}');">
         <div class="container">
@@ -58,16 +59,22 @@ login-->
                 </div>
                 <div class="col-lg-4 col-md-6 bg-white">
                     <div class="login-fancy pb-40 clearfix">
-                            <h3 style="font-family: 'Cairo', sans-serif" class="mb-30">تسجيل الدخول</h3>
+                        <h3 style="font-family: 'Cairo', sans-serif" class="mb-30">تسجيل الدخول</h3>
 
-                        <form method="POST" action="{{route('loginTest')}}">
+                        <form method="POST" action="{{route('login')}}">
                             @csrf
                             <div class="section-field mb-20">
+                                @foreach(['danger','warning','success','info'] as $msg)
+                                    @if(Session::has('alert-'.$msg))
+                                        <div class="alert alert-{{$msg}}">
+                                            {{Session::get('alert-'.$msg)}}
+                                        </div>
+                                    @endif
+                                @endforeach
                                 <label class="mb-10" for="name">البريدالالكتروني*</label>
                                 <input id="email" type="email"
                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                       value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                <input type="hidden" value="" name="type">
+                                       value="{{ old('email') }}"  autocomplete="email" autofocus>
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -80,39 +87,9 @@ login-->
                                 <label class="mb-10" for="Password">كلمة المرور * </label>
                                 <input id="password" type="password"
                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                       required autocomplete="current-password">
+                                       autocomplete="current-password">
 
                                 @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-
-                            <div class="section-field mb-20">
-                                <label class="mb-10 d-block" for="type">اختر النوع * </label>
-
-                                <div class="mb-1">
-                                    <div class="d-inline-block" style="margin-left:24px">
-                                        <input type="radio" name="type" value="superVisor" class="@error('type') is-invalid @enderror"
-                                               style="margin-left: 3px"><span>المشرف العام</span>
-                                    </div>
-                                    <div class="d-inline-block" style="margin-left:20px">
-                                        <input type="radio" name="type" value="admin" class="@error('type') is-invalid @enderror"
-                                               style="margin-left: 3px"><span>رئيس الفرع</span>
-                                    </div>
-                                </div>
-                                <div class="mb-1">
-                                    <div class="d-inline-block" style="margin-left:20px">
-                                        <input type="radio" name="type" value="employee" class="@error('type') is-invalid @enderror"
-                                               style="margin-left: 3px"><span>موظف البيانات</span>
-                                    </div>
-                                    <div class="d-inline-block" style="margin-left:20px">
-                                        <input type="radio" name="type" value="web" class="@error('type') is-invalid @enderror"
-                                               style="margin-left: 3px"><span>موظف البيانات</span>
-                                    </div>
-                                 </div>
-                                @error('type')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

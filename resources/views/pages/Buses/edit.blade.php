@@ -23,9 +23,15 @@
                             <input id="code" type="text" name="code" value="{{$item->code}}" class="form-control">
                         </div>
                         <div class="col">
-                            <label for="name" class="mr-sm-2">اسم الحافلة
-                                :</label>
-                            <input type="text" class="form-control" value="{{$item->name}}" name="name">
+                            <label for="Classroom_id">الأسطول التابع لها : <span class="text-danger">*</span></label>
+                            <select class="form-control mr-sm-2 p-2" name="busType_id">
+                                <option selected value="{{$item->busType_id}}">{{$item->busType->name}}</option>
+                                @foreach($busTypes as $busType)
+                                    @if($item->busType_id != $busType->id)
+                                        <option value="{{$busType->id}}">{{$busType->name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <br><br>

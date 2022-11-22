@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RequestBus;
 use App\Models\Bus;
+use App\Models\BusType;
 use App\Models\Seat;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class BusController extends Controller
     public function index()
     {
         $buses = Bus::latest()->paginate(10);
-        return view('pages.Buses.index',compact('buses'));
+        $busTypes = BusType::all();
+        return view('pages.Buses.index',compact('buses','busTypes'));
     }
 
 
@@ -24,7 +26,8 @@ class BusController extends Controller
     {
         Bus::create([
             'code'=>$request->code,
-            'name'=>$request->name,
+            'admin_id'=>auth('admin')->id(),
+            'busType_id'=>$request->busType_id,
         ]);
         return redirect()->route('buses.index')->with('alert-success','تم حفظ البيانات بنجاح');
     }
@@ -36,11 +39,22 @@ class BusController extends Controller
     {
         $bus->update([
             'code'=>$request->code,
-            'name'=>$request->name,
+            'admin_id'=>auth('admin')->id(),
+            'busType_id'=>$request->busType_id,
         ]);
         return redirect()->route('buses.index')->with('alert-info','تم تعديل البيانات بنجاح');
     }
 
+
+
+    /*** showBusSeats function  ***/
+    public function showBusSeats($id)
+    {
+        $busType_id = Bus::findOrFail($id)->busType->id;
+        $busType = Bus::findOrFail($id)->busType;
+        $seats = Seat::where('busType_id',$busType_id)->get();
+        return view('pages.Buses.show_bus_seats',compact('seats','busType'));
+    }
 
 
     /*** destroy function ***/

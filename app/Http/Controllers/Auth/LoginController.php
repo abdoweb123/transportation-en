@@ -12,37 +12,26 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
+
 
 //    use AuthenticatesUsers;
 
-    use AuthTrait;
-
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
 
 
+    /*** showLoginForm for admins ***/
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('authAdmin.login');
     }
 
 
+
+    /*** login for admins ***/
     public function login(LoginRequest $request){
 
-        if (Auth::guard($this->chekGuard($request))->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return $this->redirect($request);
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+
+            return redirect()->intended('branches/admin/dashboard');
         }
         else{
             return redirect()->back()->withInput(['email','password'])->with('alert-danger', 'يوجد خطا في كلمة المرور او اسم المستخدم أو النوع');
@@ -52,9 +41,10 @@ class LoginController extends Controller
 
 
 
-    public function logout(Request $request,$type)
+    /*** logout for admins ***/
+    public function logout(Request $request)
     {
-        Auth::guard($type)->logout();
+        Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
 

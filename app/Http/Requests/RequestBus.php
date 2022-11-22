@@ -17,7 +17,7 @@ class RequestBus extends FormRequest
     {
         return [
             'code'=>'required',
-            'name'=>'required',
+            'busType_id'=>'required',
         ];
     }
 
@@ -25,7 +25,7 @@ class RequestBus extends FormRequest
     {
         return [
           'code.required'=>'كود الحافلة مطلوب',
-          'name.required'=>'اسم الحافلة مطلوب',
+          'busType_id.required'=>'اسم الأسطول مطلوب',
         ];
     }
 }

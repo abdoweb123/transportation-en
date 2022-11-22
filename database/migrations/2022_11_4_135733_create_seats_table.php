@@ -17,15 +17,16 @@ class CreateSeatsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('status')->nullable();
-            $table->unsignedBigInteger('bus_id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('type')->default('acceptable')->nullable();
+            $table->unsignedBigInteger('busType_id');
+            $table->unsignedBigInteger('admin_id');
+            $table->integer('type')->default(1)->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('bus_id')->references('id')->on('buses')
+            $table->foreign('busType_id')->references('id')->on('bus_types')
                 ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('user_id')->references('id')->on('users')
+            $table->foreign('admin_id')->references('id')->on('admins')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

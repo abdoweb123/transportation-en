@@ -28,7 +28,7 @@
                      <div class="row">
                         <div class="col">
                             <label for="Name_en" class="mr-sm-2">{{ trans('main_trans.username') }}:</label>
-                            <input type="text" class="form-control" value="{{ auth()->user()->name }}" name="name_en" readonly>
+                            <input type="text" class="form-control" value="{{ auth('admin')->user()->name }}" name="name_en" readonly>
                         </div>
                      </div>
                     <br><br>

@@ -26,21 +26,6 @@
             </ul>
             <!-- top bar right -->
             <ul class="nav navbar-nav ml-auto">
-{{--                <li class="nav-item dropdown">--}}
-{{--                    <a id="navbarDropdown" class="btn btn-success p-10 nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>--}}
-{{--                         {{trans('main_trans.change_language')}}--}}
-{{--                    </a>--}}
-
-{{--                    <div class="dropdown-menu dropdown-menu-end p-10" aria-labelledby="navbarDropdown">--}}
-{{--                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)--}}
-
-{{--                                <a class="d-block p-1" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">--}}
-{{--                                    {{ $properties['native'] }}--}}
-{{--                                </a>--}}
-{{--                            @endforeach--}}
-{{--                    </div>--}}
-{{--                </li>--}}
-
                 <li class="nav-item dropdown">
                     <div class="btn-group mb-1">
                         <button type="button" class="btn p-10 btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -125,8 +110,9 @@
                         <div class="dropdown-header">
                             <div class="media">
                                 <div class="media-body">
-                                    <h5 class="mt-0 mb-0"> @if(auth('superVisor')->check()) {{auth('superVisor')->user()->name}} @elseif(auth('admin')->check()) {{auth('admin')->user()->name}}  @elseif(auth('employee')->check()) {{auth('employee')->user()->name}} @else {{auth('web')->user()->name}} @endif</h5>
-                                    <span>@if(auth('superVisor')->check()) {{auth('superVisor')->user()->email}} @elseif(auth('admin')->check()) {{auth('admin')->user()->email}}  @elseif(auth('employee')->check()) {{auth('employee')->user()->email}} @else {{auth('web')->user()->email}} @endif</span>
+
+                                    <h5 class="mt-0 mb-0"> {{auth('admin')->user()->name}}</h5>
+                                    <span>{{auth('admin')->user()->email}}</span>
                                 </div>
                             </div>
                         </div>
@@ -136,15 +122,7 @@
                                 class="badge badge-info">6</span> </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#"><i class="text-info ti-settings"></i>Settings</a>
-                        @if(auth('superVisor')->check())
-                            <form method="GET" action="{{ route('logout','superVisor') }}">
-                        @elseif(auth('admin')->check())
-                            <form method="GET" action="{{ route('logout','admin') }}">
-                        @elseif(auth('employee')->check())
-                            <form method="GET" action="{{ route('logout','employee') }}">
-                        @else
-                            <form method="GET" action="{{ route('logout','web') }}">
-                        @endif
+                            <form method="GET" action="{{ route('logout')}}">
                         @csrf
                         <a class="dropdown-item" href="#" onclick="event.preventDefault();this.closest('form').submit();"><i class="bx bx-log-out"></i>تسجيل الخروج</a>
                             </form>

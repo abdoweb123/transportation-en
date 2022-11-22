@@ -1,0 +1,46 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateTripDataTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('trip_data', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->unsignedBigInteger('busType_id');
+            $table->unsignedBigInteger('degree_id');
+            $table->unsignedBigInteger('admin_id');
+//            $table->integer('type');                // (ذهاب , ذهاب و عودة)
+            $table->text('notes')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
+
+
+            $table->foreign('admin_id')->references('id')->on('admins')
+                ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreign('degree_id')->references('id')->on('degrees')
+                ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreign('busType_id')->references('id')->on('bus_types')
+                ->onDelete('cascade')->onUpdate('cascade');
+        });
+    }
+
+
+
+
+    public function down()
+    {
+        Schema::dropIfExists('trip_data');
+    }
+}

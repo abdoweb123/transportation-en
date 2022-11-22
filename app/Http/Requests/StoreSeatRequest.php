@@ -19,7 +19,7 @@ class StoreSeatRequest extends FormRequest
             'slug'=>'required',
             'length'=>'required',
             'width'=>'required',
-            'bus_id'=>'required',
+            'busType_id'=>'required',
         ];
     }
 
@@ -30,7 +30,7 @@ class StoreSeatRequest extends FormRequest
             'slug.required'=>'عدد مقاعد الحافلة مطلوب',
             'length.required'=>'طول الحافلة مطلوب',
             'width.required'=>'عرض الحافلة مطلوب',
-            'bus_id.required'=>'اسم الحافلة مطلوب',
+            'busType_id.required'=>'اسم الحافلة مطلوب',
         ];
     }
 

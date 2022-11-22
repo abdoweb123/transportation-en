@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Driver extends Model
+{
+    use HasFactory , SoftDeletes;
+
+
+    protected $fillable = ['name', 'admin_id', 'image', 'title', 'password', 'role', 'email', 'mobile',
+                           'email_verified_at', 'fcm_token', 'bio', 'balance', 'real_balance', 'percentage',
+                            'office_id', 'manager'
+                            ];
+
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class,'admin_id');
+    }
+
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class,'office_id');
+    }
+
+
+    public function buses()
+    {
+        return $this->hasMany(Bus::class,'driver_id');
+    }
+
+
+    public function runTrips()
+    {
+        return $this->hasMany(RunTrip::class,'driver_id');
+    }
+
+} //end of class

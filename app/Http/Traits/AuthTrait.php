@@ -7,16 +7,16 @@ use Illuminate\Support\Facades\Auth;
 
 trait AuthTrait
 {
-    public function chekGuard($request){
+    public function chekType($request){
 
         if($request->type == 'superVisor'){
-            $guardName= 'superVisor';
+            $guardName= 'admin';
         }
         elseif ($request->type == 'admin'){
             $guardName= 'admin';
         }
         elseif ($request->type == 'employee'){
-            $guardName= 'employee';
+            $guardName= 'admin';
         }
         else{
             $guardName= 'web';

@@ -29,20 +29,10 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="type" class="mr-sm-2">{{ trans('stations_trans.choose_station_type') }}
-                                :</label>
-                            <select class="form-control" name="type">
-                                <option class="custom-select" value=" ">{{ trans('stations_trans.choose') }}</option>
-                                <option value="1">{{ trans('stations_trans.up') }}</option>
-                                <option value="2">{{ trans('stations_trans.down') }}</option>
-                                <option value="3">{{ trans('stations_trans.up_down') }}</option>
-                            </select>
-                        </div>
-                        <div class="col">
                             <label for="city_id" class="mr-sm-2">{{ trans('stations_trans.choose_city_name') }}
                                 :</label>
-                            <select class="form-control" name="city_id">
-                                <option class="custom-select" value=" ">{{ trans('stations_trans.choose') }}</option>
+                            <select class="form-control mr-sm-2 p-2" name="city_id">
+                                <option class="custom-select mr-sm-2 p-2" value=" ">{{ trans('stations_trans.choose') }}</option>
                                 @foreach($cities as $city)
                                 <option value="{{$city->id}}">{{ $city->name }}</option>
                                 @endforeach

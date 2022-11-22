@@ -18,7 +18,6 @@ class UpdateRequestStation extends FormRequest
         return [
             'name_ar'=>'required',
             'name_en'=>'required',
-            'type'=>'required',
             'city_id'=>'required',
         ];
     }
@@ -28,7 +27,6 @@ class UpdateRequestStation extends FormRequest
         return [
           'name_ar.required'=>trans('stations_trans.station_name_ar_validation'),
           'name_en.required'=>trans('stations_trans.station_name_en_validation'),
-          'type.required'=>trans('stations_trans.station_type_validation'),
           'city_id.required'=>trans('stations_trans.city_id_validation'),
         ];
     }
