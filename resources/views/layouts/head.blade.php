@@ -46,6 +46,6 @@
     }
 
     .dataTables_length{display: none}
-    .messages , .alert-danger {width:40%}
+    .messages , .alert-danger {width:30%}
 
 </style>

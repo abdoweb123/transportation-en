@@ -68,22 +68,32 @@
                     <!-- menu title -->
 
 
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#coupons">
+                            <div class="pull-left"><i class="ti-comment"></i><span class="right-nav-text">الكوبونات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="coupons" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('coupons.index')}}">قائمة الكوبونات</a></li>
+                        </ul>
+                    </li>
 
-{{--                    <li>--}}
-{{--                        <a href="todo-list.html"><i class="ti-menu-alt"></i><span class="right-nav-text">Todo--}}
-{{--                                list</span> </a>--}}
-{{--                    </li>--}}
-                    <!-- menu item chat-->
-{{--                    <li>--}}
-{{--                        <a href="chat-page.html"><i class="ti-comments"></i><span class="right-nav-text">Chat--}}
-{{--                            </span></a>--}}
-{{--                    </li>--}}
-{{--                    <!-- menu item mailbox-->--}}
-{{--                    <li>--}}
-{{--                        <a href="mail-box.html"><i class="ti-email"></i><span class="right-nav-text">Mail--}}
-{{--                                box</span> <span class="badge badge-pill badge-warning float-right mt-1">HOT</span> </a>--}}
-{{--                    </li>--}}
-{{--                    <!-- menu item Charts-->--}}
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#packages">
+                            <div class="pull-left"><i class="ti-share"></i><span class="right-nav-text">الاشتراكات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="packages" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('packages.index')}}">قائمة الاشتراكات</a></li>
+                            <li> <a href="{{route('bookedPackages.index')}}">قائمة الاشتراكات المحجوزة</a></li>
+                        </ul>
+                    </li>
+
+
+
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#seats">
                             <div class="pull-left"><i class="ti-menu-alt"></i><span class="right-nav-text">المقاعد</span></div>

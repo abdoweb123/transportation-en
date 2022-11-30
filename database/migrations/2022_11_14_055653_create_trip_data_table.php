@@ -17,9 +17,7 @@ class CreateTripDataTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('busType_id');
-            $table->unsignedBigInteger('degree_id');
             $table->unsignedBigInteger('admin_id');
-//            $table->integer('type');                // (ذهاب , ذهاب و عودة)
             $table->text('notes')->nullable();
             $table->softDeletes();
             $table->timestamps();
@@ -28,8 +26,6 @@ class CreateTripDataTable extends Migration
             $table->foreign('admin_id')->references('id')->on('admins')
                 ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('degree_id')->references('id')->on('degrees')
-                ->onDelete('cascade')->onUpdate('cascade');
 
             $table->foreign('busType_id')->references('id')->on('bus_types')
                 ->onDelete('cascade')->onUpdate('cascade');

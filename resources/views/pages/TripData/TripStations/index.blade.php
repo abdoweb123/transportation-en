@@ -29,7 +29,8 @@
                     @endif
 
 
-                        <h4 class="text-center"><span style="background-color:#84ba3f; color:white; border-radius: 5px; padding:5px"> رحلة@isset($tripData->name) {{ $tripData->name }} @else لا يوجد @endisset</span></h4>
+                        <h6 class="text-center"><span style="background-color:#84ba3f; color:white; border-radius: 5px; padding:5px"> رحلة {{ $tripData->name }} --> المحطات </span></h6>
+
 
                     @foreach(['danger','warning','success','info'] as $msg)
                         @if(Session::has('alert-'.$msg))

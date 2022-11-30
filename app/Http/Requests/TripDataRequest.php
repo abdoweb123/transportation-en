@@ -18,7 +18,7 @@ class TripDataRequest extends FormRequest
         return [
             'name'=>'required',
             'busType_id'=>'required',
-            'degree_id'=>'required',
+//            'degrees'=>'required',
 //            'type'=>'required',
         ];
     }
@@ -28,7 +28,7 @@ class TripDataRequest extends FormRequest
         return [
             'name.required'=>'اسم الرحلة مطلوب',
             'busType_id.required'=>'اسم الأسطول مطلوب',
-            'degree_id.required'=>'درجة الرحلة مطلوبة',
+//            'degrees.required'=>'درجة الرحلة مطلوبة',
 //            'type.required'=>'نوع الرحلة مطلوبة',
         ];
     }

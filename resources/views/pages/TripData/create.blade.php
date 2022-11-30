@@ -15,19 +15,24 @@
                 <!-- add_form -->
                 <form action="{{ route('tripData.store') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="tripData_id" value="{{$item->id}}">
                     <div class="row">
                         <div class="col">
                             <label for="name" class="mr-sm-2">اسم الرحلة * :</label>
                             <input id="name" type="text" name="name" class="form-control">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col">
-                            <label for="name" class="mr-sm-2">درجة الرحلة * :</label>
-                            <select class="form-control mr-sm-2 p-2" name="degree_id">
-                                <option class="custom-select mr-sm-2 p-2" value=" ">--- اختر من القائمة ---</option>
+                            <label for="name" class="mr-sm-2 d-block">درجة الرحلة * :</label>
+                            <div class="contain-degrees row">
                                 @foreach($degrees as $degree)
-                                    <option value="{{$degree->id}}">{{ $degree->name }}</option>
+                                    <div class="degree col-4 mb-2">
+                                        <input type="checkbox" name="degrees[]" value="{{$degree->id}}" style="margin-left: 5px;">
+                                        {{ $degree->name }}
+                                    </div>
                                 @endforeach
-                            </select>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

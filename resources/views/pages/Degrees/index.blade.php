@@ -72,9 +72,9 @@
                                                    data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
                                                    <i style="color:#a3a373" class="fa fa-edit"></i>&nbsp; تعديل</a>
 
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
-                                                   <i style="color:red" class="fa fa-trash"></i>&nbsp; حذف</a>
+{{--                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"--}}
+{{--                                                   data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">--}}
+{{--                                                   <i style="color:red" class="fa fa-trash"></i>&nbsp; حذف</a>--}}
 
                                             </div>
                                         </div>

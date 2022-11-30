@@ -175,6 +175,18 @@
             });
 
 
+            /*** To hide select options when click on another element in the page ***/
+            $(document).mouseup(function (e)
+            {
+                var container = $('.select');
+
+                if (!container.is(e.target) && container.has(e.target).length === 0)
+                {
+                    container.fadeOut();
+                }
+            });
+
+
             /*** To change the background of a seat after choosing a type ***/
             $('.bus_box').on('change', 'div select', function ()
             {

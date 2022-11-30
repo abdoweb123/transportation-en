@@ -3,6 +3,12 @@
 @section('title')
     العملاء
 @stop
+
+<style>
+    select{padding: 10px !important;}
+</style>
+
+
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -74,6 +80,10 @@
                                                    data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
                                                    <i style="color:#a3a373" class="fa fa-edit"></i>&nbsp; تعديل</a>
 
+{{--                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"--}}
+{{--                                                   data-target="#addPackage{{ $item->id }}" title="{{ trans('main_trans.edit') }}">--}}
+{{--                                                    <i style="color:#a3a373" class="fa fa-edit"></i>&nbsp; إضافة اشتراك</a>--}}
+
                                                 <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
                                                    data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
                                                    <i style="color:red" class="fa fa-trash"></i>&nbsp; حذف</a>
@@ -88,6 +98,9 @@
 
                                 <!--  page of delete_modal_employee -->
                                 @include('pages.Users.delete')
+
+{{--                                <!--  add package to user  -->--}}
+{{--                                @include('pages.BookedPackages.create')--}}
 
                             @endforeach
                         </table>

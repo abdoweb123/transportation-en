@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    خطوط الرحلات
+    إضافة درجات لخطوط الرحلة
 @stop
 
 <style>
@@ -17,6 +17,45 @@
         border:none;
         outline: none;
     }
+
+    #datatable_filter{display: none}
+    table .dataTable{margin:0 !important;}
+    #datatable_wrapper .table .dataTable {
+        margin: 0 !important;
+    }
+
+    p{
+        /*margin-bottom: 10px !important;*/
+        margin: 10px -5px 10px 10px !important;
+        padding: 10px !important;
+        display: inline-block;
+    }
+
+   .degree span{
+        background-color:#c4c40b;
+        color:white;
+        padding: 5px 10px;
+       border-radius: 5px;
+   }
+
+   h6 span , h6 a{
+       background-color:#84ba3f;
+       color:white;
+       border-radius: 5px;
+       padding:5px
+   }
+
+   h6 a{
+       color: #3d3b3b;
+       background-color: whitesmoke;
+   }
+
+   h6{
+       display: inline-block;
+       margin-bottom: 50px;
+       text-align: center;
+   }
+    table{margin-bottom: 50px !important;}
 </style>
 
 @endsection
@@ -44,9 +83,13 @@
                         </div>
                     @endif
 
+                    <form action="{{route('add.degrees.to.lines')}}" method="post">
+                        @csrf
 
-
-                    <h4 class="text-center"><span style="background-color:#84ba3f; color:white; border-radius: 5px; padding:5px"> رحلة {{$data['tripData']->name}}</span></h4>
+                    <div class="row justify-content-between mx-1">
+                        <h6><span> رحلة {{$data['tripData']->name}}&nbsp; --> المحطات &nbsp;--> الخطوط &nbsp;</span></h6>
+                        <h6><a href="{{route('getAllLinesOfTrip',$data['tripData']->id)}}">عرض كل الخطوط</a></h6>
+                    </div>
 
                     @foreach(['danger','warning','success','info'] as $msg)
                         @if(Session::has('alert-'.$msg))
@@ -59,10 +102,10 @@
                     <br><br>
 
                     <div class="table-responsive">
-                        <form action="{{route('lines.store')}}" method="post">
-                            @csrf
-                        <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
-                               style="text-align: center">
+                        @foreach($data['tripData']->tripDegrees as $item)
+
+                        <table class="table table-hover table-sm table-bordered p-0" style="text-align: center">
+                            <p class="degree"> <span> {{$item->degree->name}} </span> </p>
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -76,20 +119,22 @@
                                 <th>غرامة إلغاء الرحلة</th>
                                 <th>غرامة تعديل الرحلة</th>
                                 <th>مدخل البيانات</th>
-                                <th>العمليات</th>
                             </tr>
                             </thead>
                             <tbody>
 
+                            <?php $x = $item->degree->id; ?>
                             @foreach ($data['lines'] as $item)
+
                                 <tr>
+                                    <input type="hidden" name="degree_id[]" value="{{$x}}">
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>@isset($item->stationFrom->station->name) {{ $item->stationFrom->station->name }} @else لا يوجد @endisset</td>
                                     <td>@isset($item->stationTo->station->name) {{ $item->stationTo->station->name }} @else لا يوجد @endisset</td>
-                                    <td><input class="input_table" type="number" name="priceGo[]" value="{{$item->priceGo}}"></td>
-                                    <td><input class="input_table" type="number" name="priceBack[]" value="{{$item->priceBack}}"></td>
-                                    <td><input class="input_table" type="number" name="priceForeignerGo[]" value="{{$item->priceForeignerGo}}"></td>
-                                    <td><input class="input_table" type="number" name="priceForeignerBack[]" value="{{$item->priceForeignerBack}}"></td>
+                                    <td><input class="input_table" type="number" step=".01" name="priceGo[]" value="{{$item->priceGo}}"></td>
+                                    <td><input class="input_table" type="number" step=".01" name="priceBack[]" value="{{$item->priceBack}}"></td>
+                                    <td><input class="input_table" type="number" step=".01" name="priceForeignerGo[]" value="{{$item->priceForeignerGo}}"></td>
+                                    <td><input class="input_table" type="number" step=".01" name="priceForeignerBack[]" value="{{$item->priceForeignerBack}}"></td>
                                     <td>
                                         <select name="active[]">
                                             <option value="{{$item->active}}">{{$item->active  == 1 ? 'نشط' : 'غير نشط'}}</option>
@@ -104,35 +149,19 @@
                                     <td><input class="input_table" type="number" name="editFee[]" value="{{$item->editFee}}"></td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
                                     <input type="hidden" name="id[]" value="{{$item->id}}">
-                                    <td>
-                                        <div class="dropdown show">
-                                            <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                العمليات
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-{{--                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"--}}
-{{--                                                   data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">--}}
-{{--                                                   <i style="color:#a3a373" class="fa fa-edit"></i>&nbsp; تعديل</a>--}}
 
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
-                                                   <i style="color:red" class="fa fa-trash"></i>&nbsp; حذف</a>
-
-                                            </div>
-                                        </div>
-                                    </td>
-
+                                    <input type="hidden" name="stationFrom_id[]" value="{{$item->stationFrom_id}}">
+                                    <input type="hidden" name="stationTo_id[]" value="{{$item->stationTo_id}}">
                                 </tr>
 
-                                <!--  page of edit_modal_station -->
-{{--                                @include('pages.TripData.Lines.edit')--}}
-
-                                <!--  page of delete_modal_station -->
-                                @include('pages.TripData.Lines.delete')
 
                             @endforeach
 
                         </table>
+                            @endforeach
+
+                        <input type="hidden" name="degrees" value="{{count($data['tripData']->tripDegrees)}}">
+                        <input type="hidden" name="tripData_id" value="{{$data['tripData']->id}}">
                         <button type="submit" class="btn btn-success mt-1 mb-4 mx-2">حفظ</button>
                         </form>
                         <div> {{$data['lines']->links('pagination::bootstrap-4')}}</div>
@@ -141,11 +170,6 @@
                 </div>
             </div>
         </div>
-
-
-
-       <!--  page of add_modal_station -->
-{{--       @include('pages.TripData.Lines.create')--}}
     </div>
 
 

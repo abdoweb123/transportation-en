@@ -17,6 +17,7 @@ class Station extends Model
     protected $fillable = ['name', 'city_id', 'admin_id'];
 
 
+
     public function city()
     {
         return $this->belongsTo(City::class,'city_id');
@@ -33,6 +34,19 @@ class Station extends Model
     {
         return $this->hasMany(TripStation::class,'station_id');
     }
+
+
+    public function FromPackages()
+    {
+        return $this->hasMany(Package::class,'stationFrom_id');
+    }
+
+
+    public function ToPackages()
+    {
+        return $this->hasMany(Package::class,'stationTo_id');
+    }
+
 
 
 } //end of class

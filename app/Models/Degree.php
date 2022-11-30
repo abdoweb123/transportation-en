@@ -23,15 +23,21 @@ class Degree extends Model
     }
 
 
-    public function tripData()
+    public function tripDegrees()
     {
-        return $this->hasMany(TripData::class,'degree_id');
+        return $this->hasMany(TripDegree::class,'degree_id');
     }
 
 
     public function lines()
     {
         return $this->hasMany(Line::class,'degree_id');
+    }
+
+
+    public function tripSeats()
+    {
+        return $this->hasMany(TripSeat::class,'degree_id');
     }
 
 

@@ -4,6 +4,7 @@
     الرحلات
 @stop
 @endsection
+
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
@@ -52,7 +53,6 @@
                                 <th>اسم الرحلة</th>
                                 <th>اسم الأسطول</th>
                                 <th>درجة الرحلة</th>
-{{--                                <th>نوع الرحلة</th>--}}
                                 <th>الملاحظات</th>
                                 <th>مدخل البيانات</th>
                                 <th>العمليات</th>
@@ -64,8 +64,11 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td><a href="{{route('getStationsOfTrip',$item->id)}}" style="color:red">{{ $item->name}}</a></td>
                                     <td>@isset($item->busType->name)  {{ $item->busType->name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->degree->name)  {{ $item->degree->name }} @else لا يوجد @endisset</td>
-{{--                                    <td>{{ $item->type  == 1 ? 'ذهاب' : 'ذهاب وعودة' }}</td>--}}
+                                    <td>
+                                        @foreach($item->tripDegrees as $degree_id)
+                                            {{$degree_id->degree->name}} ,
+                                        @endforeach
+                                    </td>
                                     <td>{{ $item->notes  == null ? 'لا يوجد' : $item->notes }}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
                                     <td>
@@ -78,14 +81,14 @@
                                                    data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
                                                    <i style="color:#a3a373" class="fa fa-edit"></i>&nbsp; تعديل</a>
 
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
-                                                   <i style="color:red" class="fa fa-trash"></i>&nbsp; حذف</a>
+{{--                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"--}}
+{{--                                                   data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">--}}
+{{--                                                   <i style="color:red" class="fa fa-trash"></i>&nbsp; حذف</a>--}}
 
                                                 <a type="button" class="dropdown-item" style="cursor:pointer" href="{{route('getStationsOfTrip',$item->id)}}">
                                                     <i style="color:green" class="fa fa-eye"></i>&nbsp; عرض المحطات</a>
 
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" href="{{route('getLinesOfTrip',$item->id)}}">
+                                                <a type="button" class="dropdown-item" style="cursor:pointer" href="{{route('getAllLinesOfTrip',$item->id)}}">
                                                     <i style="color:goldenrod" class="fa fa-eye"></i>&nbsp; عرض الخطوط</a>
                                             </div>
                                         </div>

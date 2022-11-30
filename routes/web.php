@@ -21,6 +21,11 @@ use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\TripStationController;
 use App\Http\Controllers\RunTripController;
 use App\Http\Controllers\LineController;
+use App\Http\Controllers\TripSeatController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CouponTripController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\BookedPackageController;
 
 
 
@@ -94,8 +99,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
 
 
-
-
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
     Route::resource('cities','CityController');
@@ -105,11 +108,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('offices','OfficeController');
 
     Route::resource('busTypes','BusTypeController')->except('create','edit','show');
+    Route::get('show/busType/seats/{id}',[BusTypeController::class,'showBusTypeSeats'])->name('show.busType.seats');
 
     Route::resource('buses','BusController');
+    Route::get('show/bus/seats/{id}',[BusController::class,'showBusSeats'])->name('show.bus.seats');
 
     Route::resource('seats','SeatController')->except('update','edit');
-
     Route::post('update/seats',[SeatController::class,'update'])->name('update.seats');
 
     Route::resource('tripData','TripDataController')->except('create','edit','show');
@@ -120,19 +124,27 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     // Lines of trip
     Route::post('create/lines/of/trip',[LineController::class,'createLinesOfTrip'])->name('createLinesOfTrip');
-    Route::get('get/lines/of/trip/{tripData_id}',[LineController::class,'getLinesOfTrip'])->name('getLinesOfTrip');
-    Route::post('update/line',[LineController::class,'update'])->name('update.line');
-    Route::resource('lines','LineController')->only('store','destroy');
+    Route::get('get/undegreeded/lines/of/trip/{tripData_id}',[LineController::class,'getUndegreededLinesOfTrip'])->name('getUndegreededLines');
+    Route::post('add/degrees/to/lines',[LineController::class,'addDegreesToLines'])->name('add.degrees.to.lines');
+    Route::get('get/all/lines/of/trip/{tripData_id}',[LineController::class,'getAllLinesOfTrip'])->name('getAllLinesOfTrip');
+    Route::post('update/lines',[LineController::class,'updateLines'])->name('updateLines');
+
 
     Route::resource('degrees','DegreeController')->except('create','edit','show');
 
     Route::resource('runTrips','RunTripController')->except('create','edit','show');
 
 
-    Route::get('show/bus/seats/{id}',[BusController::class,'showBusSeats'])->name('show.bus.seats');
+    // Seats design of Trip
+    Route::get('show/busType/seats/of/trip/{id}',[TripSeatController::class,'showBusTypeSeatsOfTrip'])->name('showBusTypeSeatsOfTrip');
+    Route::post('create/trip/seats',[TripSeatController::class,'createTripSeats'])->name('createTripSeats');
+    Route::put('update/trip/seats',[TripSeatController::class,'updateTripSeats'])->name('updateTripSeats');
 
-    Route::get('show/busType/seats/{id}',[BusTypeController::class,'showBusTypeSeats'])->name('show.busType.seats');
 
+    Route::resource('coupons','CouponController')->except('create','edit','show');
+    Route::resource('couponTrips','CouponTripController')->except('create','edit','show');
+    Route::resource('packages','PackageController')->except('create','edit','show');
+    Route::resource('bookedPackages','BookedPackageController')->except('create','edit','show');
 
 
 }); //end of routes

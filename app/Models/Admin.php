@@ -124,6 +124,40 @@ class Admin  extends Authenticatable
     }
 
 
+    public function tripDegrees()
+    {
+        return $this->hasMany(TripDegree::class,'admin_id');
+    }
+
+
+    public function tripSeats()
+    {
+        return $this->hasMany(TripSeat::class,'admin_id');
+    }
+
+
+    public function coupons()
+    {
+        return $this->hasMany(Coupon::class,'admin_id');
+    }
+
+
+    public function couponTrips()
+    {
+        return $this->hasMany(CouponTrip::class,'admin_id');
+    }
+
+
+    public function packages()
+    {
+        return $this->hasMany(Package::class,'admin_id');
+    }
+
+
+    public function bookedPackages()
+    {
+        return $this->hasMany(BookedPackage::class,'admin_id');
+    }
 
     /*** end relations ***/
 

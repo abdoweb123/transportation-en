@@ -11,9 +11,19 @@ class TripData extends Model
     use HasFactory , SoftDeletes;
 
 
-    protected $fillable = ['name', 'busType_id', 'degree_id', 'admin_id', 'type', 'notes'];
+    protected $fillable = ['name', 'busType_id', 'admin_id', 'type', 'notes'];
 
-    protected $casts = ['degree_id'];
+
+//    public function setDegreesAttribute($value)
+//    {
+//        $this->attributes['degrees'] = json_encode($value);
+//    }
+//
+//
+//    public function getDegreesAttribute($value)
+//    {
+//          return  $this->attributes['degrees'] = json_decode($value);
+//    }
 
 
     public function admin()
@@ -27,11 +37,6 @@ class TripData extends Model
         return $this->belongsTo(BusType::class,'busType_id');
     }
 
-
-    public function degree()
-    {
-        return $this->belongsTo(Degree::class,'degree_id');
-    }
 
 
     public function tripStations()
@@ -51,5 +56,22 @@ class TripData extends Model
         return $this->hasMany(RunTrip::class,'tripData_id');
     }
 
+
+    public function tripDegrees()
+    {
+        return $this->hasMany(TripDegree::class,'tripData_id');
+    }
+
+
+    public function tripSeats()
+    {
+        return $this->hasMany(TripSeat::class,'tripData_id');
+    }
+
+
+    public function couponTrips()
+    {
+        return $this->hasMany(CouponTrip::class,'tripData_id');
+    }
 
 } //end class

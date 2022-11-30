@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TripStationRequest;
+use App\Models\Line;
 use App\Models\Station;
 use App\Models\TripData;
 use App\Models\TripStation;
@@ -15,8 +16,6 @@ class TripStationController extends Controller
     public function getStationsOfTrip($id)
     {
         $tripStations = TripStation::where('tripData_id',$id)->orderBy('rank')->paginate(10);
-//        $tripStations = TripStation::all();
-//        return $tripStations;
         $tripData = TripData::find($id);
         $stations = Station::select('id','name')->get();
         return view('pages.TripData.TripStations.index', compact('tripData','tripStations','stations'));
@@ -66,7 +65,10 @@ class TripStationController extends Controller
     public function destroy(Request $request)
     {
         $tripStation = TripStation::findOrFail($request->id)->delete();
-        return redirect()->route('tripStations.index')->with('alert-success','تم حذف البيانات بنجاح');
+
+        $relatedLines = Line::where('stationFrom_id',$request->id)->orWhere('stationTo_id',$request->id)->delete();
+
+        return redirect()->back()->with('alert-success','تم حذف البيانات بنجاح');
     }
 
 

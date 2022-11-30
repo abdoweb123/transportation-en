@@ -22,32 +22,27 @@
                             <label for="name" class="mr-sm-2">اسم الرحلة * :</label>
                             <input id="name" type="text" name="name" value="{{$item->name}}" class="form-control">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col">
-                            <label for="name" class="mr-sm-2">درجة الرحلة * :</label>
-                            <select class="form-control mr-sm-2 p-2" name="degree_id">
-                                <option class="custom-select mr-sm-2 p-2" disabled>--- اختر من القائمة ---</option>
-                                <option value="{{$item->degree->id}}">{{ $item->degree->name }}</option>
+                            <label for="name" class="mr-sm-2 d-block">درجة الرحلة * :</label>
+                            <div class="contain-degrees row">
+
                                 @foreach($degrees as $degree)
-                                    @if($degree->id !== $item->degree->id)
-                                        <option value="{{$degree->id}}">{{ $degree->name }}</option>
-                                    @endif
+{{--                                    <div class="degree col-4 mb-2" style="@foreach($item->tripDegrees as $tripDegree) @if($tripDegree->degree_id == $degree->id) display:none; @endif @endforeach">--}}
+                                    <div class="degree col-4 mb-2">
+                                        <input type="checkbox" name="degrees[]"
+                                               value="{{$degree->id}}" @foreach($item->tripDegrees as $tripDegree) {{$tripDegree->degree_id == $degree->id ? 'checked' : '' }} @endforeach style="margin-left: 5px;">
+                                        {{ $degree->name }}
+{{--                                        <input type="checkbox" name="degrees[]"--}}
+{{--                                               value="{{$degree->id}}"  style="margin-left: 5px;">--}}
+{{--                                        <span>{{ $degree->name }}</span>--}}
+                                    </div>
                                 @endforeach
-                            </select>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
-{{--                        <div class="col">--}}
-{{--                            <label class="mr-sm-2">نوع الرحلة * :</label>--}}
-{{--                            <select class="form-control mr-sm-2 p-2" name="type">--}}
-{{--                                <option class="custom-select mr-sm-2 p-2" disabled>--- اختر من القائمة ---</option>--}}
-{{--                                <option value="{{$item->type}}">{{$item->type  == 1 ? 'ذهاب' : 'ذهاب وعودة'}}</option>--}}
-{{--                                @if($item->type == 1)--}}
-{{--                                    <option value="2">ذهاب وعودة</option>--}}
-{{--                                @else--}}
-{{--                                    <option value="1">ذهاب</option>--}}
-{{--                                @endif--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
                         <div class="col">
                             <label for="city_id" class="mr-sm-2">اسم الأسطول * :</label>
                             <select class="form-control mr-sm-2 p-2" name="busType_id">

@@ -21,11 +21,18 @@ class User extends Authenticatable
     protected $casts = ['email_verified_at' => 'datetime',];
 
 
+
+
     public function admin()
     {
         return $this->belongsTo(Admin::class,'admin_id');
     }
 
+
+    public function bookedPackages()
+    {
+        return $this->hasMany(BookedPackage::class,'user_id');
+    }
 
 
 } //end of class

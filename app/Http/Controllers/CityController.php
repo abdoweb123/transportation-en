@@ -14,7 +14,7 @@ class CityController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $cities = City::latest()->paginate(5);
+        $cities = City::latest()->paginate(10);
         return view('pages.Cities.index', compact('cities'));
     }
 

@@ -36,6 +36,12 @@ class Seat extends Model
         return $this->belongsTo(Admin::class,'admin_id');
     }
 
+
+    public function tripSeats()
+    {
+        return $this->hasMany(TripSeat::class,'seat_id');
+    }
+
     /*** end relations ***/
 
 } //end of class

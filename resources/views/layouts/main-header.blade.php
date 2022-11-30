@@ -4,8 +4,7 @@
             <!-- logo -->
             <div class="text-left navbar-brand-wrapper">
                 <a class="navbar-brand brand-logo" href="index.html"><img src="{{asset('assets/images/logo-dark.png')}}" alt=""></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{asset('assets/images/logo-icon-dark.png')}}"
-                        alt=""></a>
+                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{asset('assets/images/logo-icon-dark.png')}}" alt=""></a>
             </div>
             <!-- Top bar left -->
             <ul class="nav navbar-nav mr-auto">
