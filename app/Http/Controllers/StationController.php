@@ -14,7 +14,7 @@ class StationController extends Controller
    /*** index function  ***/
     public function index()
     {
-        $stations = Station::latest()->paginate(5);
+        $stations = Station::latest()->paginate(10);
         $cities = City::select('id','name')->get();
         return view('pages.Stations.index', compact('stations','cities'));
     }

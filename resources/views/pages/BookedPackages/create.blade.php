@@ -14,7 +14,6 @@
             <div class="modal-body">
                 <!-- add_form -->
 
-
                 <form action="{{ route('bookedPackages.store') }}" method="POST">
                     @csrf
                     <div class="row">
@@ -35,6 +34,7 @@
                     <div class="row">
                         <div class="col">
                             <label for="name_en" class="mr-sm-2">اسم العميل: ابحث بالاسم أو برقم الهاتف</label>
+                            {{-- start select with live search --}}
                             <div class="dropdown hierarchy-select" id="example">
                                 <button type="button" class="btn btn-secondary dropdown-toggle" id="example-two-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                 <div class="dropdown-menu search-boxx" aria-labelledby="example-two-button">
@@ -48,8 +48,9 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <input class="d-none" name="example_two" readonly="readonly" aria-hidden="true" type="text"/>
+                                <input class="d-none" name="user_id" readonly="readonly" aria-hidden="true" type="text"/>
                             </div>
+                            {{-- end select with live search --}}
                         </div>
                     </div>
                     <br><br>

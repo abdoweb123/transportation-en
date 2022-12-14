@@ -31,7 +31,8 @@ class TripStationController extends Controller
             'tripData_id'=>$request->tripData_id,
             'admin_id'=>auth('admin')->id(),
             'type'=>$request->type,
-            'typeInMinutes'=>$request->typeInMinutes,
+            'timeInMinutes'=>$request->timeInMinutes,
+            'distance'=>$request->distance,
             'rank'=>$request->rank,
             'printTimes'=>$request->printTimes,
         ]);
@@ -51,7 +52,8 @@ class TripStationController extends Controller
             'tripData_id'=>$request->tripData_id,
             'admin_id'=>auth('admin')->id(),
             'type'=>$request->type,
-            'typeInMinutes'=>$request->typeInMinutes,
+            'timeInMinutes'=>$request->timeInMinutes,
+            'distance'=>$request->distance,
             'rank'=>$request->rank,
             'printTimes'=>$request->printTimes,
         ]);

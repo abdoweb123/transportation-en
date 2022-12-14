@@ -33,9 +33,9 @@
                                 :</label>
                             <select class="form-control mr-sm-2 p-2" name="city_id">
                                 <option class="custom-select" disabled>{{ trans('stations_trans.choose') }}</option>
-                                <option value="{{$item->city->id}}">{{ $item->city->name }}</option>
+{{--                                <option value="{{$item->city->id}}">{{ $item->city->name }}</option>--}}
                                 @foreach($cities as $city)
-                                    <option value="{{$city->id}}">{{ $city->name }}</option>
+                                    <option value="{{$city->id}}" {{$city->id == $item->city_id ? 'selected' : ''}}>{{ $city->name }}</option>
                                 @endforeach
                             </select>
                         </div>

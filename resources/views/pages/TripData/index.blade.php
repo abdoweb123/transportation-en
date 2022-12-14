@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    الرحلات
+    قائمة الرحلات
 @stop
 @endsection
 

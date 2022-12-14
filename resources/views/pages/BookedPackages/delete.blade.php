@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                     id="exampleModalLabel">
-                    {{ trans('cities_trans.delete_city') }}
+                    حذف الاشتراك
                 </h5>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
@@ -14,10 +14,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('cities.destroy', 'test') }}" method="post">
+                <form action="{{ route('bookedPackages.destroy', $item->id) }}" method="post">
                     {{ method_field('Delete') }}
                     @csrf
-                    {{ trans('cities_trans.warning_city') }}
+                    هل أنت متأكد من عملية الحذف ؟
                     <input id="id" type="hidden" name="id" class="form-control"
                            value="{{ $item->id }}">
                     <div class="modal-footer">

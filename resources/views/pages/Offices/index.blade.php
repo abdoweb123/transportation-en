@@ -52,6 +52,7 @@
                                 <th>الاسم باللغة العربية</th>
                                 <th>الاسم باللغة الإنجليزية</th>
                                 <th>اسم المدينة التابع لها</th>
+                                <th>اسم المحطة التابع لها</th>
                                 <th>مدخل البيانات</th>
                                 <th>العمليات</th>
                             </tr>
@@ -63,6 +64,7 @@
                                     <td>{{ $item->getTranslation('name', 'ar')  }}</td>
                                     <td>{{ $item->getTranslation('name', 'en')  }}</td>
                                     <td>@isset($item->city->name)  {{ $item->city->name }} @else لا يوجد @endisset</td>
+                                    <td>@isset($item->station->name)  {{ $item->station->name }} @else لا يوجد @endisset</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
                                     <td>
                                         <div class="dropdown show">

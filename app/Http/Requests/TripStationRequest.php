@@ -19,7 +19,8 @@ class TripStationRequest extends FormRequest
             'station_id'=>'required',
             'tripData_id'=>'required',
             'type'=>'required',
-            'typeInMinutes'=>'required',
+            'timeInMinutes'=>'required',
+            'distance'=>'required',
             'rank'=>'required',
             'printTimes'=>'required',
         ];
@@ -31,7 +32,8 @@ class TripStationRequest extends FormRequest
           'station_id.required'=>'اسم المحطة مطلوب',
           'tripData_id.required'=>'اسم الرحلة مطلوب',
           'type.required'=>'نوع المحطة مطلوب',
-          'typeInMinutes.required'=>'الوقت المستغرق للوصول لهذه المحطة مطلوب',
+          'timeInMinutes.required'=>'الوقت المستغرق للوصول لهذه المحطة مطلوب',
+          'distance.required'=>'المسافة المقطوعة للوصول لهذه المحطة مطلوب',
           'rank.required'=>'ترتيب الرحلة مطلوب',
           'printTimes.required'=>'عدد مرات طباعة اللوحة مطلوب',
         ];

@@ -22,27 +22,6 @@
                             <label for="name" class="mr-sm-2">اسم الرحلة * :</label>
                             <input id="name" type="text" name="name" value="{{$item->name}}" class="form-control">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label for="name" class="mr-sm-2 d-block">درجة الرحلة * :</label>
-                            <div class="contain-degrees row">
-
-                                @foreach($degrees as $degree)
-{{--                                    <div class="degree col-4 mb-2" style="@foreach($item->tripDegrees as $tripDegree) @if($tripDegree->degree_id == $degree->id) display:none; @endif @endforeach">--}}
-                                    <div class="degree col-4 mb-2">
-                                        <input type="checkbox" name="degrees[]"
-                                               value="{{$degree->id}}" @foreach($item->tripDegrees as $tripDegree) {{$tripDegree->degree_id == $degree->id ? 'checked' : '' }} @endforeach style="margin-left: 5px;">
-                                        {{ $degree->name }}
-{{--                                        <input type="checkbox" name="degrees[]"--}}
-{{--                                               value="{{$degree->id}}"  style="margin-left: 5px;">--}}
-{{--                                        <span>{{ $degree->name }}</span>--}}
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col">
                             <label for="city_id" class="mr-sm-2">اسم الأسطول * :</label>
                             <select class="form-control mr-sm-2 p-2" name="busType_id">
@@ -54,6 +33,21 @@
                                     @endif
                                 @endforeach
                             </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="name" class="mr-sm-2 d-block">درجة الرحلة * :</label>
+                            <div class="contain-degrees row">
+                                @foreach($degrees as $degree)
+                                    <div class="degree col-4 mb-2">
+                                        <input type="checkbox" name="degrees[]"
+                                               value="{{$degree->id}}" @foreach($item->tripDegrees as $tripDegree) {{$tripDegree->degree_id == $degree->id ? 'checked' : '' }} @endforeach style="margin-left: 5px;">
+                                        {{ $degree->name }}
+
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
 

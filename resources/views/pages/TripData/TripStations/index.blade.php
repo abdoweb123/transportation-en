@@ -57,6 +57,7 @@
                                 <th>اسم المحطة</th>
                                 <th>نوع المحطة</th>
                                 <th>الوقت المستغرق للوصول لهذه المحطة</th>
+                                <th>المسافة المقطوعة للوصول لهذه المحطة</th>
                                 <th>عدد مرات طباعة اللوحة</th>
                                 <th>مدخل البيانات</th>
                                 <th>العمليات</th>
@@ -69,7 +70,8 @@
                                     <td>{{$item->rank}}</td>
                                     <td>@isset($item->station->name) {{ $item->station->name }} @else لا يوجد @endisset</td>
                                     <td>@if($item->type == 1 ) صعود @elseif($item->type == 2 ) نزول @elseif($item->type == 3 ) صعود ونزول @endif</td>
-                                    <td>{{$item->typeInMinutes}}</td>
+                                    <td>{{$item->timeInMinutes}} &nbsp; <span> د </span></td>
+                                    <td>{{$item->distance}} &nbsp; <span> م </span> </td>
                                     <td>{{$item->printTimes}}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
                                     <td>

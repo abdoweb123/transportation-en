@@ -26,6 +26,16 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CouponTripController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\BookedPackageController;
+use App\Http\Controllers\CustomerTypeController;
+use App\Http\Controllers\MillageController;
+use App\Http\Controllers\VendorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\IssueController;
+use App\Http\Controllers\EfficiencyFuelController;
+use App\Http\Controllers\ManuallyFuelController;
+use App\Http\Controllers\EmployeeJobController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\MyEmployeeController;
 
 
 
@@ -141,10 +151,24 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::put('update/trip/seats',[TripSeatController::class,'updateTripSeats'])->name('updateTripSeats');
 
 
-    Route::resource('coupons','CouponController')->except('create','edit','show');
+    Route::resource('coupons','CouponController')->except('show');
     Route::resource('couponTrips','CouponTripController')->except('create','edit','show');
     Route::resource('packages','PackageController')->except('create','edit','show');
-    Route::resource('bookedPackages','BookedPackageController')->except('create','edit','show');
+    Route::resource('bookedPackages','BookedPackageController')->except('create','show');
+    Route::resource('customerTypes','CustomerTypeController')->except('create','show','edit');
+    Route::resource('millages','MillageController')->except('create','show','edit');
+    Route::resource('vendors','VendorController')->except('create','show','edit');
+    Route::resource('categories','CategoryController')->except('create','show','edit');
+    Route::resource('issues','IssueController')->except('create','show','edit');
+    Route::resource('efficiencyFuels','EfficiencyFuelController')->except('create','show','edit');
+    Route::resource('manuallyFuels','ManuallyFuelController')->except('create','show','edit');
+    Route::resource('employeeJobs','EmployeeJobController')->except('create','show','edit');
+    Route::resource('departments','DepartmentController')->except('create','show','edit');
+    Route::resource('myEmployees','MyEmployeeController')->except('show');
+
+
+
+    Route::post('import/excel',[HomeController::class,'import'])->name('import.excel');
 
 
 }); //end of routes

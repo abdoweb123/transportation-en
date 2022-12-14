@@ -37,4 +37,16 @@ class Bus extends Model
     }
 
 
+    public function efficiencyFuels()
+    {
+        return $this->hasMany(EfficiencyFuel::class,'bus_id');
+    }
+
+
+    public function manuallyFuels()
+    {
+        return $this->hasMany(ManuallyFuel::class,'bus_id');
+    }
+
+
 } //end of class

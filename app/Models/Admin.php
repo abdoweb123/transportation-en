@@ -159,6 +159,61 @@ class Admin  extends Authenticatable
         return $this->hasMany(BookedPackage::class,'admin_id');
     }
 
+
+    public function customerTypes()
+    {
+        return $this->hasMany(CustomerType::class,'admin_id');
+    }
+
+
+    public function millages()
+    {
+        return $this->hasMany(Millage::class,'admin_id');
+    }
+
+
+    public function vendors()
+    {
+        return $this->hasMany(Vendor::class,'admin_id');
+    }
+
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class,'admin_id');
+    }
+
+
+    public function efficiencyFuels()
+    {
+        return $this->hasMany(EfficiencyFuel::class,'admin_id');
+    }
+
+
+    public function manuallyFuels()
+    {
+        return $this->hasMany(ManuallyFuel::class,'admin_id');
+    }
+
+
+    public function employeeJobs()
+    {
+        return $this->hasMany(EmployeeJob::class,'admin_id');
+    }
+
+
+    public function departments()
+    {
+        return $this->hasMany(Department::class,'admin_id');
+    }
+
+
+    public function myEmployees()
+    {
+        return $this->hasMany(MyEmployee::class,'admin_id');
+    }
+
+
     /*** end relations ***/
 
 } //end of class

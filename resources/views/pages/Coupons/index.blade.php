@@ -38,9 +38,9 @@
                     @endforeach
 
                     {{--  button of add_modal_city  --}}
-                    <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
+                    <a href="{{route('coupons.create')}}" class="button x-small">
                         إضافة كوبون
-                    </button>
+                    </a>
                     <br><br>
 
                     <div class="table-responsive">
@@ -57,6 +57,8 @@
                                 <th>العدد الكلي</th>
                                 <th>العدد المتبقي</th>
                                 <th>عدد مستخدمي الكوبون</th>
+                                <th>العدد الأقصى لكل مستخدم</th>
+                                <th>نوع العميل</th>
                                 <th>الحالة</th>
                                 <th>الملاحظات</th>
                                 <th>مدخل البيانات</th>
@@ -75,6 +77,8 @@
                                     <td>{{ $item->max_users  }}</td>
                                     <td>{{ $item->used_by  }}</td>
                                     <td>{{ $item->used_count  }}</td>
+                                    <td>{{ $item->max_per_user  }}</td>
+                                    <td>@isset($item->customerType->name)  {{ $item->customerType->name }} @else لا يوجد @endisset</td>
                                     <td>{{$item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
                                     <td>{{ $item->notes == null ? 'لا يوجد' : $item->notes }}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
@@ -84,14 +88,12 @@
                                                 {{ trans('main_trans.processes') }}
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
+                                                <a class="dropdown-item" href="{{route('coupons.edit', $item->id)}}" style="cursor:pointer">
                                                    <i style="color:#a3a373" class="fa fa-edit"></i>&nbsp; {{trans('cities_trans.edit')}}</a>
 
                                                 <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
                                                    data-target="#delete{{ $item->id }}" title="{{ trans('cities_trans.delete') }}">
                                                    <i style="color:red" class="fa fa-trash"></i>&nbsp; {{trans('main_trans.delete')}}</a>
-
 
                                             </div>
                                         </div>
@@ -99,7 +101,7 @@
                                 </tr>
 
                                 <!--  page of edit_modal_city -->
-                                @include('pages.Coupons.edit')
+{{--                                @include('pages.Coupons.edit')--}}
 
                                 <!--  page of delete_modal_city -->
                                 @include('pages.Coupons.delete')
@@ -113,10 +115,6 @@
                 </div>
             </div>
         </div>
-
-
-       <!--  page of add_modal_city -->
-       @include('pages.Coupons.create')
     </div>
 
 
@@ -132,7 +130,7 @@
 
 
             // To hide div max_amount when ...
-            $('select:not(.trips)').change(function (){
+            $('.percent').change(function (){
                 if ( $($(this).val() == '1') ){      // جنيه
                     $('.max_amount').slideToggle();            // اخفيه
                 }

@@ -16,6 +16,7 @@ class CreateRunTripsTable extends Migration
         Schema::create('run_trips', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('tripData_id');
+            $table->double('trip_distance');
             $table->unsignedBigInteger('admin_id');
             $table->unsignedBigInteger('driver_id');
             $table->unsignedBigInteger('bus_id');

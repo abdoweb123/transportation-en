@@ -21,6 +21,15 @@
                             <label for="name" class="mr-sm-2">اسم الرحلة * :</label>
                             <input id="name" type="text" name="name" class="form-control">
                         </div>
+                        <div class="col">
+                            <label for="city_id" class="mr-sm-2">اسم الأسطول * :</label>
+                            <select class="form-control mr-sm-2 p-2" name="busType_id">
+                                <option class="custom-select mr-sm-2 p-2" value=" ">--- اختر من القائمة ---</option>
+                                @foreach($busTypes as $busType)
+                                    <option value="{{$busType->id}}">{{ $busType->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -33,17 +42,6 @@
                                     </div>
                                 @endforeach
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label for="city_id" class="mr-sm-2">اسم الأسطول * :</label>
-                            <select class="form-control mr-sm-2 p-2" name="busType_id">
-                                <option class="custom-select mr-sm-2 p-2" value=" ">--- اختر من القائمة ---</option>
-                                @foreach($busTypes as $busType)
-                                    <option value="{{$busType->id}}">{{ $busType->name }}</option>
-                                @endforeach
-                            </select>
                         </div>
                     </div>
 

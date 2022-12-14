@@ -27,12 +27,20 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="city_id" class="mr-sm-2">اسم المدينة التابع لها
-                                :</label>
+                            <label for="city_id" class="mr-sm-2">اسم المدينة التابع لها :</label>
                             <select class="form-control mr-sm-2 p-2" name="city_id">
                                 <option class="custom-select mr-sm-2 p-2" value=" ">--- اختر اسم المدينة ---</option>
                                 @foreach($cities as $city)
                                 <option value="{{$city->id}}">{{ $city->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="station_id" class="mr-sm-2">اسم المحطة التابع لها :</label>
+                            <select class="form-control mr-sm-2 p-2" name="station_id">
+                                <option class="custom-select mr-sm-2 p-2" value=" ">--- اختر اسم المحطة ---</option>
+                                @foreach($stations as $station)
+                                <option value="{{$station->id}}">{{ $station->name }}</option>
                                 @endforeach
                             </select>
                         </div>

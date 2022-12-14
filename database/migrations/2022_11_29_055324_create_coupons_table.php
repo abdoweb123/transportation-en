@@ -24,6 +24,8 @@ class CreateCouponsTable extends Migration
             $table->integer('max_users')->nullable();
             $table->integer('used_by');
             $table->integer('used_count');
+            $table->integer('max_per_user');
+            $table->unsignedBigInteger('customerType_id')->nullable();
             $table->boolean('active')->default(true);
             $table->text('notes')->nullable();
             $table->unsignedBigInteger('admin_id');
@@ -32,6 +34,9 @@ class CreateCouponsTable extends Migration
 
 
             $table->foreign('admin_id')->references('id')->on('admins')
+                ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreign('customerType_id')->references('id')->on('customer_types')
                 ->onDelete('cascade')->onUpdate('cascade');
 
         });

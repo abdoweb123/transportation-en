@@ -131,6 +131,13 @@
                     </div>
                 </div>
             </div>
+
+            <form action="{{route('import.excel')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="excel">
+                <button class="btn btn-success btn-sm">import</button>
+            </form>
+
             <!-- Orders Status widgets-->
 {{--            <div class="row">--}}
 {{--                <div class="col-xl-4 mb-30">--}}

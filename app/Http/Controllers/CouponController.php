@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CouponRequest;
 use App\Models\Coupon;
 use App\Models\CouponTrip;
+use App\Models\CustomerType;
 use App\Models\TripData;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,27 @@ class CouponController extends Controller
     public function index()
     {
         $coupons = Coupon::latest()->paginate(10);
+        return view('pages.Coupons.index', compact('coupons'));
+    }
+
+
+
+    /*** get all coupons ***/
+    public function create()
+    {
         $trips = TripData::select('id','name')->get();
-        return view('pages.Coupons.index', compact('coupons','trips'));
+        $customerTypes = CustomerType::select('id','name')->get();
+        return view('pages.Coupons.create', compact('trips','customerTypes'));
+    }
+
+
+
+    /*** get all coupons ***/
+    public function edit(Coupon $coupon)
+    {
+        $trips = TripData::select('id','name')->get();
+        $customerTypes = CustomerType::select('id','name')->get();
+        return view('pages.Coupons.edit', compact('trips','customerTypes','coupon'));
     }
 
 
@@ -49,6 +69,8 @@ class CouponController extends Controller
                      'used_by' =>$request->max_users,
                      'used_count' =>0,
                      'active' =>1,
+                     'max_per_user' =>$request->max_per_user,
+                     'customerType_id' =>$request->customerType_id,
                      'notes' =>$request->notes,
                      'admin_id' =>auth('admin')->id(),
                  ]);
@@ -98,6 +120,8 @@ class CouponController extends Controller
                  'used_by' =>$request->max_users,
                  'used_count' =>0,
                  'active' =>1,
+                 'max_per_user' =>$request->max_per_user,
+                 'customerType_id' =>$request->customerType_id,
                  'notes' =>$request->notes,
                  'admin_id' =>auth('admin')->id(),
              ]);
@@ -159,6 +183,8 @@ class CouponController extends Controller
                     'startDate' =>$request->startDate,
                     'endDate' =>$request->endDate,
                     'max_users' =>$request->max_users,
+                    'max_per_user' =>$request->max_per_user,
+                    'customerType_id' =>$request->customerType_id,
                     'notes' =>$request->notes,
                     'admin_id' =>auth('admin')->id(),
                 ]);
@@ -229,6 +255,8 @@ class CouponController extends Controller
                 'startDate' =>$request->startDate,
                 'endDate' =>$request->endDate,
                 'max_users' =>$request->max_users,
+                'max_per_user' =>$request->max_per_user,
+                'customerType_id' =>$request->customerType_id,
                 'notes' =>$request->notes,
                 'admin_id' =>auth('admin')->id(),
             ]);

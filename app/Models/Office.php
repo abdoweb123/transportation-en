@@ -13,7 +13,7 @@ class Office extends Model
 
     public $translatable = ['name'];
 
-    protected $fillable = ['name', 'city_id', 'admin_id'];
+    protected $fillable = ['name', 'city_id', 'admin_id','station_id'];
 
 
     public function city()
@@ -28,10 +28,21 @@ class Office extends Model
     }
 
 
+    public function station()
+    {
+        return $this->belongsTo(Station::class,'station_id');
+    }
+
+
     public function drivers()
     {
         return $this->hasMany(Driver::class,'office_id');
     }
 
+
+    public function myEmployees()
+    {
+        return $this->hasMany(MyEmployee::class,'office_id');
+    }
 
 } //end of class

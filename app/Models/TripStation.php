@@ -11,7 +11,8 @@ class TripStation extends Model
     use HasFactory , SoftDeletes;
 
 
-    protected $fillable = ['station_id', 'tripData_id', 'admin_id', 'type', 'typeInMinutes', 'rank', 'printTimes'];
+    protected $fillable = ['station_id', 'tripData_id', 'admin_id', 'type', 'timeInMinutes', 'rank',
+                            'printTimes', 'distance'];
 
 
      public function admin()

@@ -22,6 +22,7 @@ class CouponRequest extends FormRequest
         'startDate'=>'required',
         'endDate'=>'required',
         'max_users'=>'required',
+        'max_per_user'=>'required',
         ];
     }
 
@@ -34,6 +35,7 @@ class CouponRequest extends FormRequest
             'startDate.required'=>'تاريخ البداية مطلوب',
             'endDate.required'=>'تاريخ النهاية مطلوب',
             'max_users.required'=>'العدد الكلي للمستخدمين مطلوب',
+            'max_per_user.required'=>'العدد الأقصى لكل مستخدم مطلوب',
         ];
     }
 }

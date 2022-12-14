@@ -63,6 +63,7 @@
                         <ul id="buses" class="collapse" data-parent="#sidebarnav">
                             <li> <a href="{{route('busTypes.index')}}">أساطيل الحافلات</a></li>
                             <li> <a href="{{route('buses.index')}}">قائمة الحافلات</a></li>
+                            <li> <a href="{{route('seats.create')}}">إضافة تصميم</a></li>
                         </ul>
                     </li>
                     <!-- menu title -->
@@ -93,15 +94,25 @@
                     </li>
 
 
-
                     <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#seats">
-                            <div class="pull-left"><i class="ti-menu-alt"></i><span class="right-nav-text">المقاعد</span></div>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#customerTypes">
+                            <div class="pull-left"><i class="ti-cloud"></i><span class="right-nav-text">تصنيف العملاء</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
-                        <ul id="seats" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('seats.create')}}">إضافة تصميم</a></li>
+                        <ul id="customerTypes" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('customerTypes.index')}}">قائمة التصنيفات</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#millages">
+                            <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">الخصومات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="millages" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('millages.index')}}">قائمة الخصومات</a></li>
                         </ul>
                     </li>
 
@@ -136,6 +147,21 @@
                         </a>
                         <ul id="runTrip" class="collapse" data-parent="#sidebarnav">
                             <li> <a href="{{route('runTrips.index')}}">قائمة الرحلات المشغلة</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#bus_settings">
+                            <div class="pull-left"><i class="ti-settings"></i><span class="right-nav-text">إعدادات الحافلات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="bus_settings" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('vendors.index')}}">قائمة الموردين</a> </li>
+                            <li> <a href="{{route('categories.index')}}">مكونات الحافلة</a> </li>
+                            <li> <a href="{{route('issues.index')}}">مشكلات مكونات الحافلة</a> </li>
+                            <li> <a href="{{route('efficiencyFuels.index')}}">الوقود والكفاءة الأوتوماتيكي</a> </li>
+                            <li> <a href="{{route('manuallyFuels.index')}}">استهلاك الوقود اليدوي</a> </li>
                         </ul>
                     </li>
 
@@ -184,6 +210,22 @@
                             <li> <a href="{{route('getAllUsers')}}">قائمة العملاء</a></li>
                         </ul>
                     </li>
+
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#companyEmployees">
+                            <div class="pull-left"><i class="ti-id-badge"></i><span class="right-nav-text">موظفو الشركات الخاصة</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="companyEmployees" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('employeeJobs.index')}}">قائمة الوظائف</a> </li>
+                            <li> <a href="{{route('departments.index')}}">قائمة الأقسام</a> </li>
+                            <li> <a href="{{route('myEmployees.index')}}">قائمة المموظفين</a> </li>
+                        </ul>
+                    </li>
+
+
 {{--                    <!-- menu title -->--}}
 {{--                    <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Widgets, Forms & Tables </li>--}}
 {{--                    <!-- menu item Widgets-->--}}
@@ -209,41 +251,9 @@
 {{--                    </li>--}}
 {{--                    <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">More Pages</li>--}}
 {{--                    <!-- menu item Custom pages-->--}}
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#custom-page">--}}
-{{--                            <div class="pull-left"><i class="ti-file"></i><span class="right-nav-text">Custom--}}
-{{--                                    pages</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="custom-page" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="projects.html">projects</a> </li>--}}
-{{--                            <li> <a href="project-summary.html">Projects summary</a> </li>--}}
-{{--                            <li> <a href="profile.html">profile</a> </li>--}}
-{{--                            <li> <a href="app-contacts.html">App contacts</a> </li>--}}
-{{--                            <li> <a href="contacts.html">Contacts</a> </li>--}}
-{{--                            <li> <a href="file-manager.html">file manager</a> </li>--}}
-{{--                            <li> <a href="invoice.html">Invoice</a> </li>--}}
-{{--                            <li> <a href="blank.html">Blank page</a> </li>--}}
-{{--                            <li> <a href="layout-container.html">layout container</a> </li>--}}
-{{--                            <li> <a href="error.html">Error</a> </li>--}}
-{{--                            <li> <a href="faqs.html">faqs</a> </li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+
 {{--                    <!-- menu item Authentication-->--}}
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#authentication">--}}
-{{--                            <div class="pull-left"><i class="ti-id-badge"></i><span--}}
-{{--                                    class="right-nav-text">Authentication</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="authentication" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="login.html">login</a> </li>--}}
-{{--                            <li> <a href="register.html">register</a> </li>--}}
-{{--                            <li> <a href="lockscreen.html">Lock screen</a> </li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+
 {{--                    <!-- menu item maps-->--}}
 {{--                    <li>--}}
 {{--                        <a href="maps.html"><i class="ti-location-pin"></i><span class="right-nav-text">maps</span>--}}

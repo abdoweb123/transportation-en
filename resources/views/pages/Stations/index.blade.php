@@ -93,9 +93,6 @@
                                 @include('pages.Stations.delete')
 
 
-                                <!--  page of show_modal_station -->
-                                @include('pages.Stations.show')
-
                             @endforeach
                         </table>
 

@@ -12,7 +12,8 @@ class Coupon extends Model
 
 
     protected $fillable = ['code', 'amount', 'percent', 'startDate', 'endDate', 'max_amount',
-                            'max_users', 'used_by', 'used_count', 'active', 'admin_id', 'notes'];
+                            'max_users', 'used_by', 'used_count', 'active', 'admin_id', 'notes',
+                            'max_per_user', 'customerType_id'];
 
 
 
@@ -24,9 +25,21 @@ class Coupon extends Model
     }
 
 
+    public function customerType()
+    {
+        return $this->belongsTo(CustomerType::class,'customerType_id');
+    }
+
+
     public function couponTrips()
     {
         return $this->hasMany(CouponTrip::class,'coupon_id');
+    }
+
+
+    public function millages()
+    {
+        return $this->hasMany(Millage::class,'coupon_id');
     }
 
     /*** end relations ***/

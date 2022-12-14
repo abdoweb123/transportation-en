@@ -48,5 +48,16 @@ class Station extends Model
     }
 
 
+    public function offices()
+    {
+        return $this->hasMany(Office::class,'stationTo_id');
+    }
+
+
+    public function myEmployees()
+    {
+        return $this->hasMany(MyEmployee::class,'collectionPoint_id');
+    }
+
 
 } //end of class

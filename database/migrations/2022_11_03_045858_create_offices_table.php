@@ -17,6 +17,7 @@ class CreateOfficesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('station_id');
             $table->unsignedBigInteger('admin_id');
             $table->softDeletes();
             $table->timestamps();
@@ -25,6 +26,9 @@ class CreateOfficesTable extends Migration
                 ->onDelete('cascade')->onUpdate('cascade');
 
             $table->foreign('admin_id')->references('id')->on('admins')
+                ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreign('station_id')->references('id')->on('stations')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

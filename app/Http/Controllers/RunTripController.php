@@ -18,7 +18,7 @@ class RunTripController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $data['runTrips'] = RunTrip::latest()->paginate(10);
+        $data['runTrips'] = RunTrip::latest()->paginate(15);
         $data['tripData'] = TripData::select('id','name')->get();
         $data['drivers'] = Driver::select('id','name')->get();
         $data['buses'] = Bus::select('id','code')->get();
@@ -29,8 +29,9 @@ class RunTripController extends Controller
 
 
     /*** store function  ***/
-        public function store(RunTripStoreRequest $request)
+    public function store(RunTripStoreRequest $request)
     {
+        // To get how many run_trip according to data
         $startDate = new \DateTime($request->startDate);
         $endDate = new \DateTime($request->endDate);
 
@@ -39,10 +40,16 @@ class RunTripController extends Controller
 
         $date = Carbon::parse($request->startDate);
 
+
+        // To get Total_distance of trip
+         $tripData_meters = TripData::find($request->tripData_id)->tripStations->sum('distance');
+
+
         for ($runTrip=0; $runTrip<=$days; $runTrip++)
         {
             RunTrip::create([
                 'tripData_id'=>$request->tripData_id,
+                'trip_distance'=>$tripData_meters,
                 'driver_id'=>$request->driver_id,
                 'admin_id'=>auth('admin')->id(),
                 'bus_id'=>$request->bus_id,

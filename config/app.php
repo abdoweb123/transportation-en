@@ -162,7 +162,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        Yoeunes\Toastr\ToastrServiceProvider::class,
+        Yoeunes\Toastr\ToastrServiceProvider::class, //tostr
+
+        Maatwebsite\Excel\ExcelServiceProvider::class, //excel
         /*
          * Package Service Providers...
          */
@@ -230,6 +232,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class, //excel
 
     ],
 

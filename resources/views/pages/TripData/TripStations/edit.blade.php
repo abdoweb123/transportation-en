@@ -31,8 +31,6 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col">
                             <label for="city_id" class="mr-sm-2">نوع الرحلة * :</label>
                             <select class="form-control mr-sm-2 p-2" name="type">
@@ -52,9 +50,15 @@
                                 @endif
                             </select>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="city_id" class="mr-sm-2">المسافة المقطوعة للوصول لها (م) * :</label>
+                            <input type="number" class="form-control" name="distance" value="{{$item->distance}}">
+                        </div>
                         <div class="col">
                             <label for="city_id" class="mr-sm-2">الوقت المستغرق للوصول لها * :</label>
-                            <input type="number" class="form-control" name="typeInMinutes" value="{{$item->typeInMinutes}}">
+                            <input type="number" class="form-control" name="timeInMinutes" value="{{$item->timeInMinutes}}">
                         </div>
                     </div>
 

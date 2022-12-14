@@ -18,6 +18,7 @@ class BookedPackageRequest extends FormRequest
         return [
             'package_id'=>'required',
             'startDate'=>'required',
+            'user_id'=>'required',
         ];
     }
 
@@ -26,6 +27,7 @@ class BookedPackageRequest extends FormRequest
         return [
             'package_id.required'=>'اسم الاشتراك مطلوب',
             'startDate.required'=>'التاريخ مطلوب',
+            'user_id.required'=>'المستخدم مطلوب مطلوب',
         ];
     }
 

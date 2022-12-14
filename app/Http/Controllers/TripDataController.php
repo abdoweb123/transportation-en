@@ -30,19 +30,27 @@ class TripDataController extends Controller
     /*** store function  ***/
     public function store(TripDataRequest $request)
     {
-        TripData::create([
-            'name'=>$request->name,
-            'busType_id'=>$request->busType_id,
-            'admin_id'=>auth('admin')->id(),
-            'notes'=>$request->notes,
-        ]);
+//        TripData::create([
+//            'name'=>$request->name,
+//            'busType_id'=>$request->busType_id,
+//            'admin_id'=>auth('admin')->id(),
+//            'notes'=>$request->notes,
+//        ]);
+
+           $tripData = new TripData();
+           $tripData->name = $request->name;
+           $tripData->busType_id = $request->busType_id;
+           $tripData->admin_id = auth('admin')->id();
+           $tripData->notes = $request->notes;
+            $tripData->save();
+
 
 
          foreach ($request->degrees as $degree)  // 2 , 3 , 4
          {
              TripDegree::create([
                  'admin_id'=>auth('admin')->id(),
-                 'tripData_id'=>$request->tripData_id,
+                 'tripData_id'=>$tripData->id,
                  'degree_id'=>$degree,
              ]);
          }

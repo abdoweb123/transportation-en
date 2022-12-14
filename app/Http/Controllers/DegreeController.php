@@ -12,7 +12,7 @@ class DegreeController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $degrees = Degree::latest()->paginate(5);
+        $degrees = Degree::latest()->paginate(10);
         return view('pages.Degrees.index', compact('degrees'));
     }
 

@@ -38,6 +38,15 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col">
+                            <label for="station_id" class="mr-sm-2">اسم المحطة التابع لها :</label>
+                            <select class="form-control mr-sm-2 p-2" name="station_id">
+                                <option class="custom-select mr-sm-2 p-2" disabled>--- اختر اسم المحطة ---</option>
+                                @foreach($stations as $station)
+                                    <option value="{{$station->id}}" {{$station->id == $item->station_id ? 'selected' : ''}}>{{ $station->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <br><br>
 

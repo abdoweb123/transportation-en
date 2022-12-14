@@ -11,7 +11,7 @@ class RunTrip extends Model
     use HasFactory , SoftDeletes;
 
     protected $fillable = ['tripData_id', 'admin_id', 'driver_id', 'bus_id', 'host_id', 'type', 'active',
-                            'startDate', 'startTime', 'notes', 'driverTips', 'hostTips'];
+                            'startDate', 'startTime', 'notes', 'driverTips', 'hostTips','trip_distance'];
 
 
     public function admin()

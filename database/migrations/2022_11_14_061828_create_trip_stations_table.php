@@ -19,7 +19,8 @@ class CreateTripStationsTable extends Migration
             $table->unsignedBigInteger('admin_id');
             $table->unsignedBigInteger('station_id');
             $table->integer('type');         // (صعود , نزول , صعود ونزول)
-            $table->integer('typeInMinutes');   // وقت الوصول من المحطة اللي قبلها للمحطة دي
+            $table->integer('timeInMinutes');   // وقت الوصول من المحطة اللي قبلها للمحطة دي
+            $table->double('distance')->default(0);   // المسافة من المحطة اللي قبلها للمحطة دي
             $table->integer('rank');     // دا الترتيب اللي هو هيدخله
             $table->integer('printTimes');
             $table->softDeletes();
