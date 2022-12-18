@@ -66,8 +66,20 @@
                             <li> <a href="{{route('seats.create')}}">إضافة تصميم</a></li>
                         </ul>
                     </li>
-                    <!-- menu title -->
 
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#companyEmployees">
+                            <div class="pull-left"><i class="ti-id-badge"></i><span class="right-nav-text">موظفو الشركات الخاصة</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="companyEmployees" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('employeeJobs.index')}}">قائمة الوظائف</a> </li>
+                            <li> <a href="{{route('departments.index')}}">قائمة الأقسام</a> </li>
+                            <li> <a href="{{route('myEmployees.index')}}">قائمة المموظفين</a> </li>
+                            <li> <a href="{{route('getExcel.excelEmployee')}}">استيراد بيانات المموظفين</a> </li>
+                        </ul>
+                    </li>
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#coupons">
@@ -211,19 +223,6 @@
                         </ul>
                     </li>
 
-
-                    <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#companyEmployees">
-                            <div class="pull-left"><i class="ti-id-badge"></i><span class="right-nav-text">موظفو الشركات الخاصة</span></div>
-                            <div class="pull-right"><i class="ti-plus"></i></div>
-                            <div class="clearfix"></div>
-                        </a>
-                        <ul id="companyEmployees" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('employeeJobs.index')}}">قائمة الوظائف</a> </li>
-                            <li> <a href="{{route('departments.index')}}">قائمة الأقسام</a> </li>
-                            <li> <a href="{{route('myEmployees.index')}}">قائمة المموظفين</a> </li>
-                        </ul>
-                    </li>
 
 
 {{--                    <!-- menu title -->--}}

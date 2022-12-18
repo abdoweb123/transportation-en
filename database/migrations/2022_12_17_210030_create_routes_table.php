@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStationsTable extends Migration
+class CreateRoutesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,13 @@ class CreateStationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('stations', function (Blueprint $table) {
+        Schema::create('routes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->double('lat')->nullable();
-            $table->double('lon')->nullable();
-            $table->unsignedBigInteger('city_id')->nullable();
             $table->unsignedBigInteger('admin_id');
+            $table->boolean('active');
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('city_id')->references('id')->on('cities')
-                  ->onDelete('cascade')->onUpdate('cascade');
 
             $table->foreign('admin_id')->references('id')->on('admins')
                 ->onDelete('cascade')->onUpdate('cascade');
@@ -38,6 +33,6 @@ class CreateStationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stations');
+        Schema::dropIfExists('routes');
     }
 }

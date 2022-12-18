@@ -14,28 +14,35 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class EmployeeImport implements ToModel ,WithHeadingRow, WithChunkReading, ShouldQueue
+class EmployeeImport implements ToModel ,WithHeadingRow //, WithChunkReading, ShouldQueue
 {
 
     use Importable;
 
     public function model(array $row)
     {
+//        dd($row);
+
         return new ExcelEmployee([
-            'name' => $row[0],
-            'lob' => $row[1],
-            'oracle' => $row[2],
-            'site' => $row[3],
-            'route' => $row[4],
-            'cp' => $row[5],
-            'gender' => $row[6],
+            'name'=>$row['name'],
+            'lob'=>$row['lob'],
+            'oracle'=>$row['oracle'],
+            'site'=>$row['site'],
+            'route'=>$row['route'],
+            'cp'=>$row['cp'],
+            'gender'=>$row['gender'],
+            'date'=>$row['date'],
+            'shift'=>$row['shift'],
+            'start'=>$row['start'],
+            'end'=>$row['end'],
+
         ]);
     }
 
-    public function chunkSize(): int
-    {
-        return 1000;
-    }
+//    public function chunkSize(): int
+//    {
+//        return 1000;
+//    }
 
 
 }

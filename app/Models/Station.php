@@ -60,4 +60,21 @@ class Station extends Model
     }
 
 
+    public function routeStations()
+    {
+        return $this->hasMany(RouteStation::class,'station_id');
+    }
+
+
+    public function bookingRequestFrom()
+    {
+        return $this->hasMany(BookingRequest::class,'collection_point_from_id');
+    }
+
+
+    public function bookingRequestTo()
+    {
+        return $this->hasMany(BookingRequest::class,'collection_point_to_id');
+    }
+
 } //end of class

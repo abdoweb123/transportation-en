@@ -49,4 +49,9 @@ class Bus extends Model
     }
 
 
+    public function bookingRequest()
+    {
+        return $this->hasMany(BookingRequest::class,'bus_id');
+    }
+
 } //end of class

@@ -15,17 +15,18 @@ class CreateMyEmployeesTable extends Migration
     {
         Schema::create('my_employees', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->string('oracle_id');
-            $table->unsignedBigInteger('office_id');
+            $table->unsignedBigInteger('office_id')->nullable();
             $table->unsignedBigInteger('collectionPoint_id'); // stations table
-            $table->unsignedBigInteger('employeeJob_id');
-            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('employeeJob_id')->nullable();
+            $table->unsignedBigInteger('department_id')->nullable();
             $table->unsignedBigInteger('admin_id');
-            $table->text('address');
-            $table->integer('gender');
-            $table->string('phone');
-            $table->string('email');
-            $table->string('password');
+            $table->text('address')->nullable();
+            $table->integer('gender')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('password')->nullable();
             $table->boolean('active');
             $table->softDeletes();
             $table->timestamps();

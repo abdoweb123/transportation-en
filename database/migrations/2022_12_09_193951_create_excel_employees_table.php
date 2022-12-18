@@ -21,8 +21,8 @@ class CreateExcelEmployeesTable extends Migration
             $table->string('site');
             $table->string('route');
             $table->string('cp');
-            $table->tinyInteger('gender');
-            $table->date('date');
+            $table->string('gender');
+            $table->string('date');
             $table->string('shift');
             $table->string('start');
             $table->string('end');

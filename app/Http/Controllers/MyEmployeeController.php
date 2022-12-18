@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MyEmployeeRequest;
+use App\Imports\EmployeeImport;
 use App\Models\Department;
 use App\Models\EmployeeJob;
 use App\Models\MyEmployee;
 use App\Models\Office;
 use App\Models\Station;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MyEmployeeController extends Controller
 {
@@ -119,6 +122,28 @@ class MyEmployeeController extends Controller
     {
         $myEmployee->delete();
         return redirect()->back()->with('alert-info','تم حذف البيانات بنجاح');
+    }
+
+
+
+    /*** get excel function  ***/
+    public function getExcel()
+    {
+        return view('pages.MyEmployees.excel');
+    }
+
+
+
+    /*** import excel function  ***/
+    public function import(Request $request)
+    {
+        $file = $request->file('excel');
+
+            DB::table('excel_employees')->truncate();
+
+        Excel::import(new EmployeeImport(),$file);
+
+        return redirect()->back()->with('alert-info','تم إضافة البيانات بنجاح');
     }
 
 } //end of class

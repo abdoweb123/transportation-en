@@ -39,13 +39,19 @@ class MyEmployee extends Model
 
     public function EmployeeJob()
     {
-        return $this->belongsTo(EmployeeJob::class,'EmployeeJob_id');
+        return $this->belongsTo(EmployeeJob::class,'employeeJob_id');
     }
 
 
     public function department()
     {
         return $this->belongsTo(Department::class,'department_id');
+    }
+
+
+    public function bookingRequest()
+    {
+        return $this->hasMany(BookingRequest::class,'employee_id');
     }
 
     /*** end relations ***/

@@ -214,6 +214,24 @@ class Admin  extends Authenticatable
     }
 
 
+    public function routes()
+    {
+        return $this->hasMany(Route::class,'admin_id');
+    }
+
+
+    public function routeStations()
+    {
+        return $this->hasMany(RouteStation::class,'admin_id');
+    }
+
+
+    public function bookingRequest()
+    {
+        return $this->hasMany(BookingRequest::class,'admin_id');
+    }
+
+
     /*** end relations ***/
 
 } //end of class

@@ -8,6 +8,7 @@ use App\Http\Controllers\BusController;
 use App\Http\Controllers\BusTypeController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RouteStationController;
 use App\Http\Controllers\SeatController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -167,8 +168,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('myEmployees','MyEmployeeController')->except('show');
 
 
+    // استيراد بيانات الموظفين
+    Route::get('get/excel',[MyEmployeeController::class,'getExcel'])->name('getExcel.excelEmployee');
+    Route::post('import/excel',[MyEmployeeController::class,'import'])->name('import.excelEmployee');
 
-    Route::post('import/excel',[HomeController::class,'import'])->name('import.excel');
+    Route::get('store/employees/data',[RouteStationController::class,'operation'])->name('store.employees.data');
 
 
 }); //end of routes
