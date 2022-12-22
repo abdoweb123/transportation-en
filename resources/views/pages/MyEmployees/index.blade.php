@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    قائمة الموظفين
+    Employees List
 @stop
 
 
@@ -23,7 +23,7 @@
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    قائمة الموظفين
+   Employees List
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -55,7 +55,7 @@
 
 
                     <a href="{{route('myEmployees.create')}}" class="button x-small">
-                        إضافة وظيفة
+                        Add Employee
                     </a>
                     <br><br>
 
@@ -65,18 +65,18 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>كود الموظف</th>
-                                <th>المكتب التابع له</th>
-                                <th>نقطة الانطلاق</th>
-                                <th>الوظيفة</th>
-                                <th>القسم</th>
-                                <th>العنوان</th>
-                                <th>النوع</th>
-                                <th>الهاتف</th>
-                                <th>البريد الالكتروني</th>
-                                <th>كلمة المرور</th>
-                                <th>الحالة</th>
-                                <th>العمليات</th>
+                                <th>Employee Code</th>
+                                <th>Office</th>
+                                <th>Collection Point</th>
+                                <th>Job</th>
+                                <th>Department</th>
+                                <th>Address</th>
+                                <th>Gender</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Status</th>
+                                <th>Processes</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -84,16 +84,16 @@
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $item->oracle_id }}</td>
-                                    <td>@isset($item->office->name)  {{ $item->office->name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->collectionPoint->name)  {{ $item->collectionPoint->name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->EmployeeJob->name)  {{ $item->EmployeeJob->name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->department->name)  {{ $item->department->name }} @else لا يوجد @endisset</td>
-                                    <td>{{$item->address}}</td>
-                                    <td>{{ $item->gender == 1 ? 'ذكر' : 'أنثي'}}</td>
-                                    <td>{{$item->phone}}</td>
-                                    <td>{{$item->email}}</td>
-                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
-                                    <td>{{ $item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
+                                    <td>@isset($item->office->name)  {{ $item->office->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->collectionPoint->name)  {{ $item->collectionPoint->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->EmployeeJob->name)  {{ $item->EmployeeJob->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->department->name)  {{ $item->department->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->address)  {{ $item->address }} @else _____ @endisset</td>
+                                    <td>{{ $item->gender == 1 ? 'Male' : 'Female'}}</td>
+                                    <td>@isset($item->phone)  {{ $item->phone }} @else _____ @endisset</td>
+                                    <td>@isset($item->email)  {{ $item->email }} @else _____ @endisset</td>
+                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
+                                    <td>{{ $item->active == 1 ? 'active' : 'un active'}}</td>
                                     <td>
                                         <a href="{{route('myEmployees.edit',$item->id)}}" class="process">
                                            <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></a>
@@ -109,7 +109,7 @@
                             @endforeach
                         </table>
 
-                        <div> {{$data['myEmployees']->links('pagination::bootstrap-4')}}</div>
+{{--                        <div> {{$data['myEmployees']->links('pagination::bootstrap-4')}}</div>--}}
                     </div>
                 </div>
             </div>

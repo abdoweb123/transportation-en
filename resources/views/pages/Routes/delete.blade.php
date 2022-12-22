@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                     id="exampleModalLabel">
-                   Delete Office
+                   Delete Route
                 </h5>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
@@ -14,10 +14,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('offices.destroy', 'test') }}" method="post">
+                <form action="{{ route('routes.destroy', 'test') }}" method="post">
                     @csrf
                     @method('DELETE')
-                    Are you sure about deleting this office ?
+                    Are you sure about deleting this Route ?
                     <input id="id" type="hidden" name="id" class="form-control"
                            value="{{ $item->id }}">
                     <div class="modal-footer">

@@ -1,13 +1,30 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    قائمة المكاتب
+    Offices List
 @stop
+
+<style>
+    .process{border:none; border-radius:3px; padding:3px 5px;}
+    select{padding:10px !important;}
+    .process
+    {
+        cursor:pointer;
+        background-color:white;
+        border-radius:3px;
+        border: 1px solid #dddd;
+        padding: 5px 3px 0 4px;
+        margin-left: 2px;
+    }
+    i{padding: 0 0 3px;}
+</style>
+
+
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    قائمة المكاتب
+   Offices List
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -39,7 +56,7 @@
 
                     {{--  button of add_modal_office  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        إضافة مكتب
+                        Add Office
                     </button>
                     <br><br>
 
@@ -49,12 +66,12 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>الاسم باللغة العربية</th>
-                                <th>الاسم باللغة الإنجليزية</th>
-                                <th>اسم المدينة التابع لها</th>
-                                <th>اسم المحطة التابع لها</th>
-                                <th>مدخل البيانات</th>
-                                <th>العمليات</th>
+                                <th>Name in arabic</th>
+                                <th>Name in english</th>
+                                <th>City</th>
+                                <th>Station</th>
+                                <th>Entered By</th>
+                                <th>Processes</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -63,28 +80,17 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $item->getTranslation('name', 'ar')  }}</td>
                                     <td>{{ $item->getTranslation('name', 'en')  }}</td>
-                                    <td>@isset($item->city->name)  {{ $item->city->name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->station->name)  {{ $item->station->name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
+                                    <td>@isset($item->city->name)  {{ $item->city->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->station->name)  {{ $item->station->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
                                     <td>
-                                        <div class="dropdown show">
-                                            <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                العمليات
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
-                                                   <i style="color:#a3a373" class="fa fa-edit"></i>&nbsp; تعديل</a>
+                                        <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
+                                           data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
+                                           <i style="color:#a3a373; font-size:18px" class="fa fa-edit"></i></a>
 
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
-                                                   <i style="color:red" class="fa fa-trash"></i>&nbsp; حذف</a>
-
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#show{{ $item->id }}" title="{{ trans('main_trans.show') }}">
-                                                    <i style="color:green" class="fa fa-eye"></i>&nbsp; عرض</a>
-                                            </div>
-                                        </div>
+                                        <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
+                                           data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
+                                           <i style="color:red; font-size:18px" class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
 
@@ -96,12 +102,12 @@
 
 
                                 <!--  page of show_modal_office -->
-                                @include('pages.Offices.show')
+{{--                                @include('pages.Offices.show')--}}
 
                             @endforeach
                         </table>
 
-                        <div> {{$offices->links('pagination::bootstrap-4')}}</div>
+{{--                        <div> {{$offices->links('pagination::bootstrap-4')}}</div>--}}
 
                     </div>
                 </div>

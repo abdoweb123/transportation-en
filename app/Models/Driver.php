@@ -17,6 +17,8 @@ class Driver extends Model
                             ];
 
 
+    /*** start relations ***/
+
     public function admin()
     {
         return $this->belongsTo(Admin::class,'admin_id');
@@ -39,5 +41,14 @@ class Driver extends Model
     {
         return $this->hasMany(RunTrip::class,'driver_id');
     }
+
+
+    public function employeeRunTrips()
+    {
+        return $this->hasMany(EmployeeRunTrip::class,'driver_id');
+    }
+
+
+    /*** end relations ***/
 
 } //end of class

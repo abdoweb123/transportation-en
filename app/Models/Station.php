@@ -14,7 +14,7 @@ class Station extends Model
 
     public $translatable = ['name'];
 
-    protected $fillable = ['name', 'city_id', 'admin_id'];
+    protected $fillable = ['name', 'city_id', 'admin_id','lat','lon'];
 
 
 

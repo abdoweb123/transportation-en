@@ -23,6 +23,14 @@ class EmployeeImport implements ToModel ,WithHeadingRow //, WithChunkReading, Sh
     {
 //        dd($row);
 
+//        foreach ($row as $item)
+//        {
+//            if ($item->end == '')
+//            {
+//                echo 'jhjhgj';
+//            }
+//        }
+
         return new ExcelEmployee([
             'name'=>$row['name'],
             'lob'=>$row['lob'],

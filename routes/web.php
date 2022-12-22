@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 //use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\RegisterUserController;
+use App\Http\Controllers\BookingRequestController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\BusTypeController;
 use App\Http\Controllers\DriverController;
@@ -37,6 +38,8 @@ use App\Http\Controllers\ManuallyFuelController;
 use App\Http\Controllers\EmployeeJobController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MyEmployeeController;
+use App\Http\Controllers\RouteController;
+
 
 
 
@@ -72,7 +75,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
 
     // ====================== admin ( employee ) ======================
-    Route::group(['middleware'=>'auth:admin'], function () {
+    Route::group([/*'middleware'=>'auth:admin'*/], function () {
         Route::get('get/all/employees/{id}',[AdminController::class,'getAllAdmins'])->name('getAllEmployees');
         Route::post('create/employee',[AdminController::class,'create'])->name('create.employee');
         Route::put('update/employee',[AdminController::class,'update'])->name('update.employee');
@@ -166,13 +169,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('employeeJobs','EmployeeJobController')->except('create','show','edit');
     Route::resource('departments','DepartmentController')->except('create','show','edit');
     Route::resource('myEmployees','MyEmployeeController')->except('show');
+    Route::resource('routes','RouteController')->except('edit','show','create');
+    Route::resource('routeStations','RouteStationController')->except('edit','show','create');
+
 
 
     // استيراد بيانات الموظفين
-    Route::get('get/excel',[MyEmployeeController::class,'getExcel'])->name('getExcel.excelEmployee');
+//    Route::get('get/excel',[MyEmployeeController::class,'getExcel'])->name('getExcel.excelEmployee');
+
+    Route::get('add/bus/to/booking/request',[RouteStationController::class,'operation2'])->name('add_bus.to.booking_request');
+
+    Route::resource('bookingRequests','BookingRequestController')->except('edit','show','create');
     Route::post('import/excel',[MyEmployeeController::class,'import'])->name('import.excelEmployee');
-
-    Route::get('store/employees/data',[RouteStationController::class,'operation'])->name('store.employees.data');
-
+//    Route::get('store/employees/data',[RouteStationController::class,'operation'])->name('store.employees.data');
+    Route::get('bookingRequests/data',[BookingRequestController::class,'bookingRequestsData'])->name('bookingRequestsData');
+    Route::get('employeeRunTrip',[BookingRequestController::class,'employeeRunTrip'])->name('employeeRunTrip');
 
 }); //end of routes

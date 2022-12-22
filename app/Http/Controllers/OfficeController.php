@@ -14,7 +14,7 @@ class OfficeController extends Controller
     /*** get all offices ***/
     public function index()
     {
-        $offices = Office::latest()->paginate(5);
+        $offices = Office::all();
         $cities = City::select('id','name')->get();
         $stations = Station::select('id','name')->get();
         return view('pages.Offices.index', compact('offices','cities','stations'));
@@ -32,7 +32,7 @@ class OfficeController extends Controller
             $office->station_id = $request->station_id;
             $office->admin_id = auth('admin')->id();
             $office->save();
-            return redirect()->route('offices.index')->with('alert-success','تم تسجيل البيانات بنجاح');
+            return redirect()->back()->with('alert-success','Data is saved successfully');
         }
         catch (\Exception $exception)
         {
@@ -52,7 +52,7 @@ class OfficeController extends Controller
             $office->station_id = $request->station_id;
             $office->admin_id = auth('admin')->id();
             $office->update();
-            return redirect()->route('offices.index')->with('alert-success','تم تحديث البيانات بنجاح');
+            return redirect()->back()->with('alert-success','Data is updated successfully');
         }
         catch (\Exception $exception)
         {
@@ -66,7 +66,7 @@ class OfficeController extends Controller
     public function destroy(Request $request)
     {
         $office = Office::findOrFail($request->id)->delete();
-        return redirect()->route('offices.index')->with('alert-success','تم حذف البيانات بنجاح');
+        return redirect()->back()->with('alert-success','Data is deleted successfully');
     }
 
 } //end of class

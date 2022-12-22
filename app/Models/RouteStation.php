@@ -32,6 +32,7 @@ class RouteStation extends Model
     {
         return $this->belongsTo(Route::class,'route_id');
     }
+
     /*** end relations ***/
 
 } //end of class

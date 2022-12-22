@@ -33,6 +33,12 @@ class Route extends Model
         return $this->hasMany(BookingRequest::class,'route_id');
     }
 
+
+    public function employeeRunTrips()
+    {
+        return $this->hasMany(EmployeeRunTrip::class,'route_id');
+    }
+
     /*** end relations ***/
 
 } //end of class

@@ -22,15 +22,23 @@
                             <input id="name_ar" type="text" name="name_ar" class="form-control">
                         </div>
                         <div class="col">
-                            <label for="name_en" class="mr-sm-2">{{ trans('stations_trans.station_name_en') }}
-                                :</label>
+                            <label for="name_en" class="mr-sm-2">{{ trans('stations_trans.station_name_en') }}:</label>
                             <input type="text" class="form-control" name="name_en">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="city_id" class="mr-sm-2">{{ trans('stations_trans.choose_city_name') }}
-                                :</label>
+                            <label for="name_ar" class="mr-sm-2">Latitude :</label>
+                            <input id="name_ar" type="number" step="0.1" name="lat" class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="name_en" class="mr-sm-2">Longitude :</label>
+                            <input type="number" step="0.1" class="form-control" name="lon">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="city_id" class="mr-sm-2">{{ trans('stations_trans.choose_city_name') }}:</label>
                             <select class="form-control mr-sm-2 p-2" name="city_id">
                                 <option class="custom-select mr-sm-2 p-2" value=" ">{{ trans('stations_trans.choose') }}</option>
                                 @foreach($cities as $city)

@@ -13,6 +13,9 @@ class Bus extends Model
     protected $fillable = ['code', 'status', 'busType_id', 'admin_id', 'driver_id'];
 
 
+
+    /*** start relations ***/
+
     public function admin()
     {
         return $this->belongsTo(Admin::class,'admin_id');
@@ -53,5 +56,13 @@ class Bus extends Model
     {
         return $this->hasMany(BookingRequest::class,'bus_id');
     }
+
+
+    public function employeeRunTrip()
+    {
+        return $this->belongsToMany(Bus::class,'employee_run_trip_buses', 'bus_id','employeeRunTrip_id');
+    }
+
+   /*** end relations ***/
 
 } //end of class

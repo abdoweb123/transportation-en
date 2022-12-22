@@ -20,6 +20,7 @@ class CreateBookingRequestsTable extends Migration
             $table->unsignedBigInteger('route_id');
             $table->date('date');
             $table->time('time');
+            $table->unsignedBigInteger('employeeRunTrip_id')->nullable();
             $table->string('seat_number')->nullable();
             $table->unsignedBigInteger('bus_id')->nullable();
             $table->unsignedBigInteger('employee_id');

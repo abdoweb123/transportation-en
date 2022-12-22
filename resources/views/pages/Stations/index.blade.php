@@ -1,13 +1,31 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    {{ trans('stations_trans.title_page') }}
+    Stations list
 @stop
+
+
+<style>
+    .process{border:none; border-radius:3px; padding:3px 5px;}
+    select{padding:10px !important;}
+    .process
+    {
+        cursor:pointer;
+        background-color:white;
+        border-radius:3px;
+        border: 1px solid #dddd;
+        padding: 5px 3px 0 4px;
+        margin-left: 2px;
+    }
+    i{padding: 0 0 3px;}
+</style>
+
+
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{ trans('stations_trans.stations') }}
+    Stations list
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -52,7 +70,9 @@
                                 <th>{{ trans('stations_trans.station_name_ar') }}</th>
                                 <th>{{ trans('stations_trans.station_name_en') }}</th>
                                 <th>{{ trans('stations_trans.city_name') }}</th>
-                                <th>مدخل البيانات</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Entered By</th>
                                 <th>{{ trans('main_trans.processes') }}</th>
                             </tr>
                             </thead>
@@ -62,27 +82,18 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $item->getTranslation('name', 'ar')  }}</td>
                                     <td>{{ $item->getTranslation('name', 'en')  }}</td>
-                                    <td>@isset($item->city->name)  {{ $item->city->name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
+                                    <td>@isset($item->lat)  {{ $item->lat }} @else _____ @endisset</td>
+                                    <td>@isset($item->lon)  {{ $item->lon }} @else _____ @endisset</td>
+                                    <td>@isset($item->city->name)  {{ $item->city->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
                                     <td>
-                                        <div class="dropdown show">
-                                            <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                {{ trans('main_trans.processes') }}
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
-                                                   <i style="color:#a3a373" class="fa fa-edit"></i>&nbsp; {{trans('main_trans.edit')}}</a>
+                                        <button type="button" class="process" style="cursor:pointer" data-toggle="modal"
+                                                data-target="#editStation{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
+                                            <i style="color:#a3a373; font-size:18px" class="fa fa-edit"></i></button>
 
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
-                                                   <i style="color:red" class="fa fa-trash"></i>&nbsp; {{trans('main_trans.delete')}}</a>
-
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#show{{ $item->id }}" title="{{ trans('main_trans.show') }}">
-                                                    <i style="color:green" class="fa fa-eye"></i>&nbsp; {{trans('main_trans.show')}}</a>
-                                            </div>
-                                        </div>
+                                        <button type="button" class="process" style="cursor:pointer" data-toggle="modal"
+                                                data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
+                                            <i style="color:red; font-size:18px" class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
 
@@ -96,7 +107,7 @@
                             @endforeach
                         </table>
 
-                        <div> {{$stations->links('pagination::bootstrap-4')}}</div>
+{{--                        <div> {{$stations->links('pagination::bootstrap-4')}}</div>--}}
 
                     </div>
                 </div>

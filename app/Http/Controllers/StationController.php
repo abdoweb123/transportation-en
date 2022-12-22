@@ -14,7 +14,7 @@ class StationController extends Controller
    /*** index function  ***/
     public function index()
     {
-        $stations = Station::latest()->paginate(10);
+        $stations = Station::all();
         $cities = City::select('id','name')->get();
         return view('pages.Stations.index', compact('stations','cities'));
     }
@@ -28,9 +28,11 @@ class StationController extends Controller
             $station = new Station();
             $station->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
             $station->city_id = $request->city_id;
+            $station->lat = $request->lat;
+            $station->lon = $request->lon;
             $station->admin_id = auth('admin')->id();
             $station->save();
-            return redirect()->route('stations.index')->with('alert-success',trans('main_trans.success'));
+            return redirect()->back()->with('alert-success',trans('main_trans.success'));
         }
         catch (\Exception $exception)
         {
@@ -47,9 +49,11 @@ class StationController extends Controller
             $station = Station::findOrFail($request->id);
             $station->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
             $station->city_id = $request->city_id;
+            $station->lat = $request->lat;
+            $station->lon = $request->lon;
             $station->admin_id = auth('admin')->id();
             $station->update();
-            return redirect()->route('stations.index')->with('alert-success',trans('main_trans.success'));
+            return redirect()->back()->with('alert-success',trans('main_trans.success'));
         }
         catch (\Exception $exception)
         {
@@ -63,7 +67,7 @@ class StationController extends Controller
     public function destroy(Request $request)
     {
         $station = Station::findOrFail($request->id)->delete();
-        return redirect()->route('stations.index')->with('alert-success',trans('main_trans.danger'));
+        return redirect()->back()->with('alert-success',trans('main_trans.danger'));
     }
 
 

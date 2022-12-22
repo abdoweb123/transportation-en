@@ -26,9 +26,11 @@
 @yield('style')
 
 <style>
-   .dataTables_paginate,
-   .dataTables_info
-   {display:none}
+   /*.dataTables_paginate,*/
+   /*.dataTables_info*/
+   /*{display:none}*/
+
+   select.form-control-sm:not([size]):not([multiple]){padding:10px}
 
    .pagination {justify-content:center}
    .modal-body .row{margin-top:13px;}
@@ -45,7 +47,9 @@
         -moz-appearance: textfield;
     }
 
-    .dataTables_length{display: none}
+    /*.dataTables_length{display: none}*/
     .messages , .alert-danger {width:30%}
+
+
 
 </style>

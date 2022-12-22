@@ -20,7 +20,7 @@ class MyEmployeeController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $data['myEmployees']= MyEmployee::latest()->paginate(10);
+        $data['myEmployees']= MyEmployee::all();
 
         return view('pages.MyEmployees.index', compact('data'));
     }
@@ -143,7 +143,7 @@ class MyEmployeeController extends Controller
 
         Excel::import(new EmployeeImport(),$file);
 
-        return redirect()->back()->with('alert-info','تم إضافة البيانات بنجاح');
+        return redirect()->route('store.employees.data')->with('alert-info','تم إضافة البيانات بنجاح');
     }
 
 } //end of class

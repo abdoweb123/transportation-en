@@ -232,6 +232,12 @@ class Admin  extends Authenticatable
     }
 
 
+    public function employeeRunTrips()
+    {
+        return $this->hasMany(EmployeeRunTrip::class,'admin_id');
+    }
+
+
     /*** end relations ***/
 
 } //end of class

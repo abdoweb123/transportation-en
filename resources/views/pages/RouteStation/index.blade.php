@@ -1,9 +1,8 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    {{ trans('cities_trans.title_page') }}
+    Routes List
 @stop
-
 
 <style>
     .process{border:none; border-radius:3px; padding:3px 5px;}
@@ -25,7 +24,7 @@
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{ trans('main_trans.citys') }}
+   Routes List
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -49,15 +48,15 @@
 
                     @foreach(['danger','warning','success','info'] as $msg)
                         @if(Session::has('alert-'.$msg))
-                            <div class="alert alert-{{$msg}}">
+                            <div class="alert alert-{{$msg}} messages">
                                 {{Session::get('alert-'.$msg)}}
                             </div>
                         @endif
                     @endforeach
 
-                    {{--  button of add_modal_city  --}}
+                    {{--  button of add_modal_office  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        {{ trans('cities_trans.add_city') }}
+                        Add Route Station
                     </button>
                     <br><br>
 
@@ -67,53 +66,55 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ trans('cities_trans.city_name_ar') }}</th>
-                                <th>{{ trans('cities_trans.city_name_en') }}</th>
+                                <th>Station</th>
+                                <th>Route</th>
+                                <th>Status</th>
                                 <th>Entered By</th>
-                                <th>{{ trans('main_trans.processes') }}</th>
+                                <th>Processes</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($cities as $item)
+                            @foreach ($routeStations as $item)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $item->getTranslation('name', 'ar')  }}</td>
-                                    <td>{{ $item->getTranslation('name', 'en')  }}</td>
-                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->station->name)  {{ $item->station->name }} @else ____ @endisset</td>
+                                    <td>@isset($item->route->name)  {{ $item->route->name }} @else ____ @endisset</td>
+                                    <td>{{$item->active == 1 ? 'active' : 'un active'}}</td>
+                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else ____ @endisset</td>
                                     <td>
-                                        <button type="button" class="process" style="cursor:pointer" data-toggle="modal"
-                                           data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
-                                           <i style="color:#a3a373; font-size:18px" class="fa fa-edit"></i></button>
+                                        <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
+                                           data-target="#editRouteStation{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
+                                           <i style="color:#a3a373; font-size:18px" class="fa fa-edit"></i></a>
 
-                                        <button type="button" class="process" style="cursor:pointer" data-toggle="modal"
-                                           data-target="#delete{{ $item->id }}" title="{{ trans('cities_trans.delete') }}">
-                                           <i style="color:red; font-size:18px" class="fa fa-trash"></i></button>
+                                        <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
+                                           data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
+                                           <i style="color:red; font-size:18px" class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
 
-                                <!--  page of edit_modal_city -->
-                                @include('pages.Cities.edit')
+                                <!--  page of edit_modal_office -->
+                                @include('pages.RouteStation.edit')
 
-                                <!--  page of delete_modal_city -->
-                                @include('pages.Cities.delete')
+                                <!--  page of delete_modal_office -->
+                                @include('pages.RouteStation.delete')
 
 
-                                <!--  page of show_modal_city -->
-{{--                                @include('pages.Cities.show')--}}
+                                <!--  page of show_modal_office -->
+{{--                                @include('pages.Offices.show')--}}
 
                             @endforeach
-                            </tbody>
                         </table>
 
-{{--                        <div> {{$cities->links('pagination::bootstrap-4')}}</div>--}}
+{{--                        <div> {{$routeStations->links('pagination::bootstrap-4')}}</div>--}}
+
                     </div>
                 </div>
             </div>
         </div>
 
 
-       <!--  page of add_modal_city -->
-       @include('pages.Cities.create')
+       <!--  page of add_modal_office -->
+       @include('pages.RouteStation.create')
     </div>
 
 
@@ -125,7 +126,7 @@
 
     <script>
         $(document).ready(function(){
-            $(".alert").delay(5000).slideUp(300);
+            $(".messages").delay(5000).slideUp(300);
         });
     </script>
 @endsection

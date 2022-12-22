@@ -44,7 +44,7 @@
 
                     <form method="post" action="{{route('seats.store')}}" enctype="multipart/form-data">
                         @csrf
-                        <div class="row">
+                        <div class="row" style="overflow:auto">
                             <div class="m-5 p-4" style="border:1px solid #ddd; width:30%">
                                 <h6 style="font-family: 'Cairo', sans-serif;color: blue">إضافة مقاعد</h6><br>
                                 <div class="row">

@@ -14,7 +14,7 @@ class CityController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $cities = City::latest()->paginate(10);
+        $cities = City::all();
         return view('pages.Cities.index', compact('cities'));
     }
 
@@ -28,7 +28,7 @@ class CityController extends Controller
             $city->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
             $city->admin_id = auth('admin')->id();
             $city->save();
-            return redirect()->route('cities.index')->with('alert-success',trans('main_trans.success'));
+            return redirect()->back()->with('alert-success',trans('main_trans.success'));
         }
         catch (\Exception $exception)
         {
@@ -46,7 +46,7 @@ class CityController extends Controller
             $city->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
             $city->admin_id = auth('admin')->id();
             $city->update();
-            return redirect()->route('cities.index')->with('alert-info',trans('main_trans.info'));
+            return redirect()->back()->with('alert-info',trans('main_trans.info'));
         }
         catch (\Exception $exception)
         {
@@ -60,10 +60,8 @@ class CityController extends Controller
     /*** destroy function  ***/
     public function destroy(Request $request)
     {
-
         $city = City::findOrFail($request->id)->delete();
-        return redirect()->route('cities.index')->with('alert-success',trans('main_trans.danger'));
-
+        return redirect()->back()->with('alert-success',trans('main_trans.danger'));
     }
 
 } //end of class

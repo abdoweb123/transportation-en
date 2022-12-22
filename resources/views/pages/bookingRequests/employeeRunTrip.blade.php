@@ -1,9 +1,8 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    {{ trans('cities_trans.title_page') }}
+   Employee Run Trip
 @stop
-
 
 <style>
     .process{border:none; border-radius:3px; padding:3px 5px;}
@@ -17,15 +16,14 @@
         padding: 5px 3px 0 4px;
         margin-left: 2px;
     }
-    i{padding: 0 0 3px;}
+    td{padding: 13px 5px 8px !important;}
 </style>
-
 
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{ trans('main_trans.citys') }}
+   Employee Run Trip
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -49,71 +47,80 @@
 
                     @foreach(['danger','warning','success','info'] as $msg)
                         @if(Session::has('alert-'.$msg))
-                            <div class="alert alert-{{$msg}}">
+                            <div class="alert alert-{{$msg}} messages">
                                 {{Session::get('alert-'.$msg)}}
                             </div>
                         @endif
                     @endforeach
 
-                    {{--  button of add_modal_city  --}}
-                    <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        {{ trans('cities_trans.add_city') }}
-                    </button>
+                    {{--  button of add_modal_office  --}}
+                    <div class="row">
+{{--                        <div class="col">--}}
+{{--                            <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">--}}
+{{--                                Add Booking--}}
+{{--                            </button>--}}
+{{--                        </div>--}}
+                    </div>
+
+
+
                     <br><br>
 
                     <div class="table-responsive">
+                        <h3 class="text-center" style="font-weight:600; color:#4ba933;">Employee Run Trip ( Result )</h3>
                         <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
                                style="text-align: center">
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ trans('cities_trans.city_name_ar') }}</th>
-                                <th>{{ trans('cities_trans.city_name_en') }}</th>
+                                <th>Route</th>
+                                <th>Bus</th>
+                                <th>Date</th>
+                                <th>Time</th>
                                 <th>Entered By</th>
-                                <th>{{ trans('main_trans.processes') }}</th>
+                                <th>Operations</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($cities as $item)
+                            @foreach ($employeeRunTrip as $item)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $item->getTranslation('name', 'ar')  }}</td>
-                                    <td>{{ $item->getTranslation('name', 'en')  }}</td>
+                                    <td>@isset($item->route->name)  {{ $item->route->name }} @else _______ @endisset</td>
+                                    @foreach ($item->bus as $mimiItem)
+                                       <td>@isset($mimiItem->code)  {{ $mimiItem->code}} @else _______ @endisset</td>
+                                    @endforeach
+                                    <td>{{$item->date}}</td>
+                                    <td>{{$item->time}}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
                                     <td>
-                                        <button type="button" class="process" style="cursor:pointer" data-toggle="modal"
-                                           data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
-                                           <i style="color:#a3a373; font-size:18px" class="fa fa-edit"></i></button>
-
-                                        <button type="button" class="process" style="cursor:pointer" data-toggle="modal"
-                                           data-target="#delete{{ $item->id }}" title="{{ trans('cities_trans.delete') }}">
-                                           <i style="color:red; font-size:18px" class="fa fa-trash"></i></button>
+                                        <a href="{{route('myEmployees.edit',$item->id)}}" class="process">
+                                            <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
 
-                                <!--  page of edit_modal_city -->
-                                @include('pages.Cities.edit')
+                                <!--  page of edit_modal_office -->
+{{--                                @include('pages.bookingRequests.edit')--}}
 
-                                <!--  page of delete_modal_city -->
-                                @include('pages.Cities.delete')
+                                <!--  page of delete_modal_office -->
+                                @include('pages.bookingRequests.delete')
 
 
-                                <!--  page of show_modal_city -->
-{{--                                @include('pages.Cities.show')--}}
+                                <!--  page of show_modal_office -->
+{{--                                @include('pages.bookingRequests.show')--}}
 
                             @endforeach
-                            </tbody>
                         </table>
 
-{{--                        <div> {{$cities->links('pagination::bootstrap-4')}}</div>--}}
+{{--                        <div> {{$bookingRequests->links('pagination::bootstrap-4')}}</div>--}}
+
                     </div>
                 </div>
             </div>
         </div>
 
 
-       <!--  page of add_modal_city -->
-       @include('pages.Cities.create')
+       <!--  page of add_modal_office -->
+{{--       @include('pages.bookingRequests.create')--}}
     </div>
 
 
@@ -125,7 +132,7 @@
 
     <script>
         $(document).ready(function(){
-            $(".alert").delay(5000).slideUp(300);
+            $(".messages").delay(5000).slideUp(300);
         });
     </script>
 @endsection

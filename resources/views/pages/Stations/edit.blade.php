@@ -1,5 +1,5 @@
 <!-- edit_modal_city -->
-<div class="modal fade" id="edit{{ $item->id }}" tabindex="-1" role="dialog"
+<div class="modal fade" id="editStation{{ $item->id }}" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -25,6 +25,16 @@
                         <div class="col">
                             <label for="Name_en" class="mr-sm-2">{{ trans('stations_trans.station_name_en') }}:</label>
                             <input type="text" class="form-control" value="{{ $item->getTranslation('name', 'en') }}" name="name_en" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="name_ar" class="mr-sm-2">Latitude :</label>
+                            <input type="number" step="0.1" value="{{$item->lat}}" name="lat" class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="name_en" class="mr-sm-2">Longitude :</label>
+                            <input type="number" step="0.1" value="{{$item->lon}}" class="form-control" name="lon">
                         </div>
                     </div>
                     <div class="row">

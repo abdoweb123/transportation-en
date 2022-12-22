@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                     id="exampleModalLabel">
-                    حذف الوظيفة
+                    Delete Employee
                 </h5>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
@@ -17,12 +17,12 @@
                 <form action="{{ route('myEmployees.destroy',$item->id) }}" method="post">
                     @csrf
                     @method('DELETE')
-                   <p> هل أنت متأكد من عملية الحذف ؟</p>
+                   <p> Are you sure about deleting this employee ?  </p>
 {{--                   <p> سيتم نقل  هذه المحافظة إلى سلة المهملات</p>--}}
                     <input id="id" type="hidden" name="id" class="form-control" value="{{ $item->id }}">
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
-                        <button type="submit" class="btn btn-danger">حفظ</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Save</button>
                     </div>
                 </form>
             </div>
