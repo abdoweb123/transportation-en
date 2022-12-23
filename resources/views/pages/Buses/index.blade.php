@@ -1,13 +1,30 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    قائمة الحافلات
+    Buses List
 @stop
+
+
+<style>
+    .process{border:none; border-radius:3px; padding:3px 5px;}
+    select{padding:10px !important;}
+    .process
+    {
+        cursor:pointer;
+        background-color:white;
+        border-radius:3px;
+        border: 1px solid #dddd;
+        padding: 5px 3px 0 4px;
+        margin-left: 2px;
+    }
+    i{padding: 0 0 3px;}
+</style>
+
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    قائمة الحافلات
+   Buses List
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -39,7 +56,7 @@
 
                     {{--  button of add_modal_city  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        إضافة حافلة
+                        Add Bus
                     </button>
                     <br><br>
 
@@ -49,11 +66,11 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>كود الحافلة</th>
-                                <th>الأسطول التابع له</th>
-                                <th>السائق</th>
-                                <th>مدخل البيانات</th>
-                                <th>العمليات</th>
+                                <th>Code</th>
+                                <th>Bus Type</th>
+                                <th>Driver</th>
+                                <th>Entered By</th>
+                                <th>Processes</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -62,25 +79,16 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $item->code }}</td>
                                     <td><a href="{{route('show.bus.seats',$item->id)}}" style="color:red"> {{ $item->busType->name }} </a> </td>
-                                    <td>@isset($item->driver->name)  {{ $item->driver->name }} @else لا يوجد @endisset</td>
-                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
+                                    <td>@isset($item->driver->name)  {{ $item->driver->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
                                     <td>
-                                        <div class="dropdown show">
-                                            <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                العمليات
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
+                                       data-target="#edit{{ $item->id }}" title="تعديل">
+                                       <i style="color:cadetblue; font-size:18px" class="fa fa-edit"></i></a>
 
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#edit{{ $item->id }}" title="تعديل">
-                                                   <i style="color:#a3a373" class="fa fa-edit"></i>&nbsp; تعديل</a>
-
-                                                <a type="button" class="dropdown-item" style="cursor:pointer" data-toggle="modal"
-                                                   data-target="#delete{{ $item->id }}" title="حذف">
-                                                   <i style="color:red" class="fa fa-trash"></i>&nbsp; حذف</a>
-
-                                            </div>
-                                        </div>
+                                    <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
+                                       data-target="#delete{{ $item->id }}" title="حذف">
+                                       <i style="color:red; font-size:18px" class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
 

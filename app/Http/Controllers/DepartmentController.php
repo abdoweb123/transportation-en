@@ -34,7 +34,7 @@ class DepartmentController extends Controller
         $department->admin_id = auth('admin')->id();
         $department->active = 1;
         $department->save();
-        return redirect()->route('departments.index')->with('alert-success','تم حفظ البيانات بنجاح');
+        return redirect()->route('departments.index')->with('alert-success','Data is stored successfully');
     }
 
 
@@ -55,7 +55,7 @@ class DepartmentController extends Controller
         $department->admin_id = auth('admin')->id();
         $department->active = $request['active'];
         $department->update();
-        return redirect()->route('departments.index')->with('alert-success','تم تحديث البيانات بنجاح');
+        return redirect()->route('departments.index')->with('alert-success','Data is updated successfully');
 
     }
 
@@ -65,7 +65,7 @@ class DepartmentController extends Controller
     public function destroy(Department $department)
     {
         $department->delete();
-        return redirect()->route('departments.index')->with('alert-success','تم حذف البيانات بنجاح');
+        return redirect()->route('departments.index')->with('alert-success','Data is deleted successfully');
     }
 
 } //end of class

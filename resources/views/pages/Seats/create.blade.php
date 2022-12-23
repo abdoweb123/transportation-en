@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    إضافة مقاعد
+    Add Design and seats
 @stop
 @endsection
 
@@ -12,7 +12,7 @@
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    إضافة المقاعد
+  Add Design and seats
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -46,34 +46,34 @@
                         @csrf
                         <div class="row" style="overflow:auto">
                             <div class="m-5 p-4" style="border:1px solid #ddd; width:30%">
-                                <h6 style="font-family: 'Cairo', sans-serif;color: blue">إضافة مقاعد</h6><br>
+                                <h6 style="font-family: 'Cairo', sans-serif;color: blue">Add seats</h6><br>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group length">
-                                            <label>الطول : <span class="text-danger">*</span></label>
+                                            <label>Length : <span class="text-danger">*</span></label>
                                             <input type="number" name="length" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group width">
-                                            <label>العرض : <span class="text-danger">*</span></label>
+                                            <label>Width : <span class="text-danger">*</span></label>
                                             <input type="number" name="width" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group slug">
-                                            <label>عدد المقاعد: <span class="text-danger">*</span></label>
-                                            <input type="text" name="slug" class="form-control">
+                                            <label>Sum : <span class="text-danger">*</span></label>
+                                            <input type="text" name="slug" class="form-control" readonly>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="Classroom_id">الأسطول التابع لها : <span class="text-danger">*</span></label>
+                                            <label for="Classroom_id">Bus Type : <span class="text-danger">*</span></label>
                                             <select class="custom-select mr-sm-2" name="busType_id">
-                                                <option selected disabled>--اختر الأسطول--</option>
+                                                <option selected disabled>-- choose --</option>
                                                 @foreach($busTypes as $busType)
                                                     <option value="{{$busType->id}}">{{$busType->name}}</option>
                                                 @endforeach
@@ -89,8 +89,8 @@
 
                         <br>
                         <button type="button" id="show_seats" class="btn btn-info btn-sm nextBtn btn-lg pull-right"
-                                style="margin-right:28px; margin-left:25px">عرض المقاعد</button>
-                        <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">حفظ</button>
+                                style="margin-right:28px; margin-left:25px">Show Seats Design</button>
+                        <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" type="submit">Save</button>
                     </form>
                 </div>
             </div>
@@ -145,10 +145,10 @@
                     $('.bus_box').append('<div id="'+'select-'+array[i]+'" style="width:100px; height:90px; padding:37px 0; margin:10px; text-align:center; background-color:beige; position:relative">' +
                         '<a>'
                         + '<select id="#my_select" name="type['+array[i]+']" class="select" style="position:absolute; top:0; right:-65px; display:none">'
-                        +    '<option value=" ">اختر</option>'
-                        +    '<option value="3">سائق</option>'
-                        +    '<option value="1">متاح</option>'
-                        +    '<option value="2">غير متاح</option>'
+                        +    '<option value=" ">Choose</option>'
+                        +    '<option value="3">Driver</option>'
+                        +    '<option value="1">Available</option>'
+                        +    '<option value="2">Invisible</option>'
                         + '</select>'
                         +'</a>' + array[i] + '</div>');
                 }

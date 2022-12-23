@@ -34,7 +34,7 @@ class EmployeeJobController extends Controller
         $employeeJob->admin_id = auth('admin')->id();
         $employeeJob->active = 1;
         $employeeJob->save();
-        return redirect()->route('employeeJobs.index')->with('alert-success','تم حفظ البيانات بنجاح');
+        return redirect()->route('employeeJobs.index')->with('alert-success','Data is stored successfully');
     }
 
 
@@ -55,7 +55,7 @@ class EmployeeJobController extends Controller
         $employeeJob->admin_id = auth('admin')->id();
         $employeeJob->active = $request['active'];
         $employeeJob->update();
-        return redirect()->route('employeeJobs.index')->with('alert-success','تم تحديث البيانات بنجاح');
+        return redirect()->route('employeeJobs.index')->with('alert-success','Data is updated successfully');
 
     }
 
@@ -65,7 +65,7 @@ class EmployeeJobController extends Controller
     public function destroy(EmployeeJob $employeeJob)
     {
         $employeeJob->delete();
-        return redirect()->route('employeeJobs.index')->with('alert-success','تم حذف البيانات بنجاح');
+        return redirect()->route('employeeJobs.index')->with('alert-success','Data is deleted successfully');
     }
 
 } //end of class

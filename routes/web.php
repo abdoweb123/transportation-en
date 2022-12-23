@@ -171,6 +171,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('myEmployees','MyEmployeeController')->except('show');
     Route::resource('routes','RouteController')->except('edit','show','create');
     Route::resource('routeStations','RouteStationController')->except('edit','show','create');
+    Route::resource('employeeRunTrips','EmployeeRunTripController')->except('edit','show','create','store');
 
 
 

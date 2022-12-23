@@ -73,57 +73,60 @@
                     </div>
                     <div class="line mb-3" style="border-bottom: 1px solid #e9ecef; padding-bottom:30px">
                     </div>
+                    <form action="{{route('bookingRequests.index')}}" method="get" enctype="multipart/form-data">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="name_ar" class="mr-sm-2">Start Date :</label>
+                                <input type="date" name="startDate" value="{{$request->startDate}}" class="form-control">
+                            </div>
+                            <div class="col">
+                                <label for="name_ar" class="mr-sm-2">End Date:</label>
+                                <input type="date" name="endDate" value="{{$request->endDate}}" class="form-control">
+                            </div>
 
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Start :</label>
-                            <input type="date" name="dateFrom" class="form-control">
+                            <div class="col">
+                                <label for="name_ar" class="mr-sm-2">Start Time :</label>
+                                <input type="time" name="startTime" value="{{$request->startTime}}" class="form-control">
+                            </div>
+                            <div class="col">
+                                <label for="name_ar" class="mr-sm-2">End Time :</label>
+                                <input type="time" name="endTime" value="{{$request->endTime}}" class="form-control">
+                            </div>
                         </div>
-                        <div class="col">
-                            <label for="name_ar" class="mr-sm-2">End :</label>
-                            <input type="date" name="dateTo" class="form-control">
-                        </div>
-
-                        <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Time :</label>
-                            <input type="time" name="time" class="form-control">
-                        </div>
-                        <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Route :</label>
-                            <select class="form-control mr-sm-2 p-2" name="route_id">
-                                <option class="custom-select mr-sm-2 p-2" value=" ">--- Choose ---</option>
-                                @foreach($routes as $route)
-                                    <option value="{{$route->id}}">{{ $route->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                        <form action="{{route('bookingRequests.index')}}" method="get" enctype="multipart/form-data">
-                            <div class="row mb-3">
-                                <div class="col-3">
-                                    <label for="name_ar" class="mr-sm-2">Collection Point From :</label>
-                                    <select class="form-control mr-sm-2 p-2" name="route_id">
-                                        <option class="custom-select mr-sm-2 p-2" value=" ">--- Choose ---</option>
-                                        @foreach($stations as $station)
-                                            <option value="{{$station->id}}">{{ $station->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <label for="name_ar" class="mr-sm-2">Collection Point To :</label>
-                                    <select class="form-control mr-sm-2 p-2" name="route_id">
-                                        <option class="custom-select mr-sm-2 p-2" value=" ">--- Choose ---</option>
-                                        @foreach($stations as $station)
-                                            <option value="{{$station->id}}">{{ $station->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="name_ar" class="mr-sm-2">Route :</label>
+                                <select class="form-control mr-sm-2 p-2" name="route_id">
+                                    <option class="custom-select mr-sm-2 p-2" value=" ">--- Choose ---</option>
+                                    @foreach($routes as $route)
+                                        <option value="{{$route->id}}" {{$route->id == $request->route_id ? 'selected' : ''}}>{{ $route->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="name_ar" class="mr-sm-2">Collection Point From :</label>
+                                <select class="form-control mr-sm-2 p-2" name="collection_point_from_id">
+                                    <option class="custom-select mr-sm-2 p-2" value=" ">--- Choose ---</option>
+                                    @foreach($stations as $station)
+                                        <option value="{{$station->id}}" {{$station->id == $request->collection_point_from_id ? 'selected' : ''}}>{{ $station->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="name_ar" class="mr-sm-2">Collection Point To :</label>
+                                <select class="form-control mr-sm-2 p-2" name="collection_point_to_id">
+                                    <option class="custom-select mr-sm-2 p-2" value=" ">--- Choose ---</option>
+                                    @foreach($stations as $station)
+                                        <option value="{{$station->id}}" {{$station->id == $request->collection_point_to_id ? 'selected' : ''}}>{{ $station->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                                 <div class="col-3">
                                     <label for="name_ar" class="mr-sm-2"> </label>
                                     <input type="submit" value="Report" class="btn btn-success form-control" style="background-color: #84ba3f; color: white; font-size: 16px;">
                                 </div>
                             </div>
-                        </form>
+                    </form>
 
 
                     <br><br>
@@ -186,7 +189,7 @@
 
 
        <!--  page of add_modal_office -->
-{{--       @include('pages.bookingRequests.create')--}}
+       @include('pages.bookingRequests.createBookingRequest')
     </div>
 
 

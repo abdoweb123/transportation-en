@@ -1,9 +1,8 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-   Buses Type List
+    Employee Run Trips List
 @stop
-
 
 <style>
     .process{border:none; border-radius:3px; padding:3px 5px;}
@@ -25,7 +24,7 @@
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    Buses Type List
+   Employee Run Trips List
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -38,27 +37,24 @@
 
                     @if ($errors->any())
                         <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                <div>
-                                  {{ $error }}
-                                </div>
-                            @endforeach
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     @endif
 
 
                     @foreach(['danger','warning','success','info'] as $msg)
                         @if(Session::has('alert-'.$msg))
-                            <div class="alert alert-{{$msg}}">
+                            <div class="alert alert-{{$msg}} messages">
                                 {{Session::get('alert-'.$msg)}}
                             </div>
                         @endif
                     @endforeach
 
-                    {{--  button of add_modal_city  --}}
-                    <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                       Add bus type
-                    </button>
+
                     <br><br>
 
                     <div class="table-responsive">
@@ -67,59 +63,57 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Length</th>
-                                <th>Width</th>
-                                <th>Number of seats</th>
+                                <th>Route</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Bus</th>
+                                <th>Driver</th>
                                 <th>Entered By</th>
                                 <th>Processes</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($busTypes as $item)
+                            @foreach ($employeeRunTrips as $item)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->length }}</td>
-                                    <td>{{ $item->width }}</td>
-                                    <td>{{ $item->slug }}</td>
-                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
+                                    <td>@isset($item->route->name)  {{ $item->route->name }} @else _____ @endisset</td>
+                                    <td>{{ $item->date  }}</td>
+                                    <td>{{ $item->time  }}</td>
+                                    @foreach($item->bus as $bus)
+                                        <td>@isset($bus->code)  {{$bus->code }} @else _____ @endisset</td>
+                                    @endforeach
+                                    <td>@isset($item->driver->name)  {{ $item->driver->name }} @else _____ @endisset</td>
+                                    <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
                                     <td>
-                                        <a href="{{route('show.busType.seats',$item->id)}}" class="process" style="cursor:pointer">
-                                            <i style="color:green; font-size:18px" class="fa fa-eye"></i></a>
+                                        <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
+                                           data-target="#editEmployeeRunTrip{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
+                                           <i style="color:#a3a373; font-size:18px" class="fa fa-edit"></i></a>
 
                                         <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
-                                           data-target="#edit{{ $item->id }}" title="تعديل">
-                                           <i style="color:cadetblue; font-size:18px" class="fa fa-edit"></i></a>
-
-                                        <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
-                                           data-target="#delete{{ $item->id }}" title="حذف">
+                                           data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
                                            <i style="color:red; font-size:18px" class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
 
-                                <!--  page of edit_modal_BusTypes -->
-                                @include('pages.BusTypes.edit')
+                                <!--  page of edit_modal_office -->
+                                @include('pages.EmployeeRunTrips.edit')
 
-                                <!--  page of delete_modal_BusTypes -->
-                                @include('pages.BusTypes.delete')
+                                <!--  page of delete_modal_office -->
+                                @include('pages.EmployeeRunTrips.delete')
 
 
-                                <!--  page of show_modal_BusTypes -->
-                                @include('pages.BusTypes.show')
+                                <!--  page of show_modal_office -->
+{{--                                @include('pages.Offices.show')--}}
 
                             @endforeach
                         </table>
 
-                        <div> {{$busTypes->links('pagination::bootstrap-4')}}</div>
+{{--                        <div> {{$employeeRunTrips->links('pagination::bootstrap-4')}}</div>--}}
+
                     </div>
                 </div>
             </div>
         </div>
-
-
-       <!--  page of add_modal_city -->
-       @include('pages.BusTypes.create')
     </div>
 
 
@@ -131,7 +125,7 @@
 
     <script>
         $(document).ready(function(){
-            $(".alert").delay(5000).slideUp(300);
+            $(".messages").delay(5000).slideUp(300);
         });
     </script>
 @endsection

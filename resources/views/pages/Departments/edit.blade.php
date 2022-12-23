@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
-                    تعديل بيانات القسم
+                    Edit Department
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -18,18 +18,18 @@
                     @method('PUT')
                     <div class="row">
                         <div class="col">
-                            <label for="name_en" class="mr-sm-2">الاسم :</label>
-                            <input type="text" name="name" value="{{old('name',$item->name)}}" class="form-control">
+                            <label for="name_en" class="mr-sm-2">Name :</label>
+                            <input type="text" name="name" value="{{old('name',$item->name)}}" class="form-control" required>
                         </div>
                         <div class="col">
-                            <label for="image" class="mr-sm-2">الحالة</label>
+                            <label for="image" class="mr-sm-2">Status</label>
                             <select name="active" class="form-control">
                                 @if($item->active == 1)
-                                    <option value="1" selected>نشط</option>
-                                    <option value="2">غير نشط</option>
+                                    <option value="1" selected>active</option>
+                                    <option value="2">un active</option>
                                 @else
-                                    <option value="1">نشط</option>
-                                    <option value="2" selected>غير نشط</option>
+                                    <option value="1">active</option>
+                                    <option value="2" selected>un active</option>
                                 @endif
                             </select>
                         </div>
@@ -38,8 +38,8 @@
                     <br><br>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
-                        <button type="submit" class="btn btn-success">تعديل</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Edit</button>
                     </div>
                 </form>
 

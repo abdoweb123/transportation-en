@@ -34,7 +34,7 @@ class BusTypeController extends Controller
             'admin_id'=>auth('admin')->id(),
         ]);
 
-        return redirect()->route('busTypes.index')->with('alert-success','تم تسجيل الأسطول بنجاح');
+        return redirect()->route('busTypes.index')->with('alert-success','Data is stored successfully');
     }
 
 
@@ -53,7 +53,7 @@ class BusTypeController extends Controller
             'admin_id'=>auth('admin')->id(),
         ]);
 
-        return redirect()->route('busTypes.index')->with('alert-info','تم تعديل الأسطول بنجاح');
+        return redirect()->route('busTypes.index')->with('alert-info','Data is updated successfully');
     }
 
 
@@ -72,7 +72,7 @@ class BusTypeController extends Controller
     public function destroy(BusType $busType)
     {
         $busType->delete();
-        return redirect()->route('busTypes.index')->with('alert-danger','تم حذف الأسطول بنجاح');
+        return redirect()->route('busTypes.index')->with('alert-danger','Data is deleted successfully');
     }
 
 

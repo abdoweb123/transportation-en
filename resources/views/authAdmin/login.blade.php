@@ -8,7 +8,7 @@
     <meta name="description" content="Webmin - Bootstrap 4 & Angular 5 Admin Dashboard Template" />
     <meta name="author" content="potenzaglobalsolutions.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>تسجيل الدخول</title>
+    <title>Login</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon.ico" />
@@ -18,9 +18,10 @@
           href="https://fonts.googleapis.com/css?family=Poppins:200,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900">
 
     <!-- css -->
-    <link href="{{ URL::asset('assets/css/rtl.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/css/ltr.css') }}" rel="stylesheet">
     <style>
         *,h3,h4{font-family:Cairo, 'tahoma', 'sans-serif' !important;}
+        *,h3,h4{direction: ltr}
     </style>
 </head>
 
@@ -48,9 +49,10 @@ login-->
                 <div class="col-lg-4 col-md-6 login-fancy-bg bg"
                      style="background-image: url('{{ asset('assets/images/login-inner-bg.jpg')}}');">
                     <div class="login-fancy">
-                        <h2 class="text-white mb-20 font-weight-bold">وصلني!</h2>
-                        <p class="mb-20 text-white">أهلا بكم في تطبيق وصلني لخدمات النقل والرحلات</p>
-                        <p class="mb-20 text-white">نقدم لكم خدمات النقل والرحلات بأفضل جودة</p>
+                        <h2 class="text-white mb-20 font-weight-bold">Wassalny!</h2>
+                        <p class="mb-20 text-white">Welcome to Wassalny for transportation</p>
+{{--                        <p class="mb-20 text-white">أهلا بكم في تطبيق وصلني لخدمات النقل والرحلات</p>--}}
+{{--                        <p class="mb-20 text-white">نقدم لكم خدمات النقل والرحلات بأفضل جودة</p>--}}
                         <ul class="list-unstyled  pos-bot pb-30">
                             <li class="list-inline-item"><a class="text-white" href="#"> Terms of Use</a> </li>
                             <li class="list-inline-item"><a class="text-white" href="#"> Privacy Policy</a></li>
@@ -59,7 +61,7 @@ login-->
                 </div>
                 <div class="col-lg-4 col-md-6 bg-white">
                     <div class="login-fancy pb-40 clearfix">
-                        <h3 style="font-family: 'Cairo', sans-serif" class="mb-30">تسجيل الدخول</h3>
+                        <h3 style="font-family: 'Cairo', sans-serif" class="mb-30">Login</h3>
 
                         <form method="POST" action="{{route('login')}}">
                             @csrf
@@ -71,7 +73,7 @@ login-->
                                         </div>
                                     @endif
                                 @endforeach
-                                <label class="mb-10" for="name">البريدالالكتروني*</label>
+                                <label class="mb-10" for="name">Email *</label>
                                 <input id="email" type="email"
                                        class="form-control @error('email') is-invalid @enderror" name="email"
                                        value="{{ old('email') }}"  autocomplete="email" autofocus>
@@ -84,7 +86,7 @@ login-->
                             </div>
 
                             <div class="section-field mb-20">
-                                <label class="mb-10" for="Password">كلمة المرور * </label>
+                                <label class="mb-10" for="Password">Password * </label>
                                 <input id="password" type="password"
                                        class="form-control @error('password') is-invalid @enderror" name="password"
                                        autocomplete="current-password">
@@ -99,11 +101,11 @@ login-->
                             <div class="section-field">
                                 <div class="remember-checkbox mb-30">
                                     <input type="checkbox" class="form-control" name="two" id="two" />
-                                    <label for="two"> تذكرني</label>
-                                    <a href="#" class="float-right">هل نسيت كلمةالمرور ؟</a>
+                                    <label for="two"> Remember Me</label>
+                                    <a href="#" class="float-right">Forget Password ?</a>
                                 </div>
                             </div>
-                            <button class="button"><span>دخول</span><i class="fa fa-check"></i></button>
+                            <button class="button"><span>Login</span><i class="fa fa-check"></i></button>
                         </form>
                     </div>
                 </div>

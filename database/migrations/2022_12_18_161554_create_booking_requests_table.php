@@ -23,8 +23,8 @@ class CreateBookingRequestsTable extends Migration
             $table->unsignedBigInteger('employeeRunTrip_id')->nullable();
             $table->string('seat_number')->nullable();
             $table->unsignedBigInteger('bus_id')->nullable();
-            $table->unsignedBigInteger('employee_id');
-            $table->string('shift');
+            $table->unsignedBigInteger('employee_id')->nullable();
+            $table->string('shift')->nullable();
             $table->string('address')->nullable(); // from my_employee table
             $table->unsignedBigInteger('admin_id');
             $table->boolean('active');

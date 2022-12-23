@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    قائمة الوظائف
+   Jobs List
 @stop
 
 <style>
@@ -23,7 +23,7 @@
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    قائمة الوظائف
+  Jobs List
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -55,7 +55,7 @@
 
                     {{--  button of add_modal_office  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        إضافة وظيفة
+                       Add Job
                     </button>
                     <br><br>
 
@@ -65,10 +65,10 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>الاسم</th>
-                                <th>مدخل البيانات</th>
-                                <th>الحالة</th>
-                                <th>العمليات</th>
+                                <th>Name</th>
+                                <th>Entered By</th>
+                                <th>Status</th>
+                                <th>Process</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -77,7 +77,7 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $item->name  }}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
-                                    <td>{{$item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
+                                    <td>{{$item->active == 1 ? 'active' : 'un active'}}</td>
                                     <td>
                                         <button type="button" class="process"
                                                 data-toggle="modal" data-target="#edit{{ $item->id }}" title="تعديل">

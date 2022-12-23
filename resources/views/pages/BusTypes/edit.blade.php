@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
-                    تعديل اسم الأسطول
+                    Edit bus type
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -18,16 +18,16 @@
                     @method('PUT')
                     <div class="row">
                         <div class="col">
-                            <label for="name" class="mr-sm-2">اسم الحافلة :</label>
-                            <input type="text" class="form-control" value="{{$item->name}}" name="name">
+                            <label for="name" class="mr-sm-2">Name :</label>
+                            <input type="text" class="form-control" value="{{$item->name}}" name="name" required>
                         </div>
                     </div>
                     <br><br>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">إغلاق</button>
-                        <button type="submit" class="btn btn-success">إرسال</button>
+                                data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Edit</button>
                     </div>
                 </form>
 

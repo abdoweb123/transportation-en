@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                     id="exampleModalLabel">
-                    حذف أسطول
+                    Delete bus type
                 </h5>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
@@ -17,11 +17,11 @@
                 <form action="{{ route('busTypes.destroy',$item->id) }}" method="post">
                     @csrf
                     @method('DELETE')
-                    هل أنت متأكد من عملية الحذف
+                    Are you sure about deleting this Bus Type ?
                     <input id="id" type="hidden" name="id" class="form-control" value="{{ $item->id }}">
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
-                        <button type="submit" class="btn btn-danger">حفظ</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Save</button>
                     </div>
                 </form>
             </div>

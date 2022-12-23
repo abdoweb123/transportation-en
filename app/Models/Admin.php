@@ -18,9 +18,9 @@ class Admin  extends Authenticatable
     {
         switch ($val)
         {
-            case 1: echo 'المشرف العام'; break;
-            case 2: echo 'مدير الفرع'; break;
-            case 3: echo 'موظف البيانات'; break;
+            case 1: echo 'Supervisor'; break;
+            case 2: echo 'Admin'; break;
+            case 3: echo 'Employee'; break;
         }
     }
 

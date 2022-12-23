@@ -30,39 +30,20 @@
                             <li> <a href="{{route('routes.index')}}">Routes List</a> </li>
                             <li> <a href="{{route('routeStations.index')}}">Route Stations List</a> </li>
                             <li> <a href="{{route('myEmployees.index')}}">Employees List</a> </li>
-                        </ul>
-                    </li>
-
-
-
-                    <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#buses">
-                            <div class="pull-left"><i class="ti-calendar"></i><span class="right-nav-text">الحافلات</span>
-                            </div>
-                            <div class="pull-right"><i class="ti-plus"></i></div>
-                            <div class="clearfix"></div>
-                        </a>
-                        <ul id="buses" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('busTypes.index')}}">أساطيل الحافلات</a></li>
-                            <li> <a href="{{route('buses.index')}}">قائمة الحافلات</a></li>
-                            <li> <a href="{{route('seats.create')}}">إضافة تصميم</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#companyEmployees">
-                            <div class="pull-left"><i class="ti-id-badge"></i><span class="right-nav-text">موظفو الشركات الخاصة</span></div>
-                            <div class="pull-right"><i class="ti-plus"></i></div>
-                            <div class="clearfix"></div>
-                        </a>
-                        <ul id="companyEmployees" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('employeeJobs.index')}}">قائمة الوظائف</a> </li>
-                            <li> <a href="{{route('departments.index')}}">قائمة الأقسام</a> </li>
-
-{{--                            <li> <a href="{{route('getExcel.excelEmployee')}}">استيراد بيانات المموظفين</a> </li>--}}
                             <li> <a href="{{route('bookingRequests.index')}}">Booking Requests</a> </li>
+                            <li> <a href="{{route('employeeRunTrips.index')}}">Employees Run Trip</a> </li>
+                            <li> <a href="{{route('departments.index')}}">Departments List</a> </li>
+                            <li> <a href="{{route('employeeJobs.index')}}">Jobs List</a> </li>
+                            <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Buses</li>
+                            <li> <a href="{{route('busTypes.index')}}">Buses Type List</a></li>
+                            <li> <a href="{{route('buses.index')}}">Buses List</a></li>
+                            <li> <a href="{{route('seats.create')}}">Add Design to bus</a></li>
                         </ul>
                     </li>
+
+
+
+
 
 
 
