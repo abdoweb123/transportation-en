@@ -77,6 +77,7 @@
                                 <th>Bus</th>
                                 <th>Date</th>
                                 <th>Time</th>
+                                <th>Total</th>
                                 <th>Entered By</th>
                                 <th>Operations</th>
                             </tr>
@@ -91,6 +92,7 @@
                                     @endforeach
                                     <td>{{$item->date}}</td>
                                     <td>{{$item->time}}</td>
+                                    <td>{{ $item->total }}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
                                     <td>
                                         <a href="{{route('myEmployees.edit',$item->id)}}" class="process">

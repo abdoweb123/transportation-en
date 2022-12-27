@@ -60,7 +60,11 @@
                             <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                                 Add Booking
                             </button>
+                            <a href="{{route('bookingRequestsData')}}" class="button x-small">
+                                Next
+                            </a>
                         </div>
+
                         <div class="col text-right">
                             <form action="{{route('import.excelEmployee')}}" method="post" enctype="multipart/form-data">
                                 @csrf

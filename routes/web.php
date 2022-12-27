@@ -116,11 +116,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
     Route::resource('cities','CityController');
-
     Route::resource('stations','StationController')->except('create','edit','show');
-
     Route::resource('offices','OfficeController');
-
     Route::resource('busTypes','BusTypeController')->except('create','edit','show');
     Route::get('show/busType/seats/{id}',[BusTypeController::class,'showBusTypeSeats'])->name('show.busType.seats');
 
@@ -182,8 +179,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     Route::resource('bookingRequests','BookingRequestController')->except('edit','show','create');
     Route::post('import/excel',[MyEmployeeController::class,'import'])->name('import.excelEmployee');
-//    Route::get('store/employees/data',[RouteStationController::class,'operation'])->name('store.employees.data');
+    Route::get('store/employees/data',[RouteStationController::class,'operation'])->name('store.employees.data');
     Route::get('bookingRequests/data',[BookingRequestController::class,'bookingRequestsData'])->name('bookingRequestsData');
     Route::get('employeeRunTrip',[BookingRequestController::class,'employeeRunTrip'])->name('employeeRunTrip');
+
+
+    // Reports
+    Route::get('empty/seats/per/bus',[BusController::class,'emptySeatsPerBus'])->name('emptySeatsPerBus');
+
+    Route::get('employees/names/per/bus',[BusController::class,'getRunTripByBus_id'])->name('getRunTripByBus_id');
+
+//    Route::get('employees/names/per/bus',[BusController::class,'employeesNamesPerBus'])->name('employeesNamesPerBus');
+
+    Route::get('empty/seats/per/Route',[BusController::class,'emptySeatsPerRoute'])->name('emptySeatsPerRoute');
+
+
 
 }); //end of routes
