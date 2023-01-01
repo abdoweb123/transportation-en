@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeRunTripRequest;
+use App\Models\BookingRequest;
 use App\Models\Bus;
 use App\Models\Driver;
 use App\Models\EmployeeRunTrip;
@@ -19,6 +20,7 @@ class EmployeeRunTripController extends Controller
         $routes = Route::select('id','name')->get();
         $drivers = Driver::select('id','name')->get();
         $buses = Bus::select('id','code')->get();
+
         return view('pages.EmployeeRunTrips.index', compact('employeeRunTrips','routes','drivers','buses'));
     }
 

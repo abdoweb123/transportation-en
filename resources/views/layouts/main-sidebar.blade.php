@@ -34,6 +34,14 @@
                             <li> <a href="{{route('employeeRunTrips.index')}}">Employees Run Trip</a> </li>
                             <li> <a href="{{route('departments.index')}}">Departments List</a> </li>
                             <li> <a href="{{route('employeeJobs.index')}}">Jobs List</a> </li>
+                            <li> <a href="{{url('static-table/company')}}">Campanies</a></li>
+                            <li> <a href="{{url('contract-client')}}">Contract Client</a></li>
+                            <li> <a href="{{url('static-table/suppliers')}}">Suppliers</a></li>
+                            <li> <a href="{{url('contract-sublier')}}">Contract Subliers</a></li>
+                            <li> <a href="{{url('company-contract-route')}}">company contract route</a></li>
+                            <li> <a href="{{url('suplier-contract-route')}}">suplier contract route</a></li>
+                            <li> <a href="{{url('static-table/service')}}">services type</a></li>
+
                             <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Buses</li>
                             <li> <a href="{{route('busTypes.index')}}">Buses Type List</a></li>
                             <li> <a href="{{route('buses.index')}}">Buses List</a></li>
@@ -42,6 +50,18 @@
                     </li>
 
 
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#database_booking_request">
+                            <div class="pull-left"><i class="ti-dropbox-alt"></i><span class="right-nav-text">Booking Request Database</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="database_booking_request" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('bookingRequests.index')}}">Booking Requests</a> </li>
+                            <li> <a href="{{route('employeeRunTrips.index')}}">Employees Run Trip</a> </li>
+                        </ul>
+                    </li>
 
 
 

@@ -34,8 +34,6 @@ class BookingRequestController extends Controller
         {
             $bookingRequests = BookingRequest::where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id)->get();
         }
-
-
         else if ($request->has('startDate') && $request->has('endDate') && $request->has('startTime') && $request->has('endTime') && $request->route_id == null && $request->collection_point_from_id == null && $request->collection_point_to_id == null)
         {
             $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->whereBetween('time',[$request->startTime,$request->endTime])->get();

@@ -198,78 +198,140 @@ class RouteStationController extends Controller
 
 
 
-
+    /*** operation2 function  ***/
     public function operation2()
     {
 
-
         $booking_requests = BookingRequest::select('date','time','route_id' ,DB::raw('count(*) as total'))->groupBy('date','time','route_id')->get('date','time','route_id');
-        // 1 2 3 4 5 6
+
+
+        foreach ($booking_requests as $booking_request) // 110 group
+        {
+            $employee_run_trip = new EmployeeRunTrip();
+            $employee_run_trip->date = $booking_request->date;
+            $employee_run_trip->time = $booking_request->time;
+            $employee_run_trip->route_id = $booking_request->route_id;
+            $employee_run_trip->total = $booking_request->total;
+            $employee_run_trip->admin_id = auth('admin')->id();
+            $employee_run_trip->active = 1;
+            $employee_run_trip->save();
+        }
+
+
         $buses =   DB::table('buses')->join('bus_types','buses.busType_id','=','bus_types.id')->select('buses.id','bus_types.slug')->get();
 
+        foreach ($buses as $bus)
+        {
+            $arr_bus[] = [$bus->slug,$bus->id];
+        }
 
+        sort($arr_bus);
 
-            foreach ($buses as $bus)  // 20  20  20  150  150  300  300 (7)
+        $booking_requests_collections = EmployeeRunTrip::select('id','date','time','route_id','total')->get();
+
+        foreach ($booking_requests_collections as $booking_requests_collection) //110
+        {
+            for ($x=0; $x<count($arr_bus); $x++)
             {
-                foreach ($booking_requests as $booking_request) // 110 group
+                if ($booking_requests_collection->total <= $arr_bus[$x][0])
                 {
 
-                if ($booking_request->total <= $bus->slug) // 2 <= 20
-                {
-
-
-                $un_usedBuses = Bus::query()->whereDoesntHave('bookingRequest')->get(); // 1 2 3 4 5 6
-
-                foreach ($un_usedBuses as $un_usedBus)
-                {
-                        // 1 != 2
-                    if ($un_usedBus->id !== $bus->id )
+                    if (isset($arr_bus[$x][1]))
                     {
-
-                            $findBooking_requests = BookingRequest::where('date',$booking_request->date)->where('time',$booking_request->time)->where('route_id',$booking_request->route_id)->get();
-                            $x = 1;
-                            foreach ($findBooking_requests as $findBooking_request)
-                            {
-                                $findBooking_request->update([
-                                    'bus_id'=>$un_usedBus->id,
-                                    'seat_number'=>$x,
-                                ]);
-
-                                $x++;
-                            }
+                        $runTripBusEmployee = new EmployeeRunTripBus();
+                        $runTripBusEmployee->employeeRunTrip_id = $booking_requests_collection->id;
+                        $runTripBusEmployee->bus_id = $arr_bus[$x][1];
+                        $runTripBusEmployee->admin_id = auth('admin')->id();
+                        $runTripBusEmployee->active = 1;
+                        $runTripBusEmployee->save();
 
 
-                            // create or update employee_run_trips by date && time && route_id
-                            $employee_run_trip = EmployeeRunTrip::Where('date',$booking_request->date)->Where('time',$booking_request->time)->Where('route_id',$booking_request->route_id)->first();
 
-                            if (!$employee_run_trip)
-                            {
-                                $employee_run_trip = new EmployeeRunTrip();
-                                $employee_run_trip->date = $booking_request->date;
-                                $employee_run_trip->time = $booking_request->time;
-                                $employee_run_trip->route_id = $booking_request->route_id;
-                                $employee_run_trip->admin_id = auth('admin')->id();
-                                $employee_run_trip->active = 1;
-                                $employee_run_trip->save();
-
-                                $employee_run_trip_buses = new EmployeeRunTripBus();
-                                $employee_run_trip_buses->bus_id = $un_usedBus->id;
-                                $employee_run_trip_buses->employeeRunTrip_id = $employee_run_trip->id;
-                                $employee_run_trip_buses->admin_id = auth('admin')->id();
-                                $employee_run_trip_buses->active = 1;
-                                $employee_run_trip_buses->save();
-                            }
-
-
-                            break;
-
-                        }
                     }
+                    else{
+                        $runTripBusEmployee = new EmployeeRunTripBus();
+                        $runTripBusEmployee->employeeRunTrip_id = $booking_requests_collection->id;
+                        $runTripBusEmployee->bus_id = null;
+                        $runTripBusEmployee->admin_id = auth('admin')->id();
+                        $runTripBusEmployee->active = 1;
+                        $runTripBusEmployee->save();
+
+
+                    }
+
+                    break;
+
                 }
             }
         }
 
-        return redirect()->route('bookingRequestsData')->with('alert-info','تم إضافة البيانات بنجاح');
+
+
+
+
+
+
+
+        $employeeRunTripBuses = DB::table('employee_run_trips')->join('employee_run_trip_buses','employee_run_trip_buses.employeeRunTrip_id','=','employee_run_trips.id')->select('employee_run_trips.date','employee_run_trips.time','employee_run_trip_buses.bus_id' ,DB::raw('count(*) as total'))->where('total','>',1)->groupBy('employee_run_trips.date','employee_run_trips.time','employee_run_trip_buses.bus_id')->get();
+
+        foreach ($employeeRunTripBuses as $runTripBusEmployee)
+        {
+            $oldBusSlug = Bus::find($runTripBusEmployee->bus_id)->busType->slug;
+
+            for ($x = 0; $x < count($arr_bus); $x++)
+            {
+                if ($arr_bus[$x][0] >= $oldBusSlug)
+                {
+                    $newArr_bus[] = [$arr_bus[$x][0],$arr_bus[$x][1]];
+                }
+            }
+
+
+            $newRunTripBusEmployees = EmployeeRunTrip::where('date', $runTripBusEmployee->date)->where('time', $runTripBusEmployee->time)->get();
+
+
+            for ($i=0; $i<count($newRunTripBusEmployees); $i++)
+            {
+
+                $employeeRunTripBus = EmployeeRunTripBus::where('employeeRunTrip_id',$newRunTripBusEmployees[$i]->id)->first();
+
+                if ($i >= count($newArr_bus)){
+
+                    $employeeRunTripBus->update([
+                            'bus_id'=>null,
+                        ]);
+                }
+                else {
+                    $employeeRunTripBus->update([
+                        'bus_id'=>$newArr_bus[$i][1],
+                    ]);
+                }
+            }
+        }
+
+
+
+
+
+        $employeeRunTrips = DB::table('employee_run_trips')->join('employee_run_trip_buses','employee_run_trip_buses.employeeRunTrip_id','=','employee_run_trips.id')->select('employee_run_trips.date','employee_run_trips.time','employee_run_trips.route_id','employee_run_trips.id','employee_run_trip_buses.bus_id')->get();
+
+        foreach ($employeeRunTrips as $employeeRunTrip)
+        {
+            $bookingRequests = BookingRequest::where('route_id',$employeeRunTrip->route_id)->where('date',$employeeRunTrip->date)->where('time',$employeeRunTrip->time)->get();
+
+            foreach ($bookingRequests as $bookingRequest)
+            {
+                $bookingRequest->employeeRunTrip_id  = $employeeRunTrip->id;
+                $bookingRequest->bus_id  = $employeeRunTrip->bus_id;
+                $bookingRequest->update();
+
+            }
+
+        }
+
+
+        return redirect()->route('bookingRequests.index')->with('alert-success','Data is saved successfully');
+
     }
 
 

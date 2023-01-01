@@ -11,7 +11,7 @@ class EmployeeRunTrip extends Model
     use HasFactory , SoftDeletes;
 
 
-    protected $fillable = ['date', 'time', 'route_id', 'driver_id', 'admin_id', 'active'];
+    protected $fillable = ['date', 'time', 'route_id', 'driver_id', 'admin_id', 'total', 'active'];
 
 
 

@@ -39,10 +39,15 @@ use App\Http\Controllers\EmployeeJobController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MyEmployeeController;
 use App\Http\Controllers\RouteController;
-
-
-
-
+use App\Http\Livewire\StaticTables\StaticTables;
+use App\Http\Livewire\ContractClients\ContractClientsEdit;
+use App\Http\Livewire\ContractClients\ContractClients;
+use App\Http\Livewire\ContractSubliers\ContractSubliersEdit;
+use App\Http\Livewire\ContractSubliers\ContractSubliers;
+use App\Http\Livewire\CompanyContractRoutes\CompanyContractRoutes;
+use App\Http\Livewire\CompanyContractRoutes\CompanyContractRoutesEdit;
+use App\Http\Livewire\SuplierContractRoutes\SuplierContractRoutes;
+use App\Http\Livewire\SuplierContractRoutes\SuplierContractRoutesEdit;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -182,8 +187,22 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     Route::resource('bookingRequests','BookingRequestController')->except('edit','show','create');
     Route::post('import/excel',[MyEmployeeController::class,'import'])->name('import.excelEmployee');
-//    Route::get('store/employees/data',[RouteStationController::class,'operation'])->name('store.employees.data');
+    Route::get('store/employees/data',[RouteStationController::class,'operation'])->name('store.employees.data');
     Route::get('bookingRequests/data',[BookingRequestController::class,'bookingRequestsData'])->name('bookingRequestsData');
     Route::get('employeeRunTrip',[BookingRequestController::class,'employeeRunTrip'])->name('employeeRunTrip');
 
+    // trans port 
+    // company name
+    Route::get('static-table/{type}',StaticTables::class)->name('static-table');
+    // contract client
+    Route::get('contract-client',ContractClients::class)->name('contract-client');
+    Route::get('contract-client-edit/{id}',ContractClientsEdit::class)->name('contract-client');
+      // contract subliers
+      Route::get('contract-sublier',ContractSubliers::class)->name('contract-sublier');
+      Route::get('contract-sublier-edit/{id}',ContractSubliersEdit::class)->name('contract-sublier');
+      Route::get('company-contract-route',CompanyContractRoutes::class)->name('company-contract-route');
+      Route::get('company-contract-route-edit/{id}',CompanyContractRoutesEdit::class)->name('company-contract-route-edit');
+      Route::get('suplier-contract-route',SuplierContractRoutes::class)->name('suplier-contract-route');
+      Route::get('suplier-contract-route-edit/{id}',SuplierContractRoutesEdit::class)->name('suplier-contract-route-edit');
+    
 }); //end of routes
