@@ -59,4 +59,6 @@ class VendorController extends Controller
         return redirect()->back()->with('alert-success','تم حذف البيانات بنجاح');
     }
 
+
+    
 } //end of class
