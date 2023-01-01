@@ -52,7 +52,8 @@
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#database_booking_request">
-
+                            <div class="pull-left"><i class="ti-dropbox-alt"></i><span class="right-nav-text">Booking Request Database</span>
+                            <div class="pull-left"><i class="ti-ticket"></i><span class="right-nav-text">Booking Request Database</span>
                             </div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -60,6 +61,24 @@
                         <ul id="database_booking_request" class="collapse" data-parent="#sidebarnav">
                             <li> <a href="{{route('bookingRequests.index')}}">Booking Requests</a> </li>
                             <li> <a href="{{route('employeeRunTrips.index')}}">Employees Run Trip</a> </li>
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#reports">
+                            <div class="pull-left"><i class="ti-notepad"></i><span class="right-nav-text">Reports</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="reports" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('emptySeatsPerBus')}}">Empty Seats Per Bus</a> </li>
+                            <li> <a href="{{route('getRunTripByBus_id')}}">Names Of Employees Per Bus</a></li>
+                            <li> <a href="{{route('emptySeatsPerRoute')}}">Empty Seats Per Route</a></li>
+                            <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Route</a></li>
+                            <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Departure</a></li>
+                            <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Arrival</a></li>
                         </ul>
                     </li>
 

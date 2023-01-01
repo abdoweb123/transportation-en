@@ -188,7 +188,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('bookingRequests/data',[BookingRequestController::class,'bookingRequestsData'])->name('bookingRequestsData');
     Route::get('employeeRunTrip',[BookingRequestController::class,'employeeRunTrip'])->name('employeeRunTrip');
 
-
+    // trans port 
+    // company name
+    Route::get('static-table/{type}',StaticTables::class)->name('static-table');
+    // contract client
+    Route::get('contract-client',ContractClients::class)->name('contract-client');
+    Route::get('contract-client-edit/{id}',ContractClientsEdit::class)->name('contract-client');
+      // contract subliers
+      Route::get('contract-sublier',ContractSubliers::class)->name('contract-sublier');
+      Route::get('contract-sublier-edit/{id}',ContractSubliersEdit::class)->name('contract-sublier');
+      Route::get('company-contract-route',CompanyContractRoutes::class)->name('company-contract-route');
+      Route::get('company-contract-route-edit/{id}',CompanyContractRoutesEdit::class)->name('company-contract-route-edit');
+      Route::get('suplier-contract-route',SuplierContractRoutes::class)->name('suplier-contract-route');
+      Route::get('suplier-contract-route-edit/{id}',SuplierContractRoutesEdit::class)->name('suplier-contract-route-edit');
+    
 
     // Reports
     Route::get('empty/seats/per/bus',[BusController::class,'emptySeatsPerBus'])->name('emptySeatsPerBus');
