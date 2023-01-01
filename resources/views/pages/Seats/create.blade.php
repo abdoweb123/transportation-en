@@ -3,6 +3,12 @@
 @section('title')
     Add Design and seats
 @stop
+
+<style>
+    .select{z-index:999}
+</style>
+
+
 @endsection
 
 @section('PageText')

@@ -18,6 +18,7 @@ class CreateEmployeeRunTripsTable extends Migration
             $table->date('date');
             $table->time('time');
             $table->unsignedBigInteger('route_id');
+            $table->unsignedBigInteger('total')->nullable();
             $table->unsignedBigInteger('driver_id')->nullable();
             $table->unsignedBigInteger('admin_id');
             $table->boolean('active');

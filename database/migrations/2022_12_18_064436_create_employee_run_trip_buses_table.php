@@ -16,7 +16,7 @@ class CreateEmployeeRunTripBusesTable extends Migration
         Schema::create('employee_run_trip_buses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('employeeRunTrip_id');
-            $table->unsignedBigInteger('bus_id');
+            $table->unsignedBigInteger('bus_id')->nullable();
             $table->unsignedBigInteger('admin_id');
             $table->boolean('active');
             $table->softDeletes();

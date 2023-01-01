@@ -52,7 +52,7 @@
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#database_booking_request">
-                            <div class="pull-left"><i class="ti-dropbox-alt"></i><span class="right-nav-text">Booking Request Database</span>
+
                             </div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -66,149 +66,147 @@
 
 
 
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#coupons">
+                            <div class="pull-left"><i class="ti-comment"></i><span class="right-nav-text">الكوبونات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="coupons" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('coupons.index')}}">قائمة الكوبونات</a></li>
+                        </ul>
+                    </li>
 
 
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#coupons">--}}
-{{--                            <div class="pull-left"><i class="ti-comment"></i><span class="right-nav-text">الكوبونات</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="coupons" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('coupons.index')}}">قائمة الكوبونات</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#packages">
+                            <div class="pull-left"><i class="ti-share"></i><span class="right-nav-text">الاشتراكات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="packages" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('packages.index')}}">قائمة الاشتراكات</a></li>
+                            <li> <a href="{{route('bookedPackages.index')}}">قائمة الاشتراكات المحجوزة</a></li>
+                        </ul>
+                    </li>
 
 
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#packages">--}}
-{{--                            <div class="pull-left"><i class="ti-share"></i><span class="right-nav-text">الاشتراكات</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="packages" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('packages.index')}}">قائمة الاشتراكات</a></li>--}}
-{{--                            <li> <a href="{{route('bookedPackages.index')}}">قائمة الاشتراكات المحجوزة</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#customerTypes">
+                            <div class="pull-left"><i class="ti-cloud"></i><span class="right-nav-text">تصنيف العملاء</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="customerTypes" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('customerTypes.index')}}">قائمة التصنيفات</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#millages">
+                            <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">الخصومات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="millages" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('millages.index')}}">قائمة الخصومات</a></li>
+                        </ul>
+                    </li>
 
 
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#customerTypes">--}}
-{{--                            <div class="pull-left"><i class="ti-cloud"></i><span class="right-nav-text">تصنيف العملاء</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="customerTypes" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('customerTypes.index')}}">قائمة التصنيفات</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#degrees">
+                            <div class="pull-left"><i class="ti-star"></i><span class="right-nav-text">درجات الرحلات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="degrees" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('degrees.index')}}">قائمة درجات الرحلات</a></li>
+                        </ul>
+                    </li>
 
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#millages">--}}
-{{--                            <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">الخصومات</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="millages" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('millages.index')}}">قائمة الخصومات</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#tripData">
+                            <div class="pull-left"><i class="ti-car"></i><span class="right-nav-text">الرحلات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="tripData" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('tripData.index')}}">قائمة الرحلات</a></li>
+                        </ul>
+                    </li>
 
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#runTrip">
+                            <div class="pull-left"><i class="ti-widget"></i><span class="right-nav-text">تشغيل الرحلة</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="runTrip" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('runTrips.index')}}">قائمة الرحلات المشغلة</a></li>
+                        </ul>
+                    </li>
 
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#degrees">--}}
-{{--                            <div class="pull-left"><i class="ti-star"></i><span class="right-nav-text">درجات الرحلات</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="degrees" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('degrees.index')}}">قائمة درجات الرحلات</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#tripData">--}}
-{{--                            <div class="pull-left"><i class="ti-car"></i><span class="right-nav-text">الرحلات</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="tripData" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('tripData.index')}}">قائمة الرحلات</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#runTrip">--}}
-{{--                            <div class="pull-left"><i class="ti-widget"></i><span class="right-nav-text">تشغيل الرحلة</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="runTrip" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('runTrips.index')}}">قائمة الرحلات المشغلة</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#bus_settings">--}}
-{{--                            <div class="pull-left"><i class="ti-settings"></i><span class="right-nav-text">إعدادات الحافلات</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="bus_settings" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('vendors.index')}}">قائمة الموردين</a> </li>--}}
-{{--                            <li> <a href="{{route('categories.index')}}">مكونات الحافلة</a> </li>--}}
-{{--                            <li> <a href="{{route('issues.index')}}">مشكلات مكونات الحافلة</a> </li>--}}
-{{--                            <li> <a href="{{route('efficiencyFuels.index')}}">الوقود والكفاءة الأوتوماتيكي</a> </li>--}}
-{{--                            <li> <a href="{{route('manuallyFuels.index')}}">استهلاك الوقود اليدوي</a> </li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#bus_settings">
+                            <div class="pull-left"><i class="ti-settings"></i><span class="right-nav-text">إعدادات الحافلات</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="bus_settings" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('vendors.index')}}">قائمة الموردين</a> </li>
+                            <li> <a href="{{route('categories.index')}}">مكونات الحافلة</a> </li>
+                            <li> <a href="{{route('issues.index')}}">مشكلات مكونات الحافلة</a> </li>
+                            <li> <a href="{{route('efficiencyFuels.index')}}">الوقود والكفاءة الأوتوماتيكي</a> </li>
+                            <li> <a href="{{route('manuallyFuels.index')}}">استهلاك الوقود اليدوي</a> </li>
+                        </ul>
+                    </li>
 
 
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#employees">--}}
-{{--                            <div class="pull-left"><i class="ti-user"></i><span class="right-nav-text">الموظفون</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="employees" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('getAllEmployees',3)}}">قائمة الموظفين</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#employees">
+                            <div class="pull-left"><i class="ti-user"></i><span class="right-nav-text">الموظفون</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="employees" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('getAllEmployees',3)}}">قائمة الموظفين</a></li>
+                        </ul>
+                    </li>
 
 
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#managers">--}}
-{{--                            <div class="pull-left"><i class="ti-user"></i><span class="right-nav-text">مديرو الفروع</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="managers" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('getAllManagers',2)}}">قائمة المديرين</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#managers">
+                            <div class="pull-left"><i class="ti-user"></i><span class="right-nav-text">مديرو الفروع</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="managers" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('getAllManagers',2)}}">قائمة المديرين</a></li>
+                        </ul>
+                    </li>
 
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#drivers">--}}
-{{--                            <div class="pull-left"><i class="ti-car"></i><span class="right-nav-text">السائقون</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="drivers" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('getAllDrivers')}}">قائمة السائقين</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#drivers">
+                            <div class="pull-left"><i class="ti-car"></i><span class="right-nav-text">السائقون</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="drivers" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('getAllDrivers')}}">قائمة السائقين</a></li>
+                        </ul>
+                    </li>
 
-{{--                    <li>--}}
-{{--                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#clients">--}}
-{{--                            <div class="pull-left"><i class="ti-user"></i><span class="right-nav-text">العملاء</span></div>--}}
-{{--                            <div class="pull-right"><i class="ti-plus"></i></div>--}}
-{{--                            <div class="clearfix"></div>--}}
-{{--                        </a>--}}
-{{--                        <ul id="clients" class="collapse" data-parent="#sidebarnav">--}}
-{{--                            <li> <a href="{{route('getAllUsers')}}">قائمة العملاء</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#clients">
+                            <div class="pull-left"><i class="ti-user"></i><span class="right-nav-text">العملاء</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="clients" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('getAllUsers')}}">قائمة العملاء</a></li>
+                        </ul>
+                    </li>
 
 
 
