@@ -48,6 +48,10 @@ use App\Http\Livewire\CompanyContractRoutes\CompanyContractRoutes;
 use App\Http\Livewire\CompanyContractRoutes\CompanyContractRoutesEdit;
 use App\Http\Livewire\SuplierContractRoutes\SuplierContractRoutes;
 use App\Http\Livewire\SuplierContractRoutes\SuplierContractRoutesEdit;
+use App\Http\Livewire\Penelties\Penelties;
+use App\Http\Livewire\Penelties\PeneltiesEdit;
+use App\Http\Livewire\Accidents\Accidents;
+use App\Http\Livewire\CarPayments\CarPayments;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -202,6 +206,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
       Route::get('suplier-contract-route',SuplierContractRoutes::class)->name('suplier-contract-route');
       Route::get('suplier-contract-route-edit/{id}',SuplierContractRoutesEdit::class)->name('suplier-contract-route-edit');
     
+    //   Penelty
+    Route::get('penelties',Penelties::class)->name('penelties');
+    Route::get('penelties-edit/{id}',PeneltiesEdit::class)->name('penelties');
+    // acciednt
+    Route::get('accidents',Accidents::class)->name('penelties');
+    // car_payments_table
+    Route::get('car-payments',CarPayments::class)->name('car-payments');
+
 
     // Reports
     Route::get('empty/seats/per/bus',[BusController::class,'emptySeatsPerBus'])->name('emptySeatsPerBus');

@@ -25,38 +25,23 @@
                             <div class="card-body">
                                 <form wire:submit.prevent='store_update'>
                                     <div class="card-body col-md-8 offset-2">
-                                        <div class="form-group row">
-                                            <div class="col-md-6 mb-5">
-                                                <label for="name" class="mr-sm-2">name</label>
-                                                <input id="name" type="text" name="name" class="form-control" wire:model.defer='name'>
-                                                @error('name')<span style="color: red"> {{ $message }}</span>@enderror
+                                        <div class="form-group row ">
+                                              <div class="col-md-12 mb-10">
+                                                <label for="bus_id" class="mr-sm-2">contracts</label>
+                                                <select name="bus_id" class="form-control mr-sm-2 p-2" id="" class="w-100 mb-10" wire:model.lazy='bus_id'>
+                                                    <option value="0"> </option>
+                                                    @if (isset($buses))
+                                                        @foreach ($buses as $bus)
+                                                            <option value="{{ $bus->id }}">{{ $bus->code }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                                @error('bus_id')<span style="color: red"> {{ $message }}</span>@enderror
                                             </div>
-                                            <div class="col-md-6 mb-5">
-                                                <label for="company" class="mr-sm-2">company</label>
-                                                <input id="company" type="text" class="form-control" wire:model='company_id'>
-                                                @if(($serches))
-                                                    @foreach($serches as $search)
-                                                    <a href="javascript:void(0);" wire:click='defin_company({{ $search->id }})'>
-                                                        <span class="form-text text-muted">{{ $search->name }}</span>
-                                                    </a>
-                                                    @endforeach
-                                                @endif
-                                                @error('company')<span style="color: red"> {{ $message }}</span>@enderror
-                                            </div>
-                                            <div class="col-md-5 mb-5">
-                                                <label for="start date" class="mr-sm-2">start date</label>
-                                                <input id="start_date" type="date" class="form-control" wire:model.lazy='start_date'>
-                                                @error('start_date')<span style="color: red"> {{ $message }}</span>@enderror
-                                            </div>
-                                            <div class="col-md-5 mb-5">
-                                                <label for="end_date" class="mr-sm-2">end_date</label>
-                                                <input id="end_date" type="date" class="form-control" wire:model.lazy='end_date'>
-                                                @error('end_date')<span style="color: red"> {{ $message }}</span>@enderror
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="number_of_routes" class="mr-sm-2">routes num</label>
-                                                <input id="number_of_routes" type="number"  class="form-control" wire:model.lazy='number_of_routes'>
-                                                @error('number_of_routes')<span style="color: red"> {{ $message }}</span>@enderror
+                                            <div class="col-md-12">
+                                                <label for="total_amount" class="mr-sm-2"> total amount</label>
+                                                <input id="total_amount" type="number"  class="form-control" wire:model.lazy='total_amount'>
+                                                @error('total_amount')<span style="color: red"> {{ $message }}</span>@enderror
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +76,7 @@
                             {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
                             </button> --}}
                             {{--  <a href="{{ url('contract-client-edit/0') }}" class="btn btn-primary mb-10">{{ 'add ' . $tittle }}</a>  --}}
-                            <a href="{{ url('company-contract-route') }}" class="btn btn-primary mb-10">company contract toute</a>
+                            {{--  <a href="{{ url('company-contract-route') }}" class="btn btn-primary mb-10">company contract toute</a>  --}}
 
                         <div class="table-responsive">
                             <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
@@ -99,11 +84,9 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>name </th>
-                                    <th>company </th>
-                                    <th>start date </th>
-                                    <th>end date </th>
-                                    <th> number of routes </th>
+                                    <th>bus </th>
+                                    <th>total amount </th>
+                                    <th>created at </th>
                                     <th>actions</th>
                                 </tr>
                                 </thead>
@@ -112,11 +95,9 @@
                                     @foreach ($results as $index=>$result)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>{{ @$result->name }}</td>
-                                            <td>{{ @$result->company->name }}</td>
-                                            <td>{{ @$result->start_date }}</td>
-                                            <td>{{ @$result->end_date }}</td>
-                                            <td>{{ @$result->number_of_routes }}</td>
+                                            <td>{{ @$result->bus->name }}</td>
+                                            <td>{{ @$result->total_amount }}</td>
+                                            <td>{{ @$result->created_at }}</td>
                                             <td style="width: 15%">
                                                 {{-- <button class="btn btn-primary"  title="تعديل"  wire:click='edit_form({{ $result->id }})'>
                                                     <i  class="fa fa-edit"></i>

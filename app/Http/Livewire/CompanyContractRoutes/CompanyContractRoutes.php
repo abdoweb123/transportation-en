@@ -8,11 +8,16 @@ use App\Models\User;
 use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\ContractClient;
+use App\Models\Route;
+use App\Models\BusType;
+use App\Models\StaticTable;
 
 class CompanyContractRoutes extends Component
 {
     use WithFileUploads;
     public $ids,$showIndex,$showForm,$type;
+    public $contracts_id,$company_id,$route_id,$bus_type_id,$service_type_id,$service_value;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
@@ -24,9 +29,12 @@ class CompanyContractRoutes extends Component
     public function render()
     {
         $results=CpmanyContractRoute::paginate();
-        return view('livewire.company-contract-route.company-contract-route',[
-            'results'=>$results,
-        ])->extends('layouts.master');
+        $contracts=ContractClient::select('id','name')->get();
+        $companies=StaticTable ::select('id','name')->whereType('company')->get();
+        $routes=Route::select('id','name')->get();
+        $bus_types=BusType::select('id','name')->get();
+        $service_types=StaticTable::select('id','name')->whereType('service')->get();
+        return view('livewire.company-contract-route.company-contract-route',compact('routes','bus_types','service_types','contracts','companies','results'))->extends('layouts.master');
     }
   
     public function edit_form($id)
@@ -81,6 +89,52 @@ class CompanyContractRoutes extends Component
         $data->delete();
         session()->flash('success_message','deleted successfully');
         $this->emit('remove_modal');
+    }
+    public function store_update()
+    {
+        $validate=$this->validate([
+            'contracts_id'=>'required',
+            'company_id'=>'required',
+            'route_id'=>'required',
+            'bus_type_id'=>'required',
+            'service_type_id'=>'required'
+        ]);
+        if($this->ids != null){
+            $data=CpmanyContractRoute::find($this->ids);
+        }else{
+            $data= new CpmanyContractRoute();
+            $data->operations_number=CpmanyContractRoute::count()+1;
+        }
+        $data->contracts_id=$this->contracts_id;
+        $data->company_id=$this->company_id;
+        $data->route_id=$this->route_id;
+        $data->bus_type_id=$this->bus_type_id;
+        $data->service_type_id=$this->service_type_id;
+        $data->service_value=$this->service_value;
+        $check=$data->save();
+
+        if ($check) {
+            $this->resetInput();
+            $this->emit('toggle');
+            // return redirect()->to('company-contract-route');
+        }
+    }
+    
+    public function get_object($edit_object)
+    {
+        $this->ids=$edit_object['id'];
+        $this->contracts_id=$edit_object['contracts_id'];
+    }
+
+    public function resetInput()
+    {
+        $this->ids=null;
+        $this->contracts_id=null;
+        $this->company_id=null;
+        $this->route_id=null;
+        $this->bus_type_id=null;
+        $this->service_type_id=null;
+        $this->service_value=null;
     }
     public function active_ms($id)
     {
