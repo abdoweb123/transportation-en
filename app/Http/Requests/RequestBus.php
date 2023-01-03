@@ -18,6 +18,7 @@ class RequestBus extends FormRequest
         return [
             'code'=>'required',
             'busType_id'=>'required',
+            'gas_type_id'=>'required',
         ];
     }
 
@@ -26,6 +27,7 @@ class RequestBus extends FormRequest
         return [
           'code.required'=>'كود الحافلة مطلوب',
           'busType_id.required'=>'اسم الأسطول مطلوب',
+          'gas_type_id.required'=>' نوع الجاز مطلوب',
         ];
     }
 }

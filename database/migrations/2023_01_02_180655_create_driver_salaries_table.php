@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarPaymentDatesTable extends Migration
+class CreateDriverSalariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateCarPaymentDatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('car_payment_dates', function (Blueprint $table) {
+        Schema::create('driver_salaries', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('car_payment_id'); 
-            $table->string('date');
-            $table->double('amount');
-            $table->double('paid');
+            $table->unsignedBigInteger('driver_id'); 
+            $table->integer('payment_type'); 
+            $table->unsignedBigInteger('bus_type_id'); 
+            $table->unsignedBigInteger('route_id'); 
             $table->timestamps();
-            $table->foreign('car_payment_id')->references('id')->on('car_payments')
+            $table->foreign('driver_id')->references('id')->on('drivers')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -32,6 +32,6 @@ class CreateCarPaymentDatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('car_payment_dates');
+        Schema::dropIfExists('driver_salaries');
     }
 }

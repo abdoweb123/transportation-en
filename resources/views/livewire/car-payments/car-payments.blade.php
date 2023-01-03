@@ -95,13 +95,14 @@
                                     @foreach ($results as $index=>$result)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>{{ @$result->bus->name }}</td>
+                                            <td>{{ @$result->bus->code }}</td>
                                             <td>{{ @$result->total_amount }}</td>
                                             <td>{{ @$result->created_at }}</td>
-                                            <td style="width: 15%">
+                                            <td style="width: 30%">
                                                 {{-- <button class="btn btn-primary"  title="تعديل"  wire:click='edit_form({{ $result->id }})'>
-                                                    <i  class="fa fa-edit"></i>
+                                                     <i  class="fa fa-edit"></i>
                                                 </button> --}}
+                                                <a href="{{ url('car-payment-dates/'.$result->id) }}" class="btn btn-info"  title="dates">add dates</a>
                                                 <a href="{{ url('/contract-client-edit/'.$result->id) }}" class="btn btn-primary"  title="تعديل"><i  class="fa fa-edit"></i></a>
                                                 <button class="btn btn-danger" wire:click='make_delete({{ $result->id }})' title="حذف">
                                                     <i class="fa fa-trash"></i>
@@ -119,7 +120,33 @@
                     </div>
                 </div>
         </div>
-
+<div wire:ignore.self class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
+                id="delete">
+                حذف غرفه
+            </h5>
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form wire:submit.prevent='delete_at'>
+                <p> هل أنت متأكد من عملية الحذف ؟</p>
+                <p> سيتم النقل  إلى سلة المهملات</p>
+                {{-- <input id="id" type="hidden" name="id" class="form-control""> --}}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
+                    <button type="submit" class="btn btn-danger" >حذف</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
     </div>
     @section('js')
         @toastr_js

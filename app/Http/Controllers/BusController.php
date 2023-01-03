@@ -10,6 +10,7 @@ use App\Models\EmployeeRunTripBus;
 use App\Models\MyEmployee;
 use App\Models\RunTrip;
 use App\Models\Seat;
+use App\Models\StaticTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,8 +21,9 @@ class BusController extends Controller
     public function index()
     {
         $buses = Bus::latest()->paginate(10);
-        $busTypes = BusType::all();
-        return view('pages.Buses.index',compact('buses','busTypes'));
+        $busTypes = BusType::select('id','name')->get();
+        $gas_types = StaticTable::select('id','name')->whereType('gas_type')->get();
+        return view('pages.Buses.index',compact('buses','busTypes','gas_types'));
     }
 
 
@@ -33,6 +35,7 @@ class BusController extends Controller
             'code'=>$request->code,
             'admin_id'=>auth('admin')->id(),
             'busType_id'=>$request->busType_id,
+            'gas_type_id'=>$request->gas_type_id,
         ]);
         return redirect()->route('buses.index')->with('alert-success','تم حفظ البيانات بنجاح');
     }
@@ -46,6 +49,7 @@ class BusController extends Controller
             'code'=>$request->code,
             'admin_id'=>auth('admin')->id(),
             'busType_id'=>$request->busType_id,
+            'gas_type_id'=>$request->gas_type_id,
         ]);
         return redirect()->route('buses.index')->with('alert-info','تم تعديل البيانات بنجاح');
     }

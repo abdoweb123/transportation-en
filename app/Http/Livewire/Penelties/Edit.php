@@ -11,7 +11,7 @@ use App\Models\StaticTable;
 use Livewire\Component;
 use App\Models\Penelty;
 use App\Models\Driver;
-class PeneltiesEdit extends Component
+class Edit extends Component
 {
     use WithFileUploads;
     public $ids,$description,$driver_id,$penelty_type_id,$date,$amount,$driver_pay,$company_pay;
@@ -39,7 +39,7 @@ class PeneltiesEdit extends Component
     {
         $penelty_types=StaticTable::select('id','name')->where('type','penalty_type')->get();
         $drivers=Driver::select('id','name')->get();
-        return view('livewire.penelties.penelties-edit',compact('penelty_types','drivers'))->extends('layouts.master');
+        return view('livewire.penelties.edit',compact('penelty_types','drivers'))->extends('layouts.master');
     }
 
     public function store_update()

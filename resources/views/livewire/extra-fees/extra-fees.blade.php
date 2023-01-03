@@ -25,13 +25,11 @@
                         @endforeach
 
                         <br><br>
-
                         <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
                             {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
                             </button>
-                            {{--  <a href="{{ url('penelties-edit/0') }}" class="btn btn-primary mb-10">{{ 'add ' . $tittle }}</a>  --}}
 @if ($showForm == true)
-    <livewire:penelties.edit>
+    <livewire:extra-fees.edit>
 @else
                         <div class="table-responsive">
                             <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
@@ -39,14 +37,12 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Description </th>
-                                    <th>Penelty Type </th>
-                                    <th> Driver </th>
-                                    <th> date </th>
-                                    <th>Amount</th>
-                                    <th>Driver Pay</th>
-                                    <th>Company Pay</th>
-                                    <th> action</th>
+                                    <th>description </th>
+                                    <th>type</th>
+                                    <th>amount </th>
+                                    <th>driver </th>
+                                    <th>bus </th>
+                                    <th>actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -55,17 +51,14 @@
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ @$result->description }}</td>
-                                            <td>{{ @$result->penelty_type->name }}</td>
-                                            <td>{{ @$result->driver->name }}</td>
-                                            <td>{{ @$result->date }}</td>
+                                            <td>{{ @$result->type->name }}</td>
                                             <td>{{ @$result->amount }}</td>
-                                            <td>{{ @$result->driver_pay }}</td>
-                                            <td>{{ @$result->company_pay }}</td>
+                                            <td>{{ @$result->driver->name }}</td>
+                                            <td>{{ @$result->bus->code }}</td>
                                             <td style="width: 15%">
                                                 <button class="btn btn-primary"  title="تعديل"  wire:click='edit_form({{ $result->id }})'>
                                                     <i  class="fa fa-edit"></i>
                                                 </button>
-                                                {{--  <a href="{{ url('/penelties-edit/'.$result->id) }}" class="btn btn-primary"  title="تعديل"><i  class="fa fa-edit"></i></a>  --}}
                                                 <button class="btn btn-danger" wire:click='make_delete({{ $result->id }})' title="حذف">
                                                     <i class="fa fa-trash"></i>
                                                 </button >
@@ -79,11 +72,12 @@
                                 {{$results->links('pagination::bootstrap-4')}}
                             </div>
                         </div>
-@endif
                     </div>
                 </div>
-        </div>
-
+    </div>
+    <!--  page of add_modal_city -->
+    @include('livewire.extra-fees.form')
+@endif
     </div>
     @section('js')
         @toastr_js

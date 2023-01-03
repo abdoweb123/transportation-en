@@ -30,6 +30,10 @@ class ContractClients extends Component
             'results'=>$results,
         ])->extends('layouts.master');
     }
+    public function togglee()
+    {
+        $this->emit('toggle');
+    }
 
     public function defin_company($id)
     {

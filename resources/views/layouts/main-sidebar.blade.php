@@ -23,10 +23,18 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="Fleet" class="collapse" data-parent="#sidebarnav">
-
+                            <li> <a href="{{route('busTypes.index')}}"><i class='fas fa-bus-alt'></i> Buses Type List</a></li>
+                            <li> <a href="{{route('buses.index')}}"><i class='fas fa-bus'></i>Buses List</a></li>
+                            <li> <a href="{{route('seats.create')}}"><i class='fas fa-business-time'></i> Add Design to bus</a></li>
                             <li> <a href="{{url('static-table/penalty_type')}}"><i class="fab fa-penny-arcade"></i>  Penalty Type</a> </li>
+                            <li> <a href="{{route('getAllDrivers')}}"><i class='fas fa-screwdriver'></i> drivers </a></li>
                             <li> <a href="{{url('penelties')}}"><i class="fab fa-paypal"></i>penelties</a> </li>
                             <li> <a href="{{url('accidents')}}"><i class="fab fa-accessible-icon"></i>  accidents</a> </li>
+                            <li> <a href="{{url('driver-salary')}}"><i class="fas fa-screwdriver"></i>  driver salary</a> </li>
+                            <li> <a href="{{url('gases')}}"><i class="fas fa-gas-pump"></i> gases</a> </li>
+                            <li> <a href="{{url('static-table/gas_type')}}"><i class="fas fa-glass-martini-alt"></i>gas type</a> </li>
+                            <li> <a href="{{url('static-table/extra_fees_type')}}"><i class="fas fa-external-link-square-alt"></i>Extra fees types</a> </li>
+                            <li> <a href="{{url('extra-fees')}}"><i class="fas fa-code-branch"></i>Extra fees</a> </li>
 
                         </ul>
                     </li>
@@ -57,10 +65,8 @@
                             <li> <a href="{{url('suplier-contract-route')}}">suplier contract route</a></li>
                             <li> <a href="{{url('static-table/service')}}">services type</a></li>
 
-                            <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Buses</li>
-                            <li> <a href="{{route('busTypes.index')}}">Buses Type List</a></li>
-                            <li> <a href="{{route('buses.index')}}">Buses List</a></li>
-                            <li> <a href="{{route('seats.create')}}">Add Design to bus</a></li>
+                            {{--  <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Buses</li>  --}}
+                           
                         </ul>
                     </li>
 
@@ -219,7 +225,7 @@
                             <li> <a href="{{route('getAllManagers',2)}}">قائمة المديرين</a></li>
                         </ul>
                     </li>  --}}
-
+{{--  
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#drivers">
                             <div class="pull-left"><i class="ti-car"></i><span class="right-nav-text">drivers</span></div>
@@ -227,9 +233,8 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="drivers" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('getAllDrivers')}}">drivers </a></li>
                         </ul>
-                    </li>
+                    </li>  --}}
 
                     {{--  <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#clients">
