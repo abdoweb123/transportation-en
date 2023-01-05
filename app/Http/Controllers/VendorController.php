@@ -60,5 +60,5 @@ class VendorController extends Controller
     }
 
 
-    
+
 } //end of class
