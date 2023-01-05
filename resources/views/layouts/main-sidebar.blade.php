@@ -15,6 +15,29 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#Fleet">
+                            <div class="pull-left"><i class="fab fa-mastodon"></i><span class="right-nav-text">Fleet system management</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="Fleet" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('busTypes.index')}}"><i class='fas fa-bus-alt'></i> Buses Type List</a></li>
+                            <li> <a href="{{route('buses.index')}}"><i class='fas fa-bus'></i>Buses List</a></li>
+                            <li> <a href="{{route('seats.create')}}"><i class='fas fa-business-time'></i> Add Design to bus</a></li>
+                            <li> <a href="{{url('static-table/penalty_type')}}"><i class="fab fa-penny-arcade"></i>  Penalty Type</a> </li>
+                            <li> <a href="{{route('getAllDrivers')}}"><i class='fas fa-screwdriver'></i> drivers </a></li>
+                            <li> <a href="{{url('penelties')}}"><i class="fab fa-paypal"></i>penelties</a> </li>
+                            <li> <a href="{{url('accidents')}}"><i class="fab fa-accessible-icon"></i>  accidents</a> </li>
+                            <li> <a href="{{url('driver-salary')}}"><i class="fas fa-screwdriver"></i>  driver salary</a> </li>
+                            <li> <a href="{{url('gases')}}"><i class="fas fa-gas-pump"></i> gases</a> </li>
+                            <li> <a href="{{url('static-table/gas_type')}}"><i class="fas fa-glass-martini-alt"></i>gas type</a> </li>
+                            <li> <a href="{{url('static-table/extra_fees_type')}}"><i class="fas fa-external-link-square-alt"></i>Extra fees types</a> </li>
+                            <li> <a href="{{url('extra-fees')}}"><i class="fas fa-code-branch"></i>Extra fees</a> </li>
+
+                        </ul>
+                    </li>
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#database">
@@ -42,17 +65,15 @@
                             <li> <a href="{{url('suplier-contract-route')}}">suplier contract route</a></li>
                             <li> <a href="{{url('static-table/service')}}">services type</a></li>
 
-                            <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Buses</li>
-                            <li> <a href="{{route('busTypes.index')}}">Buses Type List</a></li>
-                            <li> <a href="{{route('buses.index')}}">Buses List</a></li>
-                            <li> <a href="{{route('seats.create')}}">Add Design to bus</a></li>
+                            {{--  <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Buses</li>  --}}
+                           
                         </ul>
                     </li>
 
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#database_booking_request">
-                            <div class="pull-left"><i class="ti-dropbox-alt"></i><span class="right-nav-text">Booking Request Database</span>
+                            {{--  <div class="pull-left"><i class="ti-dropbox-alt"></i><span class="right-nav-text">Booking Request Database</span>  --}}
                             <div class="pull-left"><i class="ti-ticket"></i><span class="right-nav-text">Booking Request Database</span>
                             </div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
@@ -85,7 +106,7 @@
 
 
 
-                    <li>
+                    {{--  <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#coupons">
                             <div class="pull-left"><i class="ti-comment"></i><span class="right-nav-text">الكوبونات</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
@@ -203,20 +224,19 @@
                         <ul id="managers" class="collapse" data-parent="#sidebarnav">
                             <li> <a href="{{route('getAllManagers',2)}}">قائمة المديرين</a></li>
                         </ul>
-                    </li>
-
+                    </li>  --}}
+{{--  
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#drivers">
-                            <div class="pull-left"><i class="ti-car"></i><span class="right-nav-text">السائقون</span></div>
+                            <div class="pull-left"><i class="ti-car"></i><span class="right-nav-text">drivers</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="drivers" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('getAllDrivers')}}">قائمة السائقين</a></li>
                         </ul>
-                    </li>
+                    </li>  --}}
 
-                    <li>
+                    {{--  <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#clients">
                             <div class="pull-left"><i class="ti-user"></i><span class="right-nav-text">العملاء</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
@@ -225,7 +245,7 @@
                         <ul id="clients" class="collapse" data-parent="#sidebarnav">
                             <li> <a href="{{route('getAllUsers')}}">قائمة العملاء</a></li>
                         </ul>
-                    </li>
+                    </li>  --}}
 
 
 

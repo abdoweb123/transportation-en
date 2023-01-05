@@ -48,6 +48,14 @@ use App\Http\Livewire\CompanyContractRoutes\CompanyContractRoutes;
 use App\Http\Livewire\CompanyContractRoutes\CompanyContractRoutesEdit;
 use App\Http\Livewire\SuplierContractRoutes\SuplierContractRoutes;
 use App\Http\Livewire\SuplierContractRoutes\SuplierContractRoutesEdit;
+use App\Http\Livewire\Penelties\Penelties;
+// use App\Http\Livewire\Penelties\PeneltiesEdit;
+use App\Http\Livewire\Accidents\Accidents;
+use App\Http\Livewire\CarPayments\CarPayments;
+use App\Http\Livewire\CarPaymentDates\CarPaymentDates;
+use App\Http\Livewire\DriverSalaries\DriverSalaries;
+use App\Http\Livewire\Gases\Gases;
+use App\Http\Livewire\ExtraFees\ExtraFees;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -126,7 +134,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('busTypes','BusTypeController')->except('create','edit','show');
     Route::get('show/busType/seats/{id}',[BusTypeController::class,'showBusTypeSeats'])->name('show.busType.seats');
 
-    Route::resource('buses','BusController');
+    Route::resource('buses',BusController::class);
     Route::get('show/bus/seats/{id}',[BusController::class,'showBusSeats'])->name('show.bus.seats');
 
     Route::resource('seats','SeatController')->except('update','edit');
@@ -182,7 +190,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     Route::get('add/bus/to/booking/request',[RouteStationController::class,'operation2'])->name('add_bus.to.booking_request');
 
-    Route::resource('bookingRequests','BookingRequestController')->except('edit','show','create');
+    Route::resource('bookingRequests',BookingRequestController::class)->except('edit','show','create');
     Route::post('import/excel',[MyEmployeeController::class,'import'])->name('import.excelEmployee');
     Route::get('store/employees/data',[RouteStationController::class,'operation'])->name('store.employees.data');
     Route::get('bookingRequests/data',[BookingRequestController::class,'bookingRequestsData'])->name('bookingRequestsData');
@@ -202,6 +210,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
       Route::get('suplier-contract-route',SuplierContractRoutes::class)->name('suplier-contract-route');
       Route::get('suplier-contract-route-edit/{id}',SuplierContractRoutesEdit::class)->name('suplier-contract-route-edit');
     
+    //   Penelty
+    Route::get('penelties',Penelties::class)->name('penelties');
+    // Route::get('penelties-edit/{id}',PeneltiesEdit::class)->name('enelties-edit');
+    // acciednt
+    Route::get('accidents',Accidents::class)->name('accidents');
+    // car_payments_table
+    Route::get('car-payments',CarPayments::class)->name('car-payment');
+    Route::get('car-payment-dates/{car_payment_id}',CarPaymentDates::class)->name('car-payment-dates');
+    // driver sallary
+    Route::get('driver-salary',DriverSalaries::class)->name('driver-salary');
+
+    Route::get('gases',Gases::class)->name('gases');
+    Route::get('extra-fees',ExtraFees::class)->name('extra-fees');
+
 
     // Reports
     Route::get('empty/seats/per/bus',[BusController::class,'emptySeatsPerBus'])->name('emptySeatsPerBus');

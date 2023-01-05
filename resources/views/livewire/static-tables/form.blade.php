@@ -4,7 +4,7 @@
         <div class="modal-header">
             <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                 id="delete">
-                حذف غرفه
+                حذف 
             </h5>
             <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close">
@@ -14,7 +14,7 @@
         <div class="modal-body">
             <form wire:submit.prevent='delete_at'>
                 <p> هل أنت متأكد من عملية الحذف ؟</p>
-                <p> سيتم نقل عامل التوصيل إلى سلة المهملات</p>
+                <p> سيتم نقل إلى سلة المهملات</p>
                 {{-- <input id="id" type="hidden" name="id" class="form-control""> --}}
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>

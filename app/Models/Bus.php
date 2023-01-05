@@ -10,7 +10,7 @@ class Bus extends Model
 {
     use HasFactory , SoftDeletes;
 
-    protected $fillable = ['code', 'status', 'busType_id', 'admin_id', 'driver_id'];
+    protected $fillable = ['code', 'status', 'busType_id', 'admin_id', 'driver_id','gas_type_id'];
 
 
 

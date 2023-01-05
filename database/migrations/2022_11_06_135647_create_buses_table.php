@@ -18,6 +18,7 @@ class CreateBusesTable extends Migration
             $table->string('code');
             $table->integer('status')->default(0);
             $table->unsignedBigInteger('busType_id');
+            $table->unsignedBigInteger('gas_type_id');
             $table->unsignedBigInteger('admin_id');
             $table->unsignedBigInteger('driver_id')->nullable();
             $table->softDeletes();

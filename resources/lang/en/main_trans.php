@@ -22,4 +22,12 @@ return [
     'close' => 'Close',
     'submit' => 'Submit',
     'processes' => 'Processes',
+    'payment_type'=>[
+        '1'=> 'shift',
+        '2'=> 'D2D',
+        '3'=> 'Routation',
+        '4'=> 'day',
+        '5'=> 'week', 
+        '6'=> 'month',
+    ]
 ];

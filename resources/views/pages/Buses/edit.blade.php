@@ -33,6 +33,15 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col">
+                            <label for="Classroom_id">gas type : <span class="text-danger">*</span></label>
+                            <select class="form-control mr-sm-2 p-2"  name="gas_type_id">
+                                <option selected disabled>--choose --</option>
+                                @foreach($gas_types as $gas_type)
+                                    <option value="{{$gas_type->id}}" {{ $gas_type->id == $item->gas_type_id ? 'selected' : ''  }}>{{$gas_type->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <br><br>
 

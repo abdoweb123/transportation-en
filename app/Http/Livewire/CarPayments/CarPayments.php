@@ -1,77 +1,51 @@
 <?php
 
-namespace App\Http\Livewire\ContractClients;
+namespace App\Http\Livewire\CarPayments;
 
-use App\Models\ContractClient;
+use App\Models\CarPayment;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\Models\StaticTable;
+use App\Models\Bus;
 
-class ContractClients extends Component
+class CarPayments extends Component
 {
     use WithFileUploads;
     public $ids,$showIndex,$showForm,$type;
-    public $name,$company_id,$start_date,$end_date,$number_of_routes,$serches,$chk;
+    public $bus_id,$total_amount;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
     public function mount()
     {
-        $this->tittle='Contract Clients';
+        $this->tittle='Car Payments';
         $this->showForm=false;
     }
     public function render()
     {
-        $results=ContractClient::with('company')->paginate();
-        return view('livewire.contract-clients.contract-clients',[
+        $buses=Bus::select('id','code')->get();
+        $results=CarPayment::with('bus')->latest()->paginate();
+        return view('livewire.car-payments.car-payments',[
             'results'=>$results,
+            'buses'=>$buses,
         ])->extends('layouts.master');
-    }
-    public function togglee()
-    {
-        $this->emit('toggle');
-    }
-
-    public function defin_company($id)
-    {
-        $comp_defin=StaticTable::find($id);
-        $this->company_id=$comp_defin->name;
-        $this->serches=null;
-        $this->chk=false;
     }
 
     public function store_update()
     {
         $validate=$this->validate([
-            'name'=>'required',
-            'start_date'=>'required',
-            'end_date'=>'required',
-            'number_of_routes'=>'required'
+            'bus_id'=>'required',
+            'total_amount'=>'required',
         ]);
         if($this->ids != null){
-            $data=ContractClient::find($this->ids);
+            $data=CarPayment::find($this->ids);
         }else{
-            $data= new ContractClient();
+            $data= new CarPayment();
         }
-        $company=StaticTable::where('name','like','%'.$this->company_id.'%')->first();
-        if ($company != null) {
-            $company_id_get=$company->id;
-        }else{
-            $new_company=new StaticTable();
-            $new_company->type='company';
-            $new_company->name=$this->company_id;
-            $new_company->save();
-            $company_id_get=$new_company->id;
-        }
-
-        $data->name=$this->name;
-        $data->company_id=$company_id_get;
-        $data->start_date=$this->start_date;
-        $data->end_date=$this->end_date;
-        $data->number_of_routes=$this->number_of_routes;
+        $data->bus_id=$this->bus_id;
+        $data->total_amount=$this->total_amount;
         $check=$data->save();
 
         if ($check) {
@@ -84,7 +58,7 @@ class ContractClients extends Component
     public function edit_form($id)
     {
         $this->showForm=!$this->showForm;
-        $edit_object= ContractClient::whereId($id)->first();
+        $edit_object= CarPayment::whereId($id)->first();
         if($edit_object)
         {
             $this->emit('getObject',$edit_object);
@@ -92,7 +66,7 @@ class ContractClients extends Component
     }
     public function arrived($id)
     {
-        $data=ContractClient::find($id);
+        $data=CarPayment::find($id);
         if($data->arrived == "Y"){
             $data->arrived="N";
         }else{
@@ -111,7 +85,7 @@ class ContractClients extends Component
     }
     // public function delete_at()
     // {
-    //     $data=ContractClient::find($this->user_delete_id);
+    //     $data=CarPayment::find($this->user_delete_id);
     //     dd('good');
     //     if ($data->deleted_at != null) {
     //         $data->deleted_at= null;
@@ -124,7 +98,7 @@ class ContractClients extends Component
     // }
     public function delete_at()
     {
-        $data=ContractClient::find($this->user_delete_id);
+        $data=CarPayment::find($this->user_delete_id);
         // if ($data->deleted_at != null) {
         //     $data->deleted_at= null;
         // }else{
@@ -136,7 +110,7 @@ class ContractClients extends Component
     }
     public function active_ms($id)
     {
-        $data=ContractClient::find($id);
+        $data=CarPayment::find($id);
         if($data->is_active == "Y"){
             $data->is_active="N";
         }else{
@@ -147,11 +121,7 @@ class ContractClients extends Component
     public function resetInput()
     {
         $this->ids=null;
-        $this->name=null;
-        $this->company_id=null;
-        $this->start_date=null;
-        $this->end_date=null;
-        $this->number_of_routes=null;
-        $this->end_date=null;
+        $this->bus_id=null;
+        $this->total_amount=null;
     }
 }
