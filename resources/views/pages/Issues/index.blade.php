@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    قائمة مشكلات مكونات الحافلة
+   Bus Categories Issues
 @stop
 
 <style>
@@ -13,7 +13,7 @@
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    قائمة مشكلات مكونات الحافلة
+   Bus Categories Issues
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -45,7 +45,7 @@
 
                     {{--  button of add_modal_city  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        إضافة مشكلة للمكون
+                      Add Issue to Category
                     </button>
                     <br><br>
 
@@ -55,13 +55,13 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>اسم المكون</th>
-                                <th>العنوان</th>
-                                <th>الأولوية</th>
-                                <th>النوع</th>
-                                <th>الوصف</th>
-                                <th>الحالة</th>
-                                <th>مدخل البيانات</th>
+                                <th>Category Name</th>
+                                <th>Title</th>
+                                <th>Priority</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Entered By</th>
                                 <th>{{ trans('main_trans.processes') }}</th>
                             </tr>
                             </thead>
@@ -72,9 +72,9 @@
                                     <td>@isset($item->category->name)  {{ $item->category->name }} @else لا يوجد @endisset</td>
                                     <td>{{ $item->title  }}</td>
                                     <td><span style="@if($item->priority == 1 || $item->priority == 2) background-color:green; color:white; @elseif($item->priority == 3 || $item->priority == 4) background-color:yellow; @else background-color:red; color:white; @endif padding: 5px 20px;">{{ $item->priority }}</span></td>
-                                    <td>{{ $item->type == 1 ? 'تجديد' : 'تغيير'  }}</td>
+                                    <td>{{ $item->type == 1 ? 'Renewal' : 'Change'  }}</td>
                                     <td>{{ $item->description  }}</td>
-                                    <td>{{$item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
+                                    <td>{{$item->active == 1 ? 'Active' : 'Un active'}}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
                                     <td>
                                         <button type="button" class="process" style="cursor:pointer; background-color:white; border-radius:3px; border: 1px solid #dddd;"

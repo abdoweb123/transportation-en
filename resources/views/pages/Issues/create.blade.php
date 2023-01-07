@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
-                    إضافة مشكلة للمكون
+                    Add Issue to Category
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -17,22 +17,22 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">اسم المكون :</label>
+                            <label for="name_ar" class="mr-sm-2">Category Name :</label>
                             <select class="form-control" name="category_id">
-                                <option value=" " selected>-- اختر --</option>
+                                <option value=" " selected>-- Choose --</option>
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">العنوان :</label>
+                            <label for="name_ar" class="mr-sm-2">Title :</label>
                             <input type="text" name="title" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2 d-block">الأولوية :</label>
+                            <label for="name_ar" class="mr-sm-2 d-block">Priority :</label>
                             <div class="row">
                                 @for($i=1; $i<=5; $i++)
                                      <div class="col-4 mb-2">
@@ -44,25 +44,24 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">النوع :</label>
+                            <label for="name_ar" class="mr-sm-2">Type :</label>
                             <select name="type" class="form-control">
-                                <option value=" " selected>-- اختر --</option>
-                                <option value="1">تجديد</option>
-                                <option value="2">تغيير</option>
+                                <option value=" " selected>-- Choose --</option>
+                                <option value="1">Renewal</option>
+                                <option value="2">Change</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">الوصف :</label>
+                            <label for="name_ar" class="mr-sm-2">Description :</label>
                             <textarea name="description" class="form-control"></textarea>
                         </div>
                     </div>
                     <br><br>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">{{ trans('main_trans.close') }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main_trans.close') }}</button>
                         <button type="submit" class="btn btn-success">{{ trans('main_trans.submit') }}</button>
                     </div>
                 </form>

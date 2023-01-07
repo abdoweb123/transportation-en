@@ -1,12 +1,22 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-    Bus Categories List
+    Reminder History List
 @stop
 
 <style>
+    .process{border:none; border-radius:3px; padding:3px 5px;}
     select{padding:10px !important;}
-    button{padding: 5px 3px 0 4px; margin-left: 5px !important;}
+    .process
+    {
+        cursor:pointer;
+        background-color:white;
+        border-radius:3px;
+        border: 1px solid #dddd;
+        padding: 5px 3px 0 4px;
+        margin-left: 2px;
+    }
+    i{padding: 0 0 3px;}
 </style>
 
 
@@ -14,7 +24,7 @@
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    Bus Categories List
+   Reminder History List
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -38,16 +48,12 @@
 
                     @foreach(['danger','warning','success','info'] as $msg)
                         @if(Session::has('alert-'.$msg))
-                            <div class="alert alert-{{$msg}}">
+                            <div class="alert alert-{{$msg}} messages">
                                 {{Session::get('alert-'.$msg)}}
                             </div>
                         @endif
                     @endforeach
 
-                    {{--  button of add_modal_city  --}}
-                    <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        Add Category
-                    </button>
                     <br><br>
 
                     <div class="table-responsive">
@@ -56,49 +62,46 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Status</th>
+                                <th>Reminder Id</th>
+                                <th>Vendor Name</th>
+                                <th>Total Paid</th>
+                                <th>Cost Per Day</th>
+                                <th>Done</th>
                                 <th>Entered By</th>
-                                <th>{{ trans('main_trans.processes') }}</th>
+                                <th>Status</th>
+                                <th>Processes</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($categories as $item)
+                            @foreach ($reminderHistory as $item)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $item->name  }}</td>
-                                    <td>{{$item->active == 1 ? 'Active' : 'Un active'}}</td>
+                                    <td>@isset($item->reminder->id) <a href="{{route('getReminder',$item->reminder->id)}}" style="color:red">{{ $item->reminder->id }}</a> @else _____ @endisset</td>
+                                    <td>@isset($item->vendor->name)  {{ $item->vendor->name }} @else _____ @endisset</td>
+                                    <td>{{ $item->total_paid }}</td>
+                                    <td>{{ $item->cost_per_day  }}</td>
+                                    <td>{{$item->done == 1 ? 'Done' : '_____'}}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
+                                    <td>{{$item->active == 1 ? 'active' : 'un active'}}</td>
                                     <td>
-                                        <button type="button" class="process" style="cursor:pointer; background-color:white; border-radius:3px; border: 1px solid #dddd;"
-                                                data-toggle="modal" data-target="#edit{{ $item->id }}" title="تعديل">
-                                            <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></button>
-
-                                        <button type="button" class="process" style="cursor:pointer; background-color:white; border-radius:3px; border: 1px solid #dddd;"
-                                                data-toggle="modal" data-target="#delete{{ $item->id }}" title="حذف">
-                                            <i style="color:red; font-size:18px;" class="fa fa-trash"></i></button>
+                                        <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
+                                           data-target="#delete{{ $item->id }}" title="{{ trans('main_trans.delete') }}">
+                                           <i style="color:red; font-size:18px" class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
 
-                                <!--  page of edit_modal_city -->
-                                @include('pages.Categories.edit')
-
-                                <!--  page of delete_modal_city -->
-                                @include('pages.Categories.delete')
+                                <!--  page of delete_modal_office -->
+                                @include('pages.ReminderHistory.delete')
 
                             @endforeach
-                            </tbody>
                         </table>
 
-                        <div> {{$categories->links('pagination::bootstrap-4')}}</div>
+{{--                        <div> {{$offices->links('pagination::bootstrap-4')}}</div>--}}
+
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <!--  page of add_modal_city -->
-        @include('pages.Categories.create')
     </div>
 
 
@@ -110,7 +113,7 @@
 
     <script>
         $(document).ready(function(){
-            $(".alert").delay(5000).slideUp(300);
+            $(".messages").delay(5000).slideUp(300);
         });
     </script>
 @endsection

@@ -20,6 +20,12 @@ class Vendor extends Model
         return $this->belongsTo(Admin::class,'admin_id');
     }
 
+
+    public function reminderHistories()
+    {
+        return $this->hasMany(ReminderHistory::class,'vendor_id');
+    }
+
     /*** end relations ***/
 
 

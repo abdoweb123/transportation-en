@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Issue extends Model
+class ReminderHistory extends Model
 {
     use HasFactory , SoftDeletes;
 
-    protected $fillable = ['category_id', 'title', 'description', 'priority', 'type', 'admin_id', 'active'];
+    protected $fillable = ['reminder_id', 'vendor_id', 'total_paid', 'cost_per_day', 'done', 'admin_id', 'active'];
 
 
 
@@ -22,18 +22,18 @@ class Issue extends Model
     }
 
 
-    public function category()
+    public function reminder()
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Reminder::class,'reminder_id');
     }
 
 
-    public function reminders()
+    public function vendor()
     {
-        return $this->hasMany(Reminder::class,'issue_id');
+        return $this->belongsTo(Vendor::class,'vendor_id');
     }
-
 
     /*** end relations ***/
 
 } //end of class
+

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('css')
 @section('title')
-   قائمة الموردين
+   Vendors List
 @stop
 
 <style>
@@ -12,7 +12,7 @@
 @endsection
 @section('page-header')
 @section('PageTitle')
-    قائمة الموردين
+    Vendors List
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -44,7 +44,7 @@
 
                     {{--  button of add_modal_city  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        إضافة مورد
+                        Add Vendor
                     </button>
                     <br><br>
 
@@ -54,12 +54,12 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>الاسم</th>
-                                <th>الهاتف</th>
-                                <th>البريد الإلكتروني</th>
-                                <th>الوصف</th>
-                                <th>الحالة</th>
-                                <th>مدخل البيانات</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Entered By</th>
                                 <th>{{ trans('main_trans.processes') }}</th>
                             </tr>
                             </thead>
@@ -70,8 +70,8 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->phone }}</td>
                                     <td>{{ $item->email }}</td>
-                                    <td>{{ $item->description == null ? 'لا يوجد' : $item->description }}</td>
-                                    <td>{{$item->active == 1 ? 'نشط' : 'غير نشط'}}</td>
+                                    <td>{{ $item->description == null ? '_____' : $item->description }}</td>
+                                    <td>{{$item->active == 1 ? 'Active' : 'Un active'}}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
                                     <td>
                                         <button type="button" class="process" style="cursor:pointer; background-color:white; border-radius:3px; border: 1px solid #dddd;"

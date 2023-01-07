@@ -32,7 +32,7 @@ class IssueController extends Controller
         $issue->admin_id = auth('admin')->id();
         $issue->active = 1;
         $issue->save();
-        return redirect()->back()->with('alert-success','تم حفظ البيانات بنجاح');
+        return redirect()->back()->with('alert-success','Data is saved successfully');
     }
 
 
@@ -48,7 +48,7 @@ class IssueController extends Controller
         $issue->admin_id = auth('admin')->id();
         $issue->active = $request->active;
         $issue->update();
-        return redirect()->back()->with('alert-info','تم تحديث البيانات بنجاح');
+        return redirect()->back()->with('alert-info','Data is updated successfully');
     }
 
 
@@ -57,7 +57,7 @@ class IssueController extends Controller
     public function destroy(Issue $issue)
     {
         $issue->delete();
-        return redirect()->back()->with('alert-info','تم حذف البيانات بنجاح');
+        return redirect()->back()->with('alert-info','Data is deleted successfully');
     }
 
 } //end of class

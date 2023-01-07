@@ -26,7 +26,7 @@ class CategoryController extends Controller
         $category->admin_id = auth('admin')->id();
         $category->active = 1;
         $category->save();
-        return redirect()->back()->with('alert-success','تم حفظ البيانات بنجاح');
+        return redirect()->back()->with('alert-success','Data is saved successfully');
     }
 
 
@@ -38,7 +38,7 @@ class CategoryController extends Controller
         $category->admin_id = auth('admin')->id();
         $category->active = $request->active;
         $category->update();
-        return redirect()->back()->with('alert-info','تم تحديث البيانات بنجاح');
+        return redirect()->back()->with('alert-info','Data is updated successfully');
     }
 
 
@@ -47,7 +47,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->back()->with('alert-info','تم حذف البيانات بنجاح');
+        return redirect()->back()->with('alert-info','Data iss deleted successfully');
     }
 
 } //end of class

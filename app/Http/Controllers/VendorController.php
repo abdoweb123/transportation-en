@@ -30,7 +30,7 @@ class VendorController extends Controller
             'admin_id'=>auth('admin')->id(),
         ]);
 
-        return redirect()->back()->with('alert-success','تم حفظ البيانات بنجاح');
+        return redirect()->back()->with('alert-success','Data is saved successfully');
     }
 
 
@@ -47,7 +47,7 @@ class VendorController extends Controller
             'admin_id'=>auth('admin')->id(),
         ]);
 
-        return redirect()->back()->with('alert-success','تم تحديث البيانات بنجاح');
+        return redirect()->back()->with('alert-success','Data is updated successfully');
     }
 
 
@@ -56,7 +56,7 @@ class VendorController extends Controller
     public function destroy(Vendor $vendor)
     {
         $vendor->delete();
-        return redirect()->back()->with('alert-success','تم حذف البيانات بنجاح');
+        return redirect()->back()->with('alert-success','Data iss deleted successfully');
     }
 
 

@@ -57,9 +57,9 @@
                     {{--  button of add_modal_office  --}}
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
+                            <a href="{{route('getAddBooking')}}" class="button x-small">
                                 Add Booking
-                            </button>
+                            </a>
                             <a href="{{route('bookingRequestsData')}}" class="button x-small">
                                 Next
                             </a>
@@ -190,10 +190,6 @@
                 </div>
             </div>
         </div>
-
-
-       <!--  page of add_modal_office -->
-       @include('pages.bookingRequests.createBookingRequest')
     </div>
 
 

@@ -63,6 +63,12 @@ class Bus extends Model
         return $this->belongsToMany(Bus::class,'employee_run_trip_buses', 'bus_id','employeeRunTrip_id');
     }
 
+
+    public function reminders()
+    {
+        return $this->hasMany(Reminder::class,'bus_id');
+    }
+
    /*** end relations ***/
 
 } //end of class

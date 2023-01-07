@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                     id="exampleModalLabel">
-                     حذف المورد
+                   Delete Vendor
                 </h5>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
@@ -17,14 +17,12 @@
                 <form action="{{ route('vendors.destroy', $item->id) }}" method="post">
                     {{ method_field('Delete') }}
                     @csrf
-                    هل أنت متأكد من عملية الحذف ؟
-                    <input id="id" type="hidden" name="id" class="form-control"
-                           value="{{ $item->id }}">
+                   Are you sure of deleting this item ?
+                    <br><br>
+                    <input id="id" type="hidden" name="id" class="form-control" value="{{ $item->id }}">
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">{{ trans('main_trans.close') }}</button>
-                        <button type="submit"
-                                class="btn btn-danger">{{ trans('main_trans.submit') }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main_trans.close') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ trans('main_trans.submit') }}</button>
                     </div>
                 </form>
             </div>

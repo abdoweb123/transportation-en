@@ -13,55 +13,30 @@
             </div>
             <div class="modal-body">
                 <!-- add_form -->
-                <form action="{{ route('bookingRequests.store') }}" method="post">
+                <form action="{{route('createNewBooking')}}" method="post" enctype="multipart/form-data">
                     @csrf
+
                     <div class="row">
                         <div class="col">
-                            <label for="Name" class="mr-sm-2">Collection Point From :</label>
-                            <select class="form-control mr-sm-2 p-2" name="collection_point_from_id" required>
-                                <option class="custom-select" value=" " selected>--- Choose ---</option>
-                                @foreach($stations as $station)
-                                    <option value="{{$station->id}}">{{ $station->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label for="Name_en" class="mr-sm-2">Collection Point To:</label>
-                            <select class="form-control mr-sm-2 p-2" name="collection_point_to_id" required>
-                                <option class="custom-select"  value=" " selected>--- Choose ---</option>
-                                @foreach($stations as $station)
-                                    <option value="{{$station->id}}">{{ $station->name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="name_ar" class="mr-sm-2">Oracle_id :</label>
+                            <input type="text" name="oracle_id" class="form-control">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <label for="city_id" class="mr-sm-2">Route :</label>
-                            <select class="form-control mr-sm-2 p-2" name="route_id" required>
-                                <option class="custom-select"  value=" " selected>--- Choose ---</option>
-                                @foreach($routes as $route)
-                                    <option value="{{$route->id}}">{{ $route->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label for="station_id" class="mr-sm-2">Date :</label>
-                            <input class="form-control" type="date" name="date" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label for="station_id" class="mr-sm-2">Time :</label>
-                            <input class="form-control" type="time" name="time" required>
-                        </div>
-                    </div>
+
+                    <input type="hidden" name="newEmployeeRunTrip_id" value="{{$item->id}}">
+                    <input type="hidden" name="route_id" value="{{$request->route_id}}">
+                    <input type="hidden" name="bus_id" value="{{$request->bus_id}}">
+                    <input type="hidden" name="date" value="{{$request->date}}">
+                    <input type="hidden" name="time" value="{{$request->time}}">
+                    <input type="hidden" name="collection_point_from_id" value="{{$request->collection_point_from_id}}">
+                    <input type="hidden" name="collection_point_to_id" value="{{$request->collection_point_to_id}}">
+                    <input type="hidden" name="type" value="{{$request->type}}">
 
                     <br><br>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main_trans.close') }}</button>
+                        <button type="submit" class="btn btn-success">{{ trans('main_trans.submit') }}</button>
                     </div>
                 </form>
 

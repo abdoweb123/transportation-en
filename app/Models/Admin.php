@@ -238,6 +238,18 @@ class Admin  extends Authenticatable
     }
 
 
+    public function reminders()
+    {
+        return $this->hasMany(Reminder::class,'admin_id');
+    }
+
+
+    public function reminderHistories()
+    {
+        return $this->hasMany(ReminderHistory::class,'admin_id');
+    }
+
+
     /*** end relations ***/
 
 } //end of class

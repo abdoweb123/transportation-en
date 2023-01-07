@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
-                    تعديل بيانات المكون
+                    Edit Data of Category's Issue
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -18,23 +18,23 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">اسم المكون :</label>
+                            <label for="name_ar" class="mr-sm-2">Category Name :</label>
                             <select class="form-control" name="category_id">
-                                <option disabled selected>-- اختر --</option>
+                                <option disabled selected>-- Choose --</option>
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}" {{$category->id == $item->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">العنوان :</label>
+                            <label for="name_ar" class="mr-sm-2">Title :</label>
                             <input type="text" name="title" value="{{$item->title}}" class="form-control">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2 d-block">الأولوية :</label>
+                            <label for="name_ar" class="mr-sm-2 d-block">Priority :</label>
                             <div class="row">
                                 @for($i=1; $i<=5; $i++)
                                     <div class="col-4 mb-2">
@@ -46,34 +46,34 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">النوع :</label>
+                            <label for="name_ar" class="mr-sm-2">Type :</label>
                             <select name="type" class="form-control">
-                                <option disabled selected>-- اختر --</option>
+                                <option disabled selected>-- Choose --</option>
                                 @if($item->type == 1)
-                                    <option value="1" selected>تجديد</option>
-                                    <option value="2">تغيير</option>
+                                    <option value="1" selected>Renewal</option>
+                                    <option value="2">Change</option>
                                 @else
-                                    <option value="1">تجديد</option>
-                                    <option value="2" selected>تغيير</option>
+                                    <option value="1">Renewal</option>
+                                    <option value="2" selected>Change</option>
                                 @endif
                             </select>
                         </div>
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">الحالة :</label>
+                            <label for="name_ar" class="mr-sm-2">Status :</label>
                             <select name="active" class="form-control">
                                 @if($item->active == 1)
-                                    <option value="1" selected>نشط</option>
-                                    <option value="0">غير نشط</option>
+                                    <option value="1" selected>Active</option>
+                                    <option value="0">Un active</option>
                                 @else
-                                    <option value="1">نشط</option>
-                                    <option value="0" selected>غير نشط</option>
+                                    <option value="1">Active</option>
+                                    <option value="0" selected>Un active</option>
                                 @endif
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">الوصف :</label>
+                            <label for="name_ar" class="mr-sm-2">Description :</label>
                             <textarea name="description" class="form-control">{{ $item->description}}</textarea>
                         </div>
                     </div>

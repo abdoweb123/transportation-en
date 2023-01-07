@@ -4,9 +4,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
-                    id="exampleModalLabel">
-                    حذف المكون
+                <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
+                    Delete Category
                 </h5>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
@@ -17,8 +16,8 @@
                 <form action="{{ route('categories.destroy', $item->id) }}" method="post">
                     {{ method_field('Delete') }}
                     @csrf
-                    هل أنت متأكد من عملية الحذف ؟
-
+                    Are you sure of deleting this item ?
+                    <br><br>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main_trans.close') }}</button>
                         <button type="submit" class="btn btn-danger">{{ trans('main_trans.submit') }}</button>

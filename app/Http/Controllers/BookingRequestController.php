@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookingRequest;
+use App\Models\Bus;
+use App\Models\BusType;
 use App\Models\City;
 use App\Models\EmployeeRunTrip;
 use App\Models\MyEmployee;
@@ -11,6 +13,7 @@ use App\Models\RouteStation;
 use App\Models\Station;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookingRequestController extends Controller
 {
@@ -114,23 +117,6 @@ class BookingRequestController extends Controller
 
 
 
-    /*** store function  ***/
-    public function store(Request $request)
-    {
-        $bookingRequest = new BookingRequest();
-        $bookingRequest->collection_point_from_id = $request->collection_point_from_id;
-        $bookingRequest->collection_point_to_id = $request->collection_point_to_id;
-        $bookingRequest->date = $request->date;
-        $bookingRequest->time = $request->time;
-        $bookingRequest->route_id = $request->route_id;
-        $bookingRequest->admin_id = auth('admin')->id();
-        $bookingRequest->active = 1;
-        $bookingRequest->save();
-        return redirect()->back()->with('alert-success','Data has been created successfully');
-    }
-
-
-
     /*** update function  ***/
     public function update(Request $request,BookingRequest $bookingRequest)
     {
@@ -152,6 +138,172 @@ class BookingRequestController extends Controller
     {
         $bookingRequest->delete();
         return redirect()->back()->with('alert-info','Data has been deleted successfully');
+    }
+
+
+
+    /*** get add booking function  ***/
+    public function getAddBooking()
+    {
+        $routes = Route::select('id','name')->get();
+        $buses = Bus::select('id','code')->get();
+        return view('pages.bookingRequests.addBooking',compact('routes','buses'));
+    }
+
+
+
+    /*** searchEmployeeRunTrip  ***/
+    public function searchEmployeeRunTrip(Request $request)
+    {
+        $routes = Route::select('id','name')->get();
+        $buses = Bus::select('id','code')->get();
+
+        if ($request->has('route_id') && $request->has('bus_id') && $request->has('date') && $request->has('time') && $request->has('collection_point_from_id') && $request->has('collection_point_to_id'))
+        {
+            $newBookings = DB::table('employee_run_trips')
+                ->join('employee_run_trip_buses','employee_run_trip_buses.employeeRunTrip_id','employee_run_trips.id')
+                ->join('routes','employee_run_trips.route_id','routes.id')
+                ->join('buses','employee_run_trip_buses.bus_id','buses.id')
+                ->where('employee_run_trips.route_id',$request->route_id)
+                ->where('employee_run_trips.date',$request->date)
+                ->where('employee_run_trip_buses.bus_id',$request->bus_id)
+                ->where('employee_run_trips.time',$request->time)->latest()->select('employee_run_trips.*','buses.code as bus_code','routes.name as route_name')->paginate(100);
+
+            return view('pages.bookingRequests.addBooking',compact('newBookings','request','request','routes','buses'));
+        }
+
+        return redirect()->back();
+    }
+
+
+
+    /*** create New Booking function  ***/
+    public function createNewBooking(Request $request)
+    {
+
+        $myEmployee = MyEmployee::where('oracle_id',$request->oracle_id)->first();
+        if ($myEmployee)
+        {
+
+            $bookingRequest = new BookingRequest();
+            $bookingRequest->collection_point_from_id = $request->collection_point_from_id;
+            $bookingRequest->collection_point_to_id = $request->collection_point_to_id;
+            $bookingRequest->date = $request->date;
+            $bookingRequest->time = $request->time;
+            $bookingRequest->route_id = $request->route_id;
+            $bookingRequest->employee_id = $myEmployee->id;
+            $bookingRequest->employeeRunTrip_id = $request->newEmployeeRunTrip_id;
+            $bookingRequest->bus_id = $request->bus_id;
+            if ($request->type == 1)
+            {
+                $bookingRequest->address = $myEmployee->address;
+            }
+            $bookingRequest->admin_id = auth('admin')->id();
+            $bookingRequest->active = 1;
+            $bookingRequest->save();
+
+            $new_employeeRunTrip = EmployeeRunTrip::find($request->newEmployeeRunTrip_id);
+            $new_employeeRunTrip->total += 1;
+            $new_employeeRunTrip->update();
+
+            return redirect()->back()->with('alert-success','Data has been created successfully');
+        }
+        return redirect()->back()->with('alert-danger','This oracle_id does not exist');
+
+    }
+
+
+
+    /*** getAssignEmployee ***/
+    public function getAssignEmployee(Request $request)
+    {
+        if ($request->has('oracle_id') && $request->has('date'))
+        {
+            $employee = MyEmployee::where('oracle_id',$request->oracle_id)->first();
+            $employeeBookings = BookingRequest::where('date',$request->date)->where('employee_id',$employee->id)->latest()->paginate(100);
+
+            return view('pages.bookingRequests.assignEmployee',compact('employeeBookings','request','employee'));
+        }
+
+        return view('pages.bookingRequests.assignEmployee');
+    }
+
+
+
+    /*** swapBus ***/
+    public function swapBus(Request $request,$booking_id,$employee_id)
+    {
+        $booking = BookingRequest::where('id',$booking_id)->first();
+        $employeeRunTrip = EmployeeRunTrip::where('id',$booking->employeeRunTrip_id)->first();
+        $bus = Bus::where('id',$booking->bus_id)->first();
+        $busType = BusType::where('id',$bus->busType_id)->first();
+        $routes = Route::select('id','name')->get();
+        $buses = Bus::select('id','code')->get();
+
+        if ($request->has('route_id') && $request->has('bus_id') && $request->has('date') && $request->has('time') && $request->has('collection_point_from_id') && $request->has('collection_point_to_id'))
+        {
+            $newBookings = DB::table('employee_run_trips')
+                ->join('employee_run_trip_buses','employee_run_trip_buses.employeeRunTrip_id','employee_run_trips.id')
+                ->join('routes','employee_run_trips.route_id','routes.id')
+                ->join('buses','employee_run_trip_buses.bus_id','buses.id')
+                ->where('employee_run_trips.route_id',$request->route_id)
+                ->where('employee_run_trips.date',$request->date)
+                ->where('employee_run_trip_buses.bus_id',$request->bus_id)
+                ->where('employee_run_trips.time',$request->time)->latest()->select('employee_run_trips.*','buses.code as bus_code','routes.name as route_name')->paginate(100);
+
+            return view('pages.bookingRequests.swap',compact('booking','busType','employeeRunTrip','bus','routes','buses','newBookings','request','employee_id'));
+        }
+
+        return view('pages.bookingRequests.swap',compact('booking','busType','employeeRunTrip','bus','routes','buses','employee_id'));
+    }
+
+
+
+    /*** getRouteStations by ajax ***/
+    public function getRouteStations($id)
+    {
+        return  DB::table('route_stations')->join('stations','route_stations.station_id','stations.id')
+            ->where("route_stations.route_id", $id)->pluck('route_stations.station_name','stations.id');
+    }
+
+
+    public function swapBusFinal(Request $request)
+    {
+//        return $request;
+       $old_booking_request = BookingRequest::find($request->oldBooking_id);
+       $myEmployee = MyEmployee::find($request->employee_id);
+
+       $new_booking_request = new BookingRequest();
+       $new_booking_request->collection_point_from_id = $request->collection_point_from_id;
+       $new_booking_request->collection_point_to_id = $request->collection_point_to_id;
+       $new_booking_request->route_id = $request->route_id;
+       $new_booking_request->date = $request->date;
+       $new_booking_request->time = $request->time;
+       $new_booking_request->employeeRunTrip_id = $request->newEmployeeRunTrip_id;
+       $new_booking_request->bus_id = $request->bus_id;
+       $new_booking_request->employee_id = $request->employee_id;
+       $new_booking_request->shift = $old_booking_request->shift;
+       if ($request->type == 1)
+       {
+           $new_booking_request->address = $myEmployee->address;
+       }
+       $new_booking_request->admin_id = auth('admin')->id();
+       $new_booking_request->active = 1;
+       $new_booking_request->save();
+
+
+        $new_employeeRunTrip = EmployeeRunTrip::find($request->newEmployeeRunTrip_id);
+        $new_employeeRunTrip->total += 1;
+        $new_employeeRunTrip->update();
+
+
+        $old_employeeRunTrip = EmployeeRunTrip::find($request->oldEmployeeRunTrip_id);
+        $old_employeeRunTrip->total -= 1;
+        $old_employeeRunTrip->update();
+
+        $old_booking_request->forceDelete();
+
+        return redirect()->route('bookingRequests.index')->with('alert-info','Data has been saved successfully');
     }
 
 

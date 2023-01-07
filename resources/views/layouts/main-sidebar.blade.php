@@ -35,7 +35,11 @@
                             <li> <a href="{{url('static-table/gas_type')}}"><i class="fas fa-glass-martini-alt"></i>gas type</a> </li>
                             <li> <a href="{{url('static-table/extra_fees_type')}}"><i class="fas fa-external-link-square-alt"></i>Extra fees types</a> </li>
                             <li> <a href="{{url('extra-fees')}}"><i class="fas fa-code-branch"></i>Extra fees</a> </li>
-
+                            <li> <a href="{{route('vendors.index')}}"><i class="fas fa-store"></i>Vendors</a> </li>
+                            <li> <a href="{{route('categories.index')}}"><i class="fas fa-bus-alt"></i>Bus Categories</a> </li>
+                            <li> <a href="{{route('issues.index')}}"><i class="fas fa-wrench"></i>Bus Categories Issues </a> </li>
+                            <li> <a href="{{route('reminders.index')}}"><i class="fas fa-bell"></i>Reminders </a> </li>
+                            <li> <a href="{{route('reminderHistory.index')}}"><i class="fas fa-history"></i>Reminder History </a></li>
                         </ul>
                     </li>
 
@@ -66,7 +70,7 @@
                             <li> <a href="{{url('static-table/service')}}">services type</a></li>
 
                             {{--  <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Buses</li>  --}}
-                           
+
                         </ul>
                     </li>
 
@@ -82,6 +86,7 @@
                         <ul id="database_booking_request" class="collapse" data-parent="#sidebarnav">
                             <li> <a href="{{route('bookingRequests.index')}}">Booking Requests</a> </li>
                             <li> <a href="{{route('employeeRunTrips.index')}}">Employees Run Trip</a> </li>
+                            <li> <a href="{{route('getAssignEmployee')}}">Assign Employee</a> </li>
                         </ul>
                     </li>
 
@@ -194,9 +199,7 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="bus_settings" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('vendors.index')}}">قائمة الموردين</a> </li>
-                            <li> <a href="{{route('categories.index')}}">مكونات الحافلة</a> </li>
-                            <li> <a href="{{route('issues.index')}}">مشكلات مكونات الحافلة</a> </li>
+
                             <li> <a href="{{route('efficiencyFuels.index')}}">الوقود والكفاءة الأوتوماتيكي</a> </li>
                             <li> <a href="{{route('manuallyFuels.index')}}">استهلاك الوقود اليدوي</a> </li>
                         </ul>
@@ -225,7 +228,7 @@
                             <li> <a href="{{route('getAllManagers',2)}}">قائمة المديرين</a></li>
                         </ul>
                     </li>  --}}
-{{--  
+{{--
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#drivers">
                             <div class="pull-left"><i class="ti-car"></i><span class="right-nav-text">drivers</span></div>

@@ -30,8 +30,8 @@ class RouteStationController extends Controller
                                                    'gender', 'date', 'shift', 'start', 'end')->get();
 
 
-        foreach ($excelEmployeesData as $excelEmployeesDatum)
-        {
+       foreach ($excelEmployeesData as $excelEmployeesDatum)
+       {
 
             DB::beginTransaction();
             try {
@@ -190,7 +190,7 @@ class RouteStationController extends Controller
                 DB::rollBack();
             }
 
-        } // end of foreach
+       } // end of foreach
 
         return redirect()->route('add_bus.to.booking_request');
 

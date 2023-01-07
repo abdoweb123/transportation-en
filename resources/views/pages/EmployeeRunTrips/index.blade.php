@@ -83,7 +83,7 @@
                                     @foreach($item->bus as $bus)
                                         <td>@isset($bus->code)  {{$bus->code }} @else _____ @endisset</td>
                                     @endforeach
-                                    <td>{{ $item->tatol }}</td>
+{{--                                    <td>{{ $item->tatol }}</td>--}}
                                     <td>{{ $item->total }}</td>
                                     <td>@isset($item->driver->name)  {{ $item->driver->name }} @else _____ @endisset</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>

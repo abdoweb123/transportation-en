@@ -11,7 +11,7 @@ class BookingRequest extends Model
     use HasFactory , SoftDeletes;
 
     protected $fillable = ['collection_point_from_id', 'collection_point_to_id', 'route_id', 'date',
-                            'time', 'seat_number', 'bus_id', 'employee_id', 'shift', 'address',
+                            'time', 'seat_number', 'employeeRunTrip_id', 'bus_id', 'employee_id', 'shift', 'address',
                             'admin_id', 'active'];
 
 

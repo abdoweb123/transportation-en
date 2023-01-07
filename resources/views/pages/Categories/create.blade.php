@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
-                    إضافة مكون
+                    Add Category
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -17,15 +17,14 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">الاسم :</label>
+                            <label for="name_ar" class="mr-sm-2">Name :</label>
                             <input id="name_ar" type="text" name="name" class="form-control">
                         </div>
                     </div>
                     <br><br>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">{{ trans('main_trans.close') }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main_trans.close') }}</button>
                         <button type="submit" class="btn btn-success">{{ trans('main_trans.submit') }}</button>
                     </div>
                 </form>

@@ -8,7 +8,10 @@ use App\Http\Controllers\BookingRequestController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\BusTypeController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\EmployeeRunTripController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\ReminderHistoryController;
 use App\Http\Controllers\RouteStationController;
 use App\Http\Controllers\SeatController;
 use App\Http\Controllers\UserController;
@@ -128,23 +131,23 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-    Route::resource('cities','CityController');
-    Route::resource('stations','StationController')->except('create','edit','show');
-    Route::resource('offices','OfficeController');
-    Route::resource('busTypes','BusTypeController')->except('create','edit','show');
+    Route::resource('cities',CityController::class);
+    Route::resource('stations',StationController::class)->except('create','edit','show');
+    Route::resource('offices',OfficeController::class);
+    Route::resource('busTypes',BusTypeController::class)->except('create','edit','show');
     Route::get('show/busType/seats/{id}',[BusTypeController::class,'showBusTypeSeats'])->name('show.busType.seats');
 
     Route::resource('buses',BusController::class);
     Route::get('show/bus/seats/{id}',[BusController::class,'showBusSeats'])->name('show.bus.seats');
 
-    Route::resource('seats','SeatController')->except('update','edit');
+    Route::resource('seats',SeatController::class)->except('update','edit');
     Route::post('update/seats',[SeatController::class,'update'])->name('update.seats');
 
     Route::resource('tripData','TripDataController')->except('create','edit','show');
 
     // stations of trip
     Route::get('stations/of/trip/{id}',[TripStationController::class,'getStationsOfTrip'])->name('getStationsOfTrip');
-    Route::resource('tripStations','TripStationController')->only('store','update','destroy');
+    Route::resource('tripStations',TripStationController::class)->only('store','update','destroy');
 
     // Lines of trip
     Route::post('create/lines/of/trip',[LineController::class,'createLinesOfTrip'])->name('createLinesOfTrip');
@@ -154,9 +157,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::post('update/lines',[LineController::class,'updateLines'])->name('updateLines');
 
 
-    Route::resource('degrees','DegreeController')->except('create','edit','show');
+    Route::resource('degrees',DegreeController::class)->except('create','edit','show');
 
-    Route::resource('runTrips','RunTripController')->except('create','edit','show');
+    Route::resource('runTrips',RunTripController::class)->except('create','edit','show');
 
 
     // Seats design of Trip
@@ -165,51 +168,63 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::put('update/trip/seats',[TripSeatController::class,'updateTripSeats'])->name('updateTripSeats');
 
 
-    Route::resource('coupons','CouponController')->except('show');
-    Route::resource('couponTrips','CouponTripController')->except('create','edit','show');
-    Route::resource('packages','PackageController')->except('create','edit','show');
-    Route::resource('bookedPackages','BookedPackageController')->except('create','show');
-    Route::resource('customerTypes','CustomerTypeController')->except('create','show','edit');
-    Route::resource('millages','MillageController')->except('create','show','edit');
-    Route::resource('vendors','VendorController')->except('create','show','edit');
-    Route::resource('categories','CategoryController')->except('create','show','edit');
-    Route::resource('issues','IssueController')->except('create','show','edit');
-    Route::resource('efficiencyFuels','EfficiencyFuelController')->except('create','show','edit');
-    Route::resource('manuallyFuels','ManuallyFuelController')->except('create','show','edit');
-    Route::resource('employeeJobs','EmployeeJobController')->except('create','show','edit');
-    Route::resource('departments','DepartmentController')->except('create','show','edit');
-    Route::resource('myEmployees','MyEmployeeController')->except('show');
-    Route::resource('routes','RouteController')->except('edit','show','create');
-    Route::resource('routeStations','RouteStationController')->except('edit','show','create');
-    Route::resource('employeeRunTrips','EmployeeRunTripController')->except('edit','show','create','store');
+    Route::resource('coupons',CouponController::class)->except('show');
+    Route::resource('couponTrips',CouponTripController::class)->except('create','edit','show');
+    Route::resource('packages',PackageController::class)->except('create','edit','show');
+    Route::resource('bookedPackages',BookedPackageController::class)->except('create','show');
+    Route::resource('customerTypes',CustomerTypeController::class)->except('create','show','edit');
+    Route::resource('millages',MillageController::class)->except('create','show','edit');
+    Route::resource('vendors',VendorController::class)->except('create','show','edit');
+    Route::resource('categories',CategoryController::class)->except('create','show','edit');
+    Route::resource('issues',IssueController::class)->except('create','show','edit');
+    Route::resource('efficiencyFuels',EfficiencyFuelController::class)->except('create','show','edit');
+    Route::resource('manuallyFuels',ManuallyFuelController::class)->except('create','show','edit');
+    Route::resource('employeeJobs',EmployeeJobController::class)->except('create','show','edit');
+    Route::resource('departments',DepartmentController::class)->except('create','show','edit');
+    Route::resource('myEmployees',MyEmployeeController::class)->except('show');
+    Route::resource('routes',RouteController::class)->except('edit','show','create');
+    Route::resource('routeStations',RouteStationController::class)->except('edit','show','create');
+    Route::resource('employeeRunTrips',EmployeeRunTripController::class)->except('edit','show','create','store');
+    Route::resource('reminders',ReminderController::class)->except('show');
+    Route::resource('reminderHistory',ReminderHistoryController::class)->only('index','destroy');
+    Route::get('getReminder/{id}',[ReminderHistoryController::class,'getReminder'])->name('getReminder');
 
 
 
     // استيراد بيانات الموظفين
 //    Route::get('get/excel',[MyEmployeeController::class,'getExcel'])->name('getExcel.excelEmployee');
 
+    Route::get('operation1/{routeStation_station_cp}/{excelEmployeesDatum}/{station_site}/{routeStation}',[RouteStationController::class,'operation1'])->name('operation1');
     Route::get('add/bus/to/booking/request',[RouteStationController::class,'operation2'])->name('add_bus.to.booking_request');
 
     Route::resource('bookingRequests',BookingRequestController::class)->except('edit','show','create');
+    Route::get('get/add/booking',[BookingRequestController::class,'getAddBooking'])->name('getAddBooking');
+    Route::get('search/employeeRunTrip',[BookingRequestController::class,'searchEmployeeRunTrip'])->name('searchEmployeeRunTrip');
+    Route::post('create/new/booking',[BookingRequestController::class,'createNewBooking'])->name('createNewBooking');
     Route::post('import/excel',[MyEmployeeController::class,'import'])->name('import.excelEmployee');
     Route::get('store/employees/data',[RouteStationController::class,'operation'])->name('store.employees.data');
     Route::get('bookingRequests/data',[BookingRequestController::class,'bookingRequestsData'])->name('bookingRequestsData');
     Route::get('employeeRunTrip',[BookingRequestController::class,'employeeRunTrip'])->name('employeeRunTrip');
+    Route::get('getAssignEmployee',[BookingRequestController::class,'getAssignEmployee'])->name('getAssignEmployee');
+    Route::get('swap/bus/{booking_id?}/{employee_id?}',[BookingRequestController::class,'swapBus'])->name('swapBus');
+    Route::get('getRouteStations/{id}',[BookingRequestController::class,'getRouteStations']); //by ajax
+    Route::post('swapBusFinal',[BookingRequestController::class,'swapBusFinal'])->name('swapBusFinal');
 
-    // trans port 
+
+    // trans port
     // company name
     Route::get('static-table/{type}',StaticTables::class)->name('static-table');
     // contract client
     Route::get('contract-client',ContractClients::class)->name('contract-client');
     Route::get('contract-client-edit/{id}',ContractClientsEdit::class)->name('contract-client');
       // contract subliers
-      Route::get('contract-sublier',ContractSubliers::class)->name('contract-sublier');
-      Route::get('contract-sublier-edit/{id}',ContractSubliersEdit::class)->name('contract-sublier');
-      Route::get('company-contract-route',CompanyContractRoutes::class)->name('company-contract-route');
-      Route::get('company-contract-route-edit/{id}',CompanyContractRoutesEdit::class)->name('company-contract-route-edit');
-      Route::get('suplier-contract-route',SuplierContractRoutes::class)->name('suplier-contract-route');
-      Route::get('suplier-contract-route-edit/{id}',SuplierContractRoutesEdit::class)->name('suplier-contract-route-edit');
-    
+    Route::get('contract-sublier',ContractSubliers::class)->name('contract-sublier');
+    Route::get('contract-sublier-edit/{id}',ContractSubliersEdit::class)->name('contract-sublier');
+    Route::get('company-contract-route',CompanyContractRoutes::class)->name('company-contract-route');
+    Route::get('company-contract-route-edit/{id}',CompanyContractRoutesEdit::class)->name('company-contract-route-edit');
+    Route::get('suplier-contract-route',SuplierContractRoutes::class)->name('suplier-contract-route');
+    Route::get('suplier-contract-route-edit/{id}',SuplierContractRoutesEdit::class)->name('suplier-contract-route-edit');
+
     //   Penelty
     Route::get('penelties',Penelties::class)->name('penelties');
     // Route::get('penelties-edit/{id}',PeneltiesEdit::class)->name('enelties-edit');
