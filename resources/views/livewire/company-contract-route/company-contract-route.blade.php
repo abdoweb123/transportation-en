@@ -26,7 +26,7 @@
                                 <form wire:submit.prevent='store_update'>
                                     <div class="card-body col-md-8 offset-2">
                                         <div class="form-group row">
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <label for="contracts_id" class="mr-sm-2">contracts</label>
                                                 <select name="contracts_id" class="form-control mr-sm-2 p-2" id="" class="w-100 mb-10" wire:model.lazy='contracts_id'>
                                                     <option value="0"> </option>
@@ -37,7 +37,7 @@
                                                     @endif
                                                 </select>
                                                 @error('contracts_id')<span style="color: red"> {{ $message }}</span>@enderror
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-6">
                                                 <label for="company_id" class="mr-sm-2">companies</label>
                                                 <select name="company_id" id="" class="form-control mr-sm-2 p-2" wire:model.lazy='company_id'>
@@ -86,11 +86,22 @@
                                                 </select>
                                                 @error('service_type_id')<span style="color: red"> {{ $message }}</span>@enderror
                                             </div>
-                                        
                                             <div class="col-md-6">
                                                 <label for="service_value" class="mr-sm-2">service value</label>
                                                 <input id="service_value" type="number"  class="form-control" wire:model.lazy='service_value'>
                                                 @error('service_value')<span style="color: red"> {{ $message }}</span>@enderror
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="discount_id" class="mr-sm-2">discount</label>
+                                                <select name="discount_id" id="" class="form-control mr-sm-2 p-2" wire:model.lazy='discount_id'>
+                                                    <option value="0"> </option>
+                                                    @if (isset($discounts))
+                                                        @foreach ($discounts as $discount)
+                                                            <option value="{{ $discount->id }}">{{ $discount->title }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                                @error('discount_id')<span style="color: red"> {{ $message }}</span>@enderror
                                             </div>
                                         </div>
                                     </div>

@@ -36,7 +36,7 @@ class Route extends Model
 
     public function employeeRunTrips()
     {
-        return $this->hasMany(EmployeeRunTrip::class,'route_id');
+        return $this->hasMany(EmployeeRunTrip::class,'route_id')->with('penelties');
     }
 
     /*** end relations ***/

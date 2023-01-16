@@ -7,24 +7,43 @@ use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\Gas;
-
+use App\Models\Driver;
+use App\Models\Bus;
+use App\Models\BusType;
+use Illuminate\Support\Facades\Auth;
 class Gases extends Component
 {
     use WithFileUploads;
-    public $ids,$showIndex,$showForm,$type;
+    public $ids,$showIndex,$showForm,$type,$driver_id,$bus_id,$bus_type;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
     public function mount()
     {
-        $this->tittle='Driver Salaries';
+        $this->tittle='Gas';
         $this->showForm=false;
     }
     public function render()
     {
-        $results=Gas::with('driver','bus_type','route')->paginate();
+        $results=Gas::whereAdminId(Auth::guard('admin')->id())->with('driver','bus_type','route');
+        if ($this->driver_id != null) {
+            $results=$results->where('driver_id',$this->driver_id);
+        }
+        if ($this->bus_id != null) {
+            $results=$results->where('bus_id',$this->bus_id);
+        }
+        if ($this->bus_type != null) {
+            $results=$results->where('bus_type_id',$this->bus_type);
+        }
+        $results=$results->paginate();
+        $drivers=Driver::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
+        $buses=Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->get();
+        $bus_types=BusType::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
         return view('livewire.gases.gases',[
             'results'=>$results,
+            'drivers'=>$drivers,
+            'buses'=>$buses,
+            'bus_types'=>$bus_types,
         ])->extends('layouts.master');
     }
   

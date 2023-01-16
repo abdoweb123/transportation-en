@@ -65,7 +65,6 @@
                                                 <button class="btn btn-primary"  title="تعديل"  wire:click='edit_form({{ $result->id }})'>
                                                     <i  class="fa fa-edit"></i>
                                                 </button>
-                                                {{--  <a href="{{ url('/penelties-edit/'.$result->id) }}" class="btn btn-primary"  title="تعديل"><i  class="fa fa-edit"></i></a>  --}}
                                                 <button class="btn btn-danger" wire:click='make_delete({{ $result->id }})' title="حذف">
                                                     <i class="fa fa-trash"></i>
                                                 </button >

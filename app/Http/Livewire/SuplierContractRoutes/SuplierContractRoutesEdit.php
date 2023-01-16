@@ -15,7 +15,7 @@ use App\Models\BusType;
 class SuplierContractRoutesEdit extends Component
 {
     use WithFileUploads;
-    public $ids,$contracts_id,$suplier_id,$route_id,$bus_type_id
+    public $ids,$suplier_contract_id,$suplier_id,$route_id,$bus_type_id
     ,$service_type_id,$service_value;
    
     public $showIndex,$showForm;
@@ -27,7 +27,7 @@ class SuplierContractRoutesEdit extends Component
         if ($id != 0) {
             $this->ids=$id;
             $contract=SublierCotractRoute::find($id);
-            $this->contracts_id=$contract->contracts_id;
+            $this->suplier_contract_id=$contract->suplier_contract_id;
             $this->suplier_id=$contract->suplier_id;
             $this->route_id=$contract->route_id;
             $this->bus_type_id=$contract->bus_type_id;
@@ -39,19 +39,19 @@ class SuplierContractRoutesEdit extends Component
     }
     public function render()
     {
-        $contracts=ContractClient::select('id','name')->get();
+        // $contracts=ContractClient::select('id','name')->get();
         $supliers=StaticTable::select('id','name')->whereType('suppliers')->get();
         $routes=Route::select('id','name')->get();
         $bus_types=BusType::select('id','name')->get();
         $service_types=StaticTable::select('id','name')->whereType('service')->get();
-        return view('livewire.suplier-contract-route.suplier-contract-route-edit',compact('routes','bus_types','service_types','contracts','supliers'))->extends('layouts.master');
+        return view('livewire.suplier-contract-route.suplier-contract-route-edit',compact('routes','bus_types','service_types','supliers'))->extends('layouts.master');
     }
     
 
     public function store_update()
     {
         $validate=$this->validate([
-            'contracts_id'=>'required',
+            'suplier_contract_id'=>'required',
             'suplier_id'=>'required',
             'route_id'=>'required',
             'bus_type_id'=>'required',
@@ -63,7 +63,7 @@ class SuplierContractRoutesEdit extends Component
             $data= new SublierCotractRoute();
             $data->operations_number=SublierCotractRoute::count()+1;
         }
-        $data->contracts_id=$this->contracts_id;
+        $data->suplier_contract_id=$this->suplier_contract_id;
         $data->suplier_id=$this->suplier_id;
         $data->route_id=$this->route_id;
         $data->bus_type_id=$this->bus_type_id;
@@ -73,20 +73,19 @@ class SuplierContractRoutesEdit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('suplier-contract-route');
+            return redirect()->to('suplier-contract-route/'.$this->suplier_contract_id);
         }
     }
     
     public function get_object($edit_object)
     {
         $this->ids=$edit_object['id'];
-        $this->contracts_id=$edit_object['contracts_id'];
+        $this->suplier_contract_id=$edit_object['suplier_contract_id'];
     }
 
     public function resetInput()
     {
         $this->ids=null;
-        $this->contracts_id=null;
         $this->suplier_id=null;
         $this->route_id=null;
         $this->bus_type_id=null;

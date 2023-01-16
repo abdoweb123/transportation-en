@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SublierCotractRoute extends Model
 {
     use HasFactory;
-    public function contract()
+    public function suplier_contract()
     {
-        return $this->hasOne(ContractClient::class,'id','contracts_id');
+        return $this->hasOne(ContractSublier::class,'id','suplier_contract_id');
     }
     public function suplier()
     {

@@ -9,7 +9,7 @@ use App\Models\User;
 use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use Illuminate\Support\Facades\Auth;
 class StaticTables extends Component
 {
     use WithFileUploads;
@@ -25,7 +25,7 @@ class StaticTables extends Component
     }
     public function render()
     {
-        $results=Static_table::whereType($this->type)->paginate();
+        $results=Static_table::whereAdminId(Auth::guard('admin')->id())->whereType($this->type)->paginate();
         return view('livewire.static-tables.static-tables',[
             'results'=>$results,
         ])->extends('layouts.master');

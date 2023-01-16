@@ -29,11 +29,11 @@
                     <div class="row">
                         <div class="col">
                             <label for="name_ar" class="mr-sm-2">Latitude :</label>
-                            <input id="name_ar" type="number" step="0.1" name="lat" class="form-control">
+                            <input id="name_ar" type="text" name="lat" class="form-control">
                         </div>
                         <div class="col">
                             <label for="name_en" class="mr-sm-2">Longitude :</label>
-                            <input type="number" step="0.1" class="form-control" name="lon">
+                            <input type="text" step="0.1" class="form-control" name="lon">
                         </div>
                     </div>
                     <div class="row">
@@ -43,6 +43,15 @@
                                 <option class="custom-select mr-sm-2 p-2" value=" ">{{ trans('stations_trans.choose') }}</option>
                                 @foreach($cities as $city)
                                 <option value="{{$city->id}}">{{ $city->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mr-sm-2">companies</label>
+                            <select name="company_id" class="form-control">
+                                <option value=" " selected>-- Choose --</option>
+                                @foreach($comapnies as $company)
+                                    <option value="{{$company->id}}" {{old('company_id') == $company->id ? 'selected' : ''}}>{{$company->name}}</option>
                                 @endforeach
                             </select>
                         </div>

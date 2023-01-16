@@ -18,10 +18,14 @@ class EmployeeImport implements ToModel ,WithHeadingRow //, WithChunkReading, Sh
 {
 
     use Importable;
+    private $data;
+    public function __construct(array $data = [])
+    {
+        $this->data = $data; 
+    }
 
     public function model(array $row)
     {
-//        dd($row);
 
 //        foreach ($row as $item)
 //        {
@@ -43,7 +47,7 @@ class EmployeeImport implements ToModel ,WithHeadingRow //, WithChunkReading, Sh
             'shift'=>$row['shift'],
             'start'=>$row['start'],
             'end'=>$row['end'],
-
+            'company_id'=>$this->data['company_id']
         ]);
     }
 

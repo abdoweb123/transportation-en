@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,7 @@ class CategoryController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $categories = Category::latest()->paginate(10);
+        $categories = Category::whereAdminId(Auth::guard('admin')->id())->latest()->paginate(10);
         return view('pages.Categories.index', compact('categories'));
     }
 

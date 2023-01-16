@@ -4,12 +4,15 @@ namespace App\Http\Livewire\ContractClients;
 
 use App\Models\Price;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use App\Models\StaticTable;
 use Livewire\Component;
 use App\Models\ContractClient;
+use App\Models\Company;
+
 class ContractClientsEdit extends Component
 {
     use WithFileUploads;
@@ -71,7 +74,7 @@ class ContractClientsEdit extends Component
         }else{
             $data= new ContractClient();
         }
-        $company=StaticTable::where('name','like','%'.$this->company_id.'%')->first();
+        $company=Company::where('name','like','%'.$this->company_id.'%')->first();
         if ($company != null) {
             $company_id_get=$company->id;
         }else{
@@ -84,6 +87,7 @@ class ContractClientsEdit extends Component
 
         $data->name=$this->name;
         $data->company_id=$company_id_get;
+        $data->admin_id=Auth::guard('admin')->id();
         $data->start_date=$this->start_date;
         $data->end_date=$this->end_date;
         $data->number_of_routes=$this->number_of_routes;

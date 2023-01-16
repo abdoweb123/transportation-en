@@ -18,16 +18,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
 
 class RouteStationController extends Controller
 {
 
-    /*** operation function  ***/
+    /* operation function  */
     public function operation()
     {
                                                                                  // انطلاق   خط    وصول
        $excelEmployeesData = ExcelEmployee::select('id','name', 'lob', 'oracle', 'site', 'route', 'cp',
-                                                   'gender', 'date', 'shift', 'start', 'end')->get();
+                                                   'gender', 'date', 'shift', 'start', 'end','company_id')->get();
 
 
        foreach ($excelEmployeesData as $excelEmployeesDatum)
@@ -162,6 +164,7 @@ class RouteStationController extends Controller
                 $bookingRequest->employee_id = $getEmployee->id;
                 $bookingRequest->shift = $excelEmployeesDatum->shift;
                 $bookingRequest->address = $getEmployee->address;
+                $bookingRequest->company_id = $getEmployee->company_id;
                 $bookingRequest->admin_id = auth('admin')->id();
                 $bookingRequest->active = 1;
                 $bookingRequest->save();
@@ -177,6 +180,7 @@ class RouteStationController extends Controller
                 $bookingRequest->employee_id = $getEmployee->id;
                 $bookingRequest->shift = $excelEmployeesDatum->shift;
                 $bookingRequest->address = $getEmployee->address;
+                $bookingRequest->company_id = $getEmployee->company_id;
                 $bookingRequest->admin_id = auth('admin')->id();
                 $bookingRequest->active = 1;
                 $bookingRequest->save();
@@ -198,7 +202,7 @@ class RouteStationController extends Controller
 
 
 
-    /*** operation2 function  ***/
+    /* operation2 function  */
     public function operation2()
     {
 
@@ -276,8 +280,11 @@ class RouteStationController extends Controller
 
         foreach ($employeeRunTripBuses as $runTripBusEmployee)
         {
-            $oldBusSlug = Bus::find($runTripBusEmployee->bus_id)->busType->slug;
-
+            if ($runTripBusEmployee->bus_id) {
+                $oldBusSlug = Bus::find($runTripBusEmployee->bus_id)->busType->slug;
+            }else{
+                $oldBusSlug=null;
+            }
             for ($x = 0; $x < count($arr_bus); $x++)
             {
                 if ($arr_bus[$x][0] >= $oldBusSlug)
@@ -302,9 +309,13 @@ class RouteStationController extends Controller
                         ]);
                 }
                 else {
-                    $employeeRunTripBus->update([
-                        'bus_id'=>$newArr_bus[$i][1],
-                    ]);
+                    if ($newArr_bus[$i][1] != null) {
+                        if ($employeeRunTripBus != null) {
+                            $employeeRunTripBus->update([
+                                'bus_id'=>$newArr_bus[$i][1],
+                            ]);
+                        }
+                    }
                 }
             }
         }
@@ -336,18 +347,19 @@ class RouteStationController extends Controller
 
 
 
-    /*** get all offices ***/
+    /* get all offices */
     public function index()
     {
-        $routeStations = RouteStation::all();
+        $routeStations = RouteStation::whereAdminId(Auth::guard('admin')->id())->paginate();
         $routes = Route::select('id','name')->get();
         $stations = Station::select('id','name')->get();
-        return view('pages.RouteStation.index', compact('routeStations','routes','stations'));
+        $comapnies=Company::select('id','name')->get();
+        return view('pages.RouteStation.index', compact('routeStations','routes','stations','comapnies'));
     }
 
 
 
-    /*** create an office ***/
+    /* create an office */
     public function store(RouteStationRequest $request)
     {
         try {
@@ -356,6 +368,7 @@ class RouteStationController extends Controller
             $routeStation->station_id = $request->station_id;
             $routeStation->admin_id = auth('admin')->id();
             $routeStation->active = 1;
+            $routeStation->company_id = $request->company_id;
             $routeStation->save();
 
             $routeStation->station_name = $routeStation->station->name;
@@ -370,7 +383,7 @@ class RouteStationController extends Controller
 
 
 
-    /*** update the office ***/
+    /* update the office */
     public function update(RouteStationRequest $request)
     {
         try {
@@ -379,6 +392,7 @@ class RouteStationController extends Controller
             $routeStation->station_id = $request->station_id;
             $routeStation->admin_id = auth('admin')->id();
             $routeStation->active = $request->active;
+            $routeStation->company_id = $request->company_id;
             $routeStation->update();
             return redirect()->back()->with('alert-success','Data is updated successfully');
         }
@@ -390,7 +404,7 @@ class RouteStationController extends Controller
 
 
 
-    /*** delete the office ***/
+    /* delete the office */
     public function destroy(Request $request)
     {
         $routeStation = RouteStation::findOrFail($request->id)->delete();

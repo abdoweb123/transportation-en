@@ -54,15 +54,27 @@
                     </div>
                     <form action="{{route('getAssignEmployee')}}" method="get" enctype="multipart/form-data">
                         <div class="row mb-3">
-                            <div class="col">
+                            <div class="col-md-3">
                                 <label for="name_ar" class="mr-sm-2">Oracle_id :</label>
                                 <input type="text" name="oracle_id" @isset($request)value="{{$request->oracle_id}}" @endisset class="form-control">
                             </div>
-                            <div class="col">
+                            <div class="col-md-3">
                                 <label for="name_ar" class="mr-sm-2">Date :</label>
                                 <input type="date" name="date" @isset($request)value="{{$request->date}}" @endisset class="form-control">
                             </div>
-                            <div class="col">
+                            <div class="col-md-3">
+                                <label for="name_ar" class="mr-sm-2">Companies :</label>
+                                <select name="company_id" class="form-control">
+                                    <option value=" " selected>-- Choose --</option>
+                                    @if(count($companies))
+                                        @foreach($companies as $company)
+                                            <option value="{{$company->id}}" >{{$company->name}}</option>
+                                        @endforeach
+                                    @endif
+
+                                </select>
+                            </div>
+                            <div class="col-md-3">
                                 <label for="name_ar" class="mr-sm-2 mb-4"> </label>
                                 <input type="submit" value="Search" class="btn btn-success form-control" style="background-color: #84ba3f; color: white; font-size: 16px;">
                             </div>

@@ -20,6 +20,15 @@
                             <label for="name_ar" class="mr-sm-2">Name :</label>
                             <input id="name_ar" type="text" name="name" class="form-control">
                         </div>
+                        <div class="col">
+                            <label class="mr-sm-2">companies</label>
+                            <select name="company_id" class="form-control">
+                                <option value=" " selected>-- Choose --</option>
+                                @foreach($comapnies as $company)
+                                    <option value="{{$company->id}}" {{old('company_id') == $company->id ? 'selected' : ''}}>{{$company->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     <br><br>

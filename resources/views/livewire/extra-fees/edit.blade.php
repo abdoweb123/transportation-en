@@ -49,6 +49,11 @@
                     </select>
                     @error('driver_id')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
+                <div class="col-md-6 mb-2">
+                    <label for="distance_reading" class="mr-sm-2">distance reading</label>
+                    <input id="distance_reading" type="number" class="form-control" wire:model.lazy='distance_reading'>
+                    @error('distance_reading')<span style="color: red"> {{ $message }}</span>@enderror
+                </div>
             </div>
         </div>
         <br><br>
@@ -56,7 +61,6 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary"
                     data-dismiss="modal">close</button>
-            {{-- <button type="submit" class="btn btn-success">إرسال</button> --}}
             <button type="submit" class="btn btn-success">{{ $ids != null ? 'edit' : 'save' }}</button>
         </div>
     </form>

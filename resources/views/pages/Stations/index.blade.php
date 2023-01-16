@@ -107,7 +107,7 @@
                             @endforeach
                         </table>
 
-{{--                        <div> {{$stations->links('pagination::bootstrap-4')}}</div>--}}
+                       <div> {{$stations->links('pagination::bootstrap-4')}}</div>
 
                     </div>
                 </div>

@@ -96,7 +96,7 @@
                             @endforeach
                         </table>
 
-{{--                        <div> {{$offices->links('pagination::bootstrap-4')}}</div>--}}
+                       <div> {{$reminderHistory->links('pagination::bootstrap-4')}}</div>
 
                     </div>
                 </div>

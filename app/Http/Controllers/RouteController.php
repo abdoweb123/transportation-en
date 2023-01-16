@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RouteRequest;
 use App\Models\Route;
+use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RouteController extends Controller
 {
@@ -13,8 +15,9 @@ class RouteController extends Controller
     /*** get all offices ***/
     public function index()
     {
-        $routes = Route::all();
-        return view('pages.Routes.index', compact('routes'));
+        $routes = Route::whereAdminId(Auth::guard('admin')->id())->paginate();
+        $comapnies=Company::select('id','name')->get();
+        return view('pages.Routes.index', compact('routes','comapnies'));
     }
 
 
@@ -26,6 +29,7 @@ class RouteController extends Controller
             $route = new Route();
             $route->name = $request->name;
             $route->admin_id = auth('admin')->id();
+            $route->company_id=$request->company_id;
             $route->active = 1;
             $route->save();
             return redirect()->back()->with('alert-success','Data is saved successfully');
@@ -46,6 +50,7 @@ class RouteController extends Controller
             $route->name = $request->name;
             $route->admin_id = auth('admin')->id();
             $route->active = $request->active;
+            $route->company_id=$request->company_id;
             $route->update();
             return redirect()->back()->with('alert-success','Data is updated successfully');
         }

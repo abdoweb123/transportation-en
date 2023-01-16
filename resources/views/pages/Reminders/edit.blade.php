@@ -106,12 +106,17 @@
                                     @endif
                                 </select>
                             </div>
-                            <div class="col">
-                                <label class="mr-sm-2">Task</label>
-                                <input type="text" name="task" value="{{old('task',$reminder->task)}}" class="form-control" required>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="mr-sm-2">Task</label>
+                                    <input type="text" name="task" value="{{old('task',$reminder->task)}}" class="form-control" required>
+                                </div>
                             </div>
                         </div>
-
+                        <div class="col-4">
+                            <label class="mr-sm-2">Distance Reading</label>
+                            <input type="number" name="distance_reading" value="{{old('task',$reminder->distance_reading)}}" class="form-control" required>
+                        </div>
                         <br><br>
 
                         <div class="modal-footer">

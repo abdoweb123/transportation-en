@@ -10,6 +10,10 @@ class ContractClient extends Model
     use HasFactory;
     public function company()
     {
-        return $this->hasOne(StaticTable::class,'id','company_id'); 
+        return $this->hasOne(Company::class,'id','company_id'); 
+    }
+    public function cotract_routes()
+    {
+        return $this->hasMany(CotractRoute::class,'contracts_id','id');
     }
 }

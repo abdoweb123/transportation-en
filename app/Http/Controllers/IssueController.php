@@ -6,14 +6,14 @@ use App\Http\Requests\IssueRequest;
 use App\Models\Category;
 use App\Models\Issue;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class IssueController extends Controller
 {
 
     /*** index function  ***/
     public function index()
     {
-        $issues = Issue::latest()->paginate(10);
+        $issues = Issue::whereAdminId(Auth::guard('admin')->id())->latest()->paginate(10);
         $categories = Category::select('id','name')->get();
         return view('pages.Issues.index', compact('issues','categories'));
     }

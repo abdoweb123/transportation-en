@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\EmployeeJob;
+use App\Models\Company;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class EmployeeJobController extends Controller
 {
 
     /*** index function  ***/
     public function index()
     {
-        $employeeJobs = EmployeeJob::latest()->paginate(10);
-        return view('pages.EmployeeJobs.index', compact('employeeJobs'));
+        $employeeJobs = EmployeeJob::whereAdminId(Auth::guard('admin')->id())->latest()->paginate(10);
+        $comapnies=Company::select('id','name')->get();
+        return view('pages.EmployeeJobs.index', compact('employeeJobs','comapnies'));
     }
 
 
@@ -31,6 +33,7 @@ class EmployeeJobController extends Controller
 
         $employeeJob = new EmployeeJob();
         $employeeJob->name = $request['name'];
+        $employeeJob->company_id = $request['company_id'];
         $employeeJob->admin_id = auth('admin')->id();
         $employeeJob->active = 1;
         $employeeJob->save();
@@ -52,6 +55,7 @@ class EmployeeJobController extends Controller
         $this->validate($request,$rules,$messages);
 
         $employeeJob->name = $request['name'];
+        $employeeJob->company_id = $request['company_id'];
         $employeeJob->admin_id = auth('admin')->id();
         $employeeJob->active = $request['active'];
         $employeeJob->update();

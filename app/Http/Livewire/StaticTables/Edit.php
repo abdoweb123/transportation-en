@@ -4,6 +4,7 @@ namespace App\Http\Livewire\StaticTables;
 
 use App\Models\Price;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -41,6 +42,7 @@ class Edit extends Component
 
         $data->name=$this->name;
         $data->type=$this->type;
+        $data->admin_id=Auth::guard('admin')->id();
         $check=$data->save();
 
         if ($check) {

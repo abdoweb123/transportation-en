@@ -31,6 +31,38 @@
 @if ($showForm == true)
     <livewire:gases.edit>
 @else
+<div class="row mb-10">
+    <div class="col-md-4">
+        <select wire:model='driver_id' class="form-control mr-sm-2 p-2" style="width: 100%" >
+            <option value="">choose driver </option>
+            @isset($drivers)
+                @foreach ($drivers as $driver)
+                    <option value="{{ $driver->id }}">{{ $driver->name }}</option>
+                @endforeach
+            @endisset
+        </select>
+    </div>
+    <div class="col-md-4">
+        <select wire:model='bus_id' class="form-control mr-sm-2 p-2" style="width: 100%" >
+            <option value="">choose bus </option>
+            @isset($buses)
+                @foreach ($buses as $bus)
+                    <option value="{{ $bus->id }}">{{ $bus->code }}</option>
+                @endforeach
+            @endisset
+        </select>
+    </div>
+    <div class="col-md-4">
+        <select wire:model='bus_type' class="form-control mr-sm-2 p-2" style="width: 100%">
+            <option value="">choose type</option>
+            @isset($bus_types)
+                @foreach ($bus_types as $bus_type)
+                    <option value="{{ $bus_type->id }}">{{ $bus_type->name }}</option>
+                @endforeach
+            @endisset
+        </select>
+    </div>
+</div>
                         <div class="table-responsive">
                             <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
                                    style="text-align: center" >
@@ -44,6 +76,9 @@
                                     <th>route </th>
                                     <th>Gas Amount </th>
                                     <th>paid amount </th>
+                                    <th>distance</th>
+                                    <th>leter/km </th>
+                                    <th>paid/km </th>
                                     <th>actions</th>
                                 </tr>
                                 </thead>
@@ -59,6 +94,9 @@
                                             <td>{{ @$result->route->name }}</td>
                                             <td>{{ @$result->gas_amount }}</td>
                                             <td>{{ @$result->paid_amount }}</td>
+                                            <td>{{ @$result->distance }}</td>
+                                            <td>{{ @$result->leter_k }}</td>
+                                            <td>{{ @$result->amount_k }}</td>
                                             <td style="width: 15%">
                                                 <button class="btn btn-primary"  title="تعديل"  wire:click='edit_form({{ $result->id }})'>
                                                     <i  class="fa fa-edit"></i>

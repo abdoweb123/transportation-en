@@ -12,4 +12,8 @@ class CarPayment extends Model
     {
         return $this->hasOne(Bus::class,'id','bus_id');
     }
+    public function car_payment_dates()
+    {
+        return $this->hasMany(CarPaymentDate::class,'car_payment_id');
+    }
 }

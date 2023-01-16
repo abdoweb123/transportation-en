@@ -91,7 +91,7 @@
                             {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
                             </button> --}}
                             {{--  <a href="{{ url('contract-client-edit/0') }}" class="btn btn-primary mb-10">{{ 'add ' . $tittle }}</a>  --}}
-                            <a href="{{ url('company-contract-route') }}" class="btn btn-primary mb-10">company contract toute</a>
+                            {{-- <a href="{{ url('company-contract-route') }}" class="btn btn-primary mb-10">company contract toute</a> --}}
 
                         <div class="table-responsive">
                             <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
@@ -104,6 +104,7 @@
                                     <th>start date </th>
                                     <th>end date </th>
                                     <th> number of routes </th>
+                                    <th> cmopany contract </th>
                                     <th>actions</th>
                                 </tr>
                                 </thead>
@@ -117,10 +118,10 @@
                                             <td>{{ @$result->start_date }}</td>
                                             <td>{{ @$result->end_date }}</td>
                                             <td>{{ @$result->number_of_routes }}</td>
+                                            <td>
+                                                <a href="{{ url('/company-contract-route/'.$result->id) }}" class="btn btn-success"  title="تعديل">company contract client</i></a>
+                                            </td>
                                             <td style="width: 15%">
-                                                {{-- <button class="btn btn-primary"  title="تعديل"  wire:click='edit_form({{ $result->id }})'>
-                                                    <i  class="fa fa-edit"></i>
-                                                </button> --}}
                                                 <a href="{{ url('/contract-client-edit/'.$result->id) }}" class="btn btn-primary"  title="تعديل"><i  class="fa fa-edit"></i></a>
                                                 <button class="btn btn-danger" wire:click='make_delete({{ $result->id }})' title="حذف">
                                                     <i class="fa fa-trash"></i>
@@ -155,7 +156,6 @@
             $('#delete').modal('hide');
             });
             window.livewire.on('showDelete', () => {
-                console.log('good');
             $('#delete').modal('show');
             });
         });

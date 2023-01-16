@@ -105,7 +105,7 @@
                             </tbody>
                         </table>
 
-{{--                        <div> {{$cities->links('pagination::bootstrap-4')}}</div>--}}
+                       <div> {{$cities->links('pagination::bootstrap-4')}}</div>
                     </div>
                 </div>
             </div>

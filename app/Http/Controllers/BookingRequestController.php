@@ -10,6 +10,7 @@ use App\Models\EmployeeRunTrip;
 use App\Models\MyEmployee;
 use App\Models\Route;
 use App\Models\RouteStation;
+use App\Models\Company;
 use App\Models\Station;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,77 +18,84 @@ use Illuminate\Support\Facades\DB;
 
 class BookingRequestController extends Controller
 {
-
     /*** index function  ***/
     public function index(Request $request)
     {
+    $bookingRequests = null;
+
         if ($request->has('startDate') && $request->has('endDate') && $request->startTime == null && $request->endTime == null && $request->route_id == null && $request->collection_point_from_id == null && $request->collection_point_to_id == null)
         {
-            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->get();
+            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate]);
         }
         else if ($request->has('startTime') && $request->has('endTime') && $request->startDate == null && $request->endDate == null && $request->route_id == null && $request->collection_point_from_id == null && $request->collection_point_to_id == null)
         {
-            $bookingRequests = BookingRequest::whereBetween('time',[$request->startTime,$request->endTime])->get();
+            $bookingRequests = BookingRequest::whereBetween('time',[$request->startTime,$request->endTime]);
         }
         else if ($request->has('route_id') && $request->startTime == null && $request->endTime == null && $request->startDate == null && $request->endDate == null && $request->collection_point_from_id == null && $request->collection_point_to_id == null)
         {
-            $bookingRequests = BookingRequest::where('route_id',$request->route_id)->get();
+            $bookingRequests = BookingRequest::where('route_id',$request->route_id);
         }
         else if ($request->has('collection_point_from_id') && $request->has('collection_point_to_id') && $request->startTime == null && $request->endTime == null && $request->route_id == null && $request->startDate == null && $request->endDate == null)
         {
-            $bookingRequests = BookingRequest::where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id)->get();
+            $bookingRequests = BookingRequest::where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id);
         }
         else if ($request->has('startDate') && $request->has('endDate') && $request->has('startTime') && $request->has('endTime') && $request->route_id == null && $request->collection_point_from_id == null && $request->collection_point_to_id == null)
         {
-            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->whereBetween('time',[$request->startTime,$request->endTime])->get();
+            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->whereBetween('time',[$request->startTime,$request->endTime]);
         }
         else if ($request->has('startTime') && $request->has('endTime') && $request->startDate == null && $request->endDate == null && $request->route_id == null && $request->has('collection_point_from_id') && $request->has('collection_point_to_id'))
         {
-            $bookingRequests = BookingRequest::whereBetween('time',[$request->startTime,$request->endTime])->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id)->get();
+            $bookingRequests = BookingRequest::whereBetween('time',[$request->startTime,$request->endTime])->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id);
         }
         else if ($request->has('startTime')  && $request->has('endTime') && $request->has('route_id') && $request->startDate == null && $request->endDate == null  && $request->collection_point_from_id == null && $request->collection_point_to_id == null)
         {
-            $bookingRequests = BookingRequest::whereBetween('time',[$request->startTime,$request->endTime])->where('route_id',$request->route_id)->get();
+            $bookingRequests = BookingRequest::whereBetween('time',[$request->startTime,$request->endTime])->where('route_id',$request->route_id);
         }
         else if ($request->has('startDate')  && $request->has('endDate') && $request->has('route_id') && $request->startTime == null && $request->endTime == null  && $request->collection_point_from_id == null && $request->collection_point_to_id == null)
         {
-            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->where('route_id',$request->route_id)->get();
+            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->where('route_id',$request->route_id);
         }
         else if ($request->has('startDate')  && $request->has('endDate') && $request->route_id == null && $request->startTime == null && $request->endTime == null  && $request->has('collection_point_from_id') && $request->has('collection_point_to_id'))
         {
-            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id)->get();
+            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id);
         }
         else if ($request->startDate == null  && $request->endDate == null && $request->has('route_id') && $request->startTime == null && $request->endTime == null  && $request->has('collection_point_from_id') && $request->has('collection_point_to_id'))
         {
-            $bookingRequests = BookingRequest::where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id)->get();
+            $bookingRequests = BookingRequest::where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id);
         }
         else if ($request->has('startDate') && $request->has('endDate') && $request->has('startTime') && $request->has('endTime') && $request->has('route_id') && $request->collection_point_from_id == null && $request->collection_point_to_id == null)
         {
-            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->whereBetween('time',[$request->startTime,$request->endTime])->where('route_id',$request->route_id)->get();
+            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->whereBetween('time',[$request->startTime,$request->endTime])->where('route_id',$request->route_id);
         }
         else if ($request->has('startTime')  && $request->has('endTime') && $request->has('route_id') && $request->startDate == null && $request->endDate == null  && $request->has('collection_point_from_id') && $request->has('collection_point_to_id'))
         {
-            $bookingRequests = BookingRequest::whereBetween('time',[$request->startTime,$request->endTime])->where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id)->get();
+            $bookingRequests = BookingRequest::whereBetween('time',[$request->startTime,$request->endTime])->where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id);
         }
         else if ($request->has('startDate') && $request->has('endDate') && $request->has('startTime') && $request->has('endTime') && $request->route_id == null && $request->has('collection_point_from_id') && $request->has('collection_point_to_id'))
         {
-            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->whereBetween('time',[$request->startTime,$request->endTime])->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id)->get();
+            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->whereBetween('time',[$request->startTime,$request->endTime])->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id);
         }
         else if ($request->has('startDate') && $request->has('endDate') && $request->startTime == null && $request->endTime == null && $request->has('route_id') && $request->has('collection_point_from_id') && $request->has('collection_point_to_id'))
         {
-            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id)->get();
+            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id);
         }
         else if ($request->has('startDate') && $request->has('endDate') && $request->has('startTime') && $request->has('endTime') && $request->has('route_id') && $request->has('collection_point_from_id') && $request->has('collection_point_to_id'))
         {
-            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->whereBetween('time',[$request->startTime,$request->endTime])->where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id)->get();
+            $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->whereBetween('time',[$request->startTime,$request->endTime])->where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id);
         }
-        else{
-            $bookingRequests = BookingRequest::all();
+        // else{
+        //     $bookingRequests = BookingRequest::paginate();
+        // }
+        if ($bookingRequests != null) {
+            $bookingRequests =$bookingRequests->paginate();
+        }else{
+            $bookingRequests = BookingRequest::paginate();
         }
 
         $stations = Station::select('id','name')->get();
         $routes = Route::select('id','name')->get();
-        return view('pages.bookingRequests.index', compact('bookingRequests','stations','routes','request'));
+        $companies=Company::select('id','name')->get();
+        return view('pages.bookingRequests.index', compact('bookingRequests','stations','companies','routes','request'));
     }
 
 
@@ -147,7 +155,8 @@ class BookingRequestController extends Controller
     {
         $routes = Route::select('id','name')->get();
         $buses = Bus::select('id','code')->get();
-        return view('pages.bookingRequests.addBooking',compact('routes','buses'));
+        $companies=Company::select('id','name')->get();
+        return view('pages.bookingRequests.addBooking',compact('routes','buses','companies'));
     }
 
 
@@ -157,7 +166,7 @@ class BookingRequestController extends Controller
     {
         $routes = Route::select('id','name')->get();
         $buses = Bus::select('id','code')->get();
-
+        $companies=Company::select('id','name')->get();
         if ($request->has('route_id') && $request->has('bus_id') && $request->has('date') && $request->has('time') && $request->has('collection_point_from_id') && $request->has('collection_point_to_id'))
         {
             $newBookings = DB::table('employee_run_trips')
@@ -165,11 +174,12 @@ class BookingRequestController extends Controller
                 ->join('routes','employee_run_trips.route_id','routes.id')
                 ->join('buses','employee_run_trip_buses.bus_id','buses.id')
                 ->where('employee_run_trips.route_id',$request->route_id)
+                ->where('employee_run_trips.company_id',$request->company_id)
                 ->where('employee_run_trips.date',$request->date)
                 ->where('employee_run_trip_buses.bus_id',$request->bus_id)
                 ->where('employee_run_trips.time',$request->time)->latest()->select('employee_run_trips.*','buses.code as bus_code','routes.name as route_name')->paginate(100);
 
-            return view('pages.bookingRequests.addBooking',compact('newBookings','request','request','routes','buses'));
+            return view('pages.bookingRequests.addBooking',compact('newBookings','companies','request','request','routes','buses'));
         }
 
         return redirect()->back();
@@ -216,16 +226,19 @@ class BookingRequestController extends Controller
 
     /*** getAssignEmployee ***/
     public function getAssignEmployee(Request $request)
-    {
-        if ($request->has('oracle_id') && $request->has('date'))
+    { 
+        $companies=Company::select('id','name')->get();
+        if ($request->oracle_id != '' && $request->date != '' && $request->company_id != '')
         {
-            $employee = MyEmployee::where('oracle_id',$request->oracle_id)->first();
-            $employeeBookings = BookingRequest::where('date',$request->date)->where('employee_id',$employee->id)->latest()->paginate(100);
+            $employee = MyEmployee::where('oracle_id',$request->oracle_id)->where('company_id',$request->company_id)->first();
+            if (!$employee) {
+                return back()->with('error_message','not found data');
+            }
+            $employeeBookings = BookingRequest::where('date',$request->date)->where('employee_id',$employee->id)->latest()->paginate(50);
 
             return view('pages.bookingRequests.assignEmployee',compact('employeeBookings','request','employee'));
         }
-
-        return view('pages.bookingRequests.assignEmployee');
+        return view('pages.bookingRequests.assignEmployee',compact('companies'));
     }
 
 

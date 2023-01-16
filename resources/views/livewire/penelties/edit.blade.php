@@ -31,6 +31,42 @@
                         @error('driver_id')<span style="color: red"> {{ $message }}</span>@enderror
                     </div>
                     <div class="col-md-6 mb-3">
+                        <label for="bus_id">Bus</label>
+                        <select class="form-control mr-sm-2 p-2" name="bus_id" wire:model.lazy='bus_id'>
+                            <option selected >choose</option>
+                            @if(count($buses))
+                                @foreach($buses as $bus)
+                                    <option value="{{$bus->id}}">{{$bus->code}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @error('bus_id')<span style="color: red"> {{ $message }}</span>@enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="company_id">Companies</label>
+                        <select class="form-control mr-sm-2 p-2" name="company_id" wire:model.lazy='company_id'>
+                            <option selected >choose</option>
+                            @if(count($companies))
+                                @foreach($companies as $company)
+                                    <option value="{{$company->id}}">{{$company->name}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @error('company_id')<span style="color: red"> {{ $message }}</span>@enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="employee_run_trip_id">employee run trip</label>
+                        <select class="form-control mr-sm-2 p-2" name="employee_run_trip_id" wire:model.lazy='employee_run_trip_id'>
+                            <option selected >choose</option>
+                            @if(count($run_trip_emplyees))
+                                @foreach($run_trip_emplyees as $run_trip)
+                                    <option value="{{$run_trip->id}}">{{$run_trip->route->name .','.$run_trip->date .','. $run_trip->time}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @error('employee_run_trip_id')<span style="color: red"> {{ $message }}</span>@enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
                         <label for="date" class="mr-sm-2"> date </label>
                         <input id="date" type="date"  class="form-control" wire:model.lazy='date'>
                         @error('date')<span style="color: red"> {{ $message }}</span>@enderror
@@ -49,6 +85,11 @@
                         <label for="company_pay" class="mr-sm-2"> company pay</label>
                         <input id="company_pay" type="number"  class="form-control" wire:model.lazy='company_pay'>
                         @error('company_pay')<span style="color: red"> {{ $message }}</span>@enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="distance_reading" class="mr-sm-2"> distance_reading </label>
+                        <input id="distance_reading" type="number"  class="form-control" wire:model.lazy='distance_reading'>
+                        @error('distance_reading')<span style="color: red"> {{ $message }}</span>@enderror
                     </div>
                 </div>
                 <br><br>

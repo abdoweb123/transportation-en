@@ -50,6 +50,10 @@
                         @method('PUT')
                         <div class="row mb-3">
                             <div class="col">
+                                <label class="mr-sm-2">Name</label>
+                                <input type="text" name="name" value="{{old('name', $myEmployee->name)}}"  class="form-control">
+                            </div>
+                            <div class="col">
                                 <label class="mr-sm-2">Employee Code</label>
                                 <input type="text" name="oracle_id" value="{{old('oracle_id', $myEmployee->oracle_id)}}" class="form-control">
                             </div>
@@ -113,7 +117,7 @@
                             </div>
                             <div class="col">
                                 <label class="mr-sm-2">Password</label>
-                                <input type="password" name="password" value="{{old('password', $myEmployee->password)}}" class="form-control">
+                                <input type="password" name="password" class="form-control">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -131,9 +135,18 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col">
+                            <div class="col-md-6">
                                 <label class="mr-sm-2">Address</label>
                                 <textarea name="address" class="form-control">{{old('address', $myEmployee->address)}}</textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="mr-sm-2">companies</label>
+                                <select name="company_id" class="form-control">
+                                    <option value=" " selected>-- Choose --</option>
+                                    @foreach($data['companies'] as $company)
+                                        <option value="{{$company->id}}" {{old('company_id') == $company->company_id ? 'selected' : ''}}>{{$company->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

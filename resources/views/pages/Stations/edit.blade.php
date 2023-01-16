@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-6">
                             <label for="city_id" class="mr-sm-2">{{ trans('stations_trans.choose_city_name') }}
                                 :</label>
                             <select class="form-control mr-sm-2 p-2" name="city_id">
@@ -46,6 +46,15 @@
 {{--                                <option value="{{$item->city->id}}">{{ $item->city->name }}</option>--}}
                                 @foreach($cities as $city)
                                     <option value="{{$city->id}}" {{$city->id == $item->city_id ? 'selected' : ''}}>{{ $city->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mr-sm-2">companies</label>
+                            <select name="company_id" class="form-control">
+                                <option value=" " selected>-- Choose --</option>
+                                @foreach($comapnies as $company)
+                                    <option value="{{$company->id}}" {{$item->company_id == $company->id ? 'selected' : ''}}>{{$company->name}}</option>
                                 @endforeach
                             </select>
                         </div>

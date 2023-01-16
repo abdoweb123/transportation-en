@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BusType;
 use App\Models\Seat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BusTypeController extends Controller
 {
@@ -12,7 +13,7 @@ class BusTypeController extends Controller
     /*** index function ***/
     public function index()
     {
-        $busTypes = BusType::latest()->paginate(10);
+        $busTypes = BusType::whereAdminId(Auth::guard('admin')->id())->latest()->paginate(10);
         return view('pages.BusTypes.index',compact('busTypes'));
     }
 

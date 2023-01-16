@@ -22,6 +22,11 @@ class EmployeeRunTripBus extends Model
         return $this->belongsTo(Admin::class,'admin_id');
     }
 
+    public function drivers()
+    {
+        return $this->belongsTo(Driver::class);
+    }
+
     /*** end relations ***/
 
 } //end of class

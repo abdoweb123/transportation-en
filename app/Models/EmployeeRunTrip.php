@@ -40,6 +40,16 @@ class EmployeeRunTrip extends Model
         return $this->belongsToMany(Bus::class,'employee_run_trip_buses','employeeRunTrip_id', 'bus_id');
     }
 
+    public function bus_one()
+    {
+        return $this->belongsTo(Bus::class);
+    }
+
+    public function penelties()
+    {
+        return $this->hasMany(Penelty::class,'employee_run_trip_id','id');
+    }
+
     /*** end relations ***/
 
 } //end of class

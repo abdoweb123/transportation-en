@@ -8,7 +8,7 @@ use App\Models\User;
 use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use Illuminate\Support\Facades\Auth;
 class ContractSubliers extends Component
 {
     use WithFileUploads;
@@ -23,7 +23,7 @@ class ContractSubliers extends Component
     }
     public function render()
     {
-        $results=ContractSublier::paginate();
+        $results=ContractSublier::whereAdminId(Auth::guard('admin')->id())->paginate();
         return view('livewire.contract-subliers.contract-subliers',[
             'results'=>$results,
         ])->extends('layouts.master');

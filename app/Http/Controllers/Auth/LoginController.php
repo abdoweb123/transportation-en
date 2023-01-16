@@ -31,7 +31,7 @@ class LoginController extends Controller
 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
 
-            return redirect()->intended('branches/admin/dashboard');
+            return redirect()->intended('dashboard');
         }
         else{
             return redirect()->back()->withInput(['email','password'])->with('alert-danger', 'يوجد خطا في كلمة المرور او اسم المستخدم أو النوع');

@@ -12,11 +12,11 @@ use App\Models\StaticTable;
 use App\Models\Route;
 use App\Models\Bus;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\Auth;
 class Edit extends Component
 {
     use WithFileUploads;
-    public $ids,$description,$driver_id,$bus_id,$date,$type_id,$amount;
+    public $ids,$description,$driver_id,$bus_id,$date,$type_id,$amount,$distance_reading;
    
     public $showIndex,$showForm;
     protected $listeners=[
@@ -24,9 +24,9 @@ class Edit extends Component
     ];
     public function render()
     {
-        $drivers=Driver::select('id','name')->get();
-        $types=StaticTable::select('id','name')->whereType('extra_fees_type')->get();
-        $buses=Bus::select('id','code')->get();
+        $drivers=Driver::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
+        $types=StaticTable::whereAdminId(Auth::guard('admin')->id())->select('id','name')->whereType('extra_fees_type')->get();
+        $buses=Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->get();
         return view('livewire.extra-fees.edit',compact('drivers','types','buses'))->extends('layouts.master');
     }
 
@@ -42,11 +42,13 @@ class Edit extends Component
         }else{
             $data= new ExtraFee();
         }
+        $data->admin_id=Auth::guard('admin')->id();
         $data->type_id=$this->type_id;
         $data->amount=$this->amount;
         $data->driver_id=$this->driver_id;
         $data->description=$this->description;
         $data->bus_id=$this->bus_id;
+        $data->distance_reading=$this->distance_reading;
         $check=$data->save();
 
         if ($check) {
@@ -63,8 +65,9 @@ class Edit extends Component
         $this->amount=$edit_object['amount'];
         $this->description=$edit_object['description'];
         $this->bus_id=$edit_object['bus_id'];
+        $this->distance_reading=$edit_object['distance_reading'];
     }
-
+    
     public function resetInput()
     {
         $this->ids=null;
@@ -73,5 +76,6 @@ class Edit extends Component
         $this->description=null;
         $this->driver_id=null;
         $this->bus_id=null;
+        $this->distance_reading=null;
     }
 }

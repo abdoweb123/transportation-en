@@ -36,5 +36,9 @@ class BusType extends Model
         return $this->hasMany(TripData::class,'busType_id');
     }
 
+    public function contract_route()
+    {
+        return $this->hasOne(CotractRoute::class,'bus_type_id')->with('company');
+    }
 
 } //end of class

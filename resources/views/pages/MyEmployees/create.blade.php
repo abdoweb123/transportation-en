@@ -50,6 +50,10 @@
                         @csrf
                         <div class="row mb-3">
                             <div class="col">
+                                <label class="mr-sm-2">Name</label>
+                                <input type="text" name="name" value="{{old('name')}}" class="form-control">
+                            </div>
+                            <div class="col">
                                 <label class="mr-sm-2">Employee Code</label>
                                 <input type="text" name="oracle_id" value="{{old('oracle_id')}}" class="form-control">
                             </div>
@@ -117,9 +121,18 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col">
+                            <div class="col-md-6">
                                 <label class="mr-sm-2">Address</label>
                                 <textarea name="address" class="form-control">{{old('address')}}</textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="mr-sm-2">companies</label>
+                                <select name="company_id" class="form-control">
+                                    <option value=" " selected>-- Choose --</option>
+                                    @foreach($data['companies'] as $company)
+                                        <option value="{{$company->id}}" {{old('company_id') == $company->id ? 'selected' : ''}}>{{$company->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

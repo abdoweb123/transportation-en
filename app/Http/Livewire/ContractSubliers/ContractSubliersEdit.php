@@ -10,6 +10,8 @@ use Intervention\Image\Facades\Image;
 use App\Models\StaticTable;
 use Livewire\Component;
 use App\Models\ContractSublier;
+use Illuminate\Support\Facades\Auth;
+
 class ContractSubliersEdit extends Component
 {
     use WithFileUploads;
@@ -78,6 +80,7 @@ class ContractSubliersEdit extends Component
             $new_sublier=new StaticTable();
             $new_sublier->type='sublier';
             $new_sublier->name=$this->sublier_id;
+            $new_sublier->name=$this->sublier_id;
             $new_sublier->save();
             $sublier_id_get=$new_sublier->id;
         }
@@ -85,6 +88,7 @@ class ContractSubliersEdit extends Component
         $data->name=$this->name;
         $data->sublier_id=$sublier_id_get;
         $data->start_date=$this->start_date;
+        $data->admin_id=Auth::guard('admin')->id();
         $data->end_date=$this->end_date;
         $data->number_of_routes=$this->number_of_routes;
         $check=$data->save();

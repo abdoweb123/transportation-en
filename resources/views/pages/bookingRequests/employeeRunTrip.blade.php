@@ -87,9 +87,10 @@
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>@isset($item->route->name)  {{ $item->route->name }} @else _______ @endisset</td>
-                                    @foreach ($item->bus as $mimiItem)
+                                   <td>{{ @$item->bus_one->code }}</td>
+                                    {{-- @foreach ($item->bus as $mimiItem)
                                        <td>@isset($mimiItem->code)  {{ $mimiItem->code}} @else _______ @endisset</td>
-                                    @endforeach
+                                    @endforeach --}}
                                     <td>{{$item->date}}</td>
                                     <td>{{$item->time}}</td>
                                     <td>{{ $item->total }}</td>

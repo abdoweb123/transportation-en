@@ -4,7 +4,7 @@
             <form wire:submit.prevent='store_update'>
                 <div class="card-body col-md-8 offset-2">
                     <div class="form-group row">
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <label for="contracts_id" class="mr-sm-2">contracts</label>
                             <select name="contracts_id" id="" class="w-100 mb-10" wire:model.lazy='contracts_id'>
                                 <option value="0"> </option>
@@ -15,10 +15,10 @@
                                 @endif
                             </select>
                             @error('contracts_id')<span style="color: red"> {{ $message }}</span>@enderror
-                        </div>
+                        </div> --}}
                         <div class="col-md-6">
-                            <label for="suplier_id" class="mr-sm-2">companies</label>
-                            <select name="suplier_id" id="" class="w-100 mb-10" wire:model.lazy='suplier_id'>
+                            <label for="suplier_id" class="mr-sm-2">supliers</label>
+                            <select name="suplier_id" id="" class="form-control mr-sm-2 p-2" wire:model.lazy='suplier_id'>
                                 <option value="0"> </option>
                                 @if (isset($supliers))
                                     @foreach ($supliers as $suplier)
@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="route_id" class="mr-sm-2">routes</label>
-                            <select name="route_id" id="" class="w-100 mb-10" wire:model.lazy='route_id'>
+                            <select name="route_id" id="" class="form-control mr-sm-2 p-2" wire:model.lazy='route_id'>
                                 <option value="0"> </option>
                                 @if (isset($routes))
                                     @foreach ($routes as $route)
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="bus_type_id" class="mr-sm-2">bus_types</label>
-                            <select name="bus_type_id" id="" class="w-100 mb-10" wire:model.lazy='bus_type_id'>
+                            <select name="bus_type_id" id="" class="form-control mr-sm-2 p-2" wire:model.lazy='bus_type_id'>
                                 <option value="0"> </option>
                                 @if (isset($bus_types))
                                     @foreach ($bus_types as $bus_type)
@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="service_type_id" class="mr-sm-2">service_type</label>
-                            <select name="service_type_id" id="" class="w-100 mb-5" wire:model.lazy='service_type_id'>
+                            <select name="service_type_id" id="" class="form-control mr-sm-2 p-2" wire:model.lazy='service_type_id'>
                                 <option value="0"> </option>
                                 @if (isset($service_types))
                                     @foreach ($service_types as $service_type)
@@ -65,9 +65,10 @@
                             @error('service_type_id')<span style="color: red"> {{ $message }}</span>@enderror
                         </div>
                        
-                        <div class="col-md-6">
+                              
+                        <div class="col-md-12">
                             <label for="service_value" class="mr-sm-2">service value</label>
-                            <input id="service_value" type="number"  class="w-100" wire:model.lazy='service_value'>
+                            <input id="service_value" type="number"  class="form-control" wire:model.lazy='service_value'>
                             @error('service_value')<span style="color: red"> {{ $message }}</span>@enderror
                         </div>
                     </div>

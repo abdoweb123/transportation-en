@@ -12,6 +12,7 @@ use App\Models\CotractRoute as CpmanyContractRoute;
 use App\Models\ContractClient;
 use App\Models\Route;
 use App\Models\BusType;
+use App\Models\Company;
 class CompanyContractRoutesEdit extends Component
 {
     use WithFileUploads;
@@ -40,7 +41,8 @@ class CompanyContractRoutesEdit extends Component
     public function render()
     {
         $contracts=ContractClient::select('id','name')->get();
-        $companies=StaticTable ::select('id','name')->whereType('company')->get();
+        // $companies=StaticTable ::select('id','name')->whereType('company')->get();
+        $companies=Company ::select('id','name')->get();
         $routes=Route::select('id','name')->get();
         $bus_types=BusType::select('id','name')->get();
         $service_types=StaticTable::select('id','name')->whereType('service')->get();
@@ -73,7 +75,7 @@ class CompanyContractRoutesEdit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('company-contract-route');
+            return redirect()->to('company-contract-route/'.$this->contracts_id);
         }
     }
     
@@ -86,7 +88,7 @@ class CompanyContractRoutesEdit extends Component
     public function resetInput()
     {
         $this->ids=null;
-        $this->contracts_id=null;
+        // $this->contracts_id=null;
         $this->company_id=null;
         $this->route_id=null;
         $this->bus_type_id=null;

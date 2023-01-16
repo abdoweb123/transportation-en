@@ -9,7 +9,7 @@ use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\Bus;
-
+use Illuminate\Support\Facades\Auth;
 class CarPayments extends Component
 {
     use WithFileUploads;
@@ -25,8 +25,8 @@ class CarPayments extends Component
     }
     public function render()
     {
-        $buses=Bus::select('id','code')->get();
-        $results=CarPayment::with('bus')->latest()->paginate();
+        $buses=Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->get();
+        $results=CarPayment::whereAdminId(Auth::guard('admin')->id())->with('bus')->latest()->paginate();
         return view('livewire.car-payments.car-payments',[
             'results'=>$results,
             'buses'=>$buses,
@@ -46,6 +46,7 @@ class CarPayments extends Component
         }
         $data->bus_id=$this->bus_id;
         $data->total_amount=$this->total_amount;
+        $data->admin_id=Auth::guard('admin')->id();
         $check=$data->save();
 
         if ($check) {

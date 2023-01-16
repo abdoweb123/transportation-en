@@ -9,10 +9,12 @@ use App\Models\EmployeeJob;
 use App\Models\MyEmployee;
 use App\Models\Office;
 use App\Models\Station;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class MyEmployeeController extends Controller
 {
@@ -20,8 +22,7 @@ class MyEmployeeController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $data['myEmployees']= MyEmployee::all();
-
+        $data['myEmployees']= MyEmployee::whereAdminId(Auth::guard('admin')->id())->paginate();
         return view('pages.MyEmployees.index', compact('data'));
     }
 
@@ -34,6 +35,7 @@ class MyEmployeeController extends Controller
         $data['stations'] = Station::select('id','name')->get();
         $data['employeeJobs'] = EmployeeJob::select('id','name')->get();
         $data['departments'] = Department::select('id','name')->get();
+        $data['companies'] = Company::select('id','name')->get();
         return view('pages.MyEmployees.create', compact('data'));
     }
 
@@ -43,6 +45,7 @@ class MyEmployeeController extends Controller
     public function store(MyEmployeeRequest $request)
     {
         $myEmployee = new MyEmployee();
+        $myEmployee->name = $request->name;
         $myEmployee->oracle_id = $request->oracle_id;
         $myEmployee->office_id = $request->office_id;
         $myEmployee->collectionPoint_id = $request->collectionPoint_id;
@@ -52,6 +55,7 @@ class MyEmployeeController extends Controller
         $myEmployee->gender = $request->gender;
         $myEmployee->phone = $request->phone;
         $myEmployee->email = $request->email;
+        $myEmployee->company_id = $request->company_id;
         $myEmployee->password = Hash::make($request->password);
         $myEmployee->admin_id = auth('admin')->id();
         $myEmployee->active = 1;
@@ -69,6 +73,7 @@ class MyEmployeeController extends Controller
         $data['stations'] = Station::select('id','name')->get();
         $data['employeeJobs'] = EmployeeJob::select('id','name')->get();
         $data['departments'] = Department::select('id','name')->get();
+        $data['companies'] = Company::select('id','name')->get();
         return view('pages.MyEmployees.edit', compact('data','myEmployee'));
     }
 
@@ -81,6 +86,7 @@ class MyEmployeeController extends Controller
 
         if ($request->password === $myEmployee->password)
         {
+            $myEmployee->name = $request->name;
             $myEmployee->oracle_id = $request->oracle_id;
             $myEmployee->office_id = $request->office_id;
             $myEmployee->collectionPoint_id = $request->collectionPoint_id;
@@ -90,11 +96,13 @@ class MyEmployeeController extends Controller
             $myEmployee->gender = $request->gender;
             $myEmployee->phone = $request->phone;
             $myEmployee->email = $request->email;
+            $myEmployee->company_id = $request->company_id;
             $myEmployee->admin_id = auth('admin')->id();
             $myEmployee->active =$request->active;
             $myEmployee->update();
         }
         else {
+            $myEmployee->name = $request->name;
             $myEmployee->oracle_id = $request->oracle_id;
             $myEmployee->office_id = $request->office_id;
             $myEmployee->collectionPoint_id = $request->collectionPoint_id;
@@ -104,6 +112,7 @@ class MyEmployeeController extends Controller
             $myEmployee->gender = $request->gender;
             $myEmployee->phone = $request->phone;
             $myEmployee->email = $request->email;
+            $myEmployee->company_id = $request->company_id;
             $myEmployee->password = Hash::make($request->password);
             $myEmployee->admin_id = auth('admin')->id();
             $myEmployee->active =$request->active;
@@ -137,15 +146,20 @@ class MyEmployeeController extends Controller
     /*** import excel function  ***/
     public function import(Request $request)
     {
-        $file = $request->file('excel');
+            $file = $request->file('excel');
+            $data=[
+               'company_id'=> $request->company_id
+            ];
+
+            // $file=['1','2'];
 
             DB::table('excel_employees')->truncate();
 
-        Excel::import(new EmployeeImport(),$file);
+            Excel::import(new EmployeeImport($data),$file);
 
         return redirect()->route('store.employees.data')->with('alert-info','تم إضافة البيانات بنجاح');
     }
-
+  
 } //end of class
 
 

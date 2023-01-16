@@ -27,7 +27,7 @@
                                     <div class="card-body col-md-8 offset-2">
                                         <div class="form-group row ">
                                               <div class="col-md-12 mb-10">
-                                                <label for="bus_id" class="mr-sm-2">contracts</label>
+                                                <label for="bus_id" class="mr-sm-2">buses</label>
                                                 <select name="bus_id" class="form-control mr-sm-2 p-2" id="" class="w-100 mb-10" wire:model.lazy='bus_id'>
                                                     <option value="0"> </option>
                                                     @if (isset($buses))
@@ -72,12 +72,7 @@
 
                         <br><br>
 
-                        {{-- <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
-                            {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
-                            </button> --}}
-                            {{--  <a href="{{ url('contract-client-edit/0') }}" class="btn btn-primary mb-10">{{ 'add ' . $tittle }}</a>  --}}
-                            {{--  <a href="{{ url('company-contract-route') }}" class="btn btn-primary mb-10">company contract toute</a>  --}}
-
+                     
                         <div class="table-responsive">
                             <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
                                    style="text-align: center" >
@@ -103,7 +98,7 @@
                                                      <i  class="fa fa-edit"></i>
                                                 </button> --}}
                                                 <a href="{{ url('car-payment-dates/'.$result->id) }}" class="btn btn-info"  title="dates">add dates</a>
-                                                <a href="{{ url('/contract-client-edit/'.$result->id) }}" class="btn btn-primary"  title="تعديل"><i  class="fa fa-edit"></i></a>
+                                                <a href="{{ url('/car-payment-edit/'.$result->id) }}" class="btn btn-primary"  title="تعديل"><i  class="fa fa-edit"></i></a>
                                                 <button class="btn btn-danger" wire:click='make_delete({{ $result->id }})' title="حذف">
                                                     <i class="fa fa-trash"></i>
                                                 </button >

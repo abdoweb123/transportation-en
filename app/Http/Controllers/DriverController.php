@@ -6,9 +6,12 @@ use App\Http\Requests\DriverStoreRequest;
 use App\Http\Requests\DriverUpdateRequest;
 use App\Models\Driver;
 use App\Models\Office;
+use App\Models\DriverImage;
+use App\Models\StaticTable;
 use Faker\Core\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class DriverController extends Controller
 {
@@ -17,7 +20,8 @@ class DriverController extends Controller
     {
         $drivers = Driver::latest()->paginate(10);
         $offices = Office::select('id','name')->get();
-        return view('pages.Drivers.index',compact('drivers','offices'));
+        $insurance_kinds =StaticTable::whereAdminId(Auth::guard('admin')->id())->select('id','name')->whereType('insurance_kind')->get();
+        return view('pages.Drivers.index',compact('drivers','offices','insurance_kinds'));
     }
 
 
@@ -51,8 +55,24 @@ class DriverController extends Controller
             'real_balance' => $request['real_balance'],
             'percentage' => $request['percentage'],
             'manager' => $request['manager'],
+            'national_id' => $request['national_id'],
+            'insurance_kind_id' => $request['insurance_kind_id'],
+            'expiration_insurance_date' => $request['expiration_insurance_date'],
+            'insurance_insurance_date' => $request['insurance_insurance_date'],
         ]);
+            if ($request->file('images')) {
+                foreach ($request->images as $image) {
+                    $path = 'assets/images/drivers/';
+                    $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+                    $image->move($path,$photo);
+                    $image_path = "$photo";
 
+                    $user_imag=new DriverImage();
+                    $user_imag->image=$image_path;
+                    $user_imag->driver_id=$driver->id;
+                    $user_imag->save();
+                }
+            }
         return redirect()->back()->with('alert-success','تم إضافة المستخدم بنجاح');
     }
 

@@ -6,17 +6,19 @@ use App\Http\Requests\StoreRequestStation;
 use App\Http\Requests\UpdateRequestStation;
 use App\Models\City;
 use App\Models\Station;
+use App\Models\Company;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class StationController extends Controller
 {
 
    /*** index function  ***/
     public function index()
     {
-        $stations = Station::all();
+        $stations = Station::whereAdminId(Auth::guard('admin')->id())->paginate();
         $cities = City::select('id','name')->get();
-        return view('pages.Stations.index', compact('stations','cities'));
+        $comapnies=Company::select('id','name')->get();
+        return view('pages.Stations.index', compact('stations','cities','comapnies'));
     }
 
 
@@ -30,6 +32,7 @@ class StationController extends Controller
             $station->city_id = $request->city_id;
             $station->lat = $request->lat;
             $station->lon = $request->lon;
+            $station->company_id = $request->company_id;
             $station->admin_id = auth('admin')->id();
             $station->save();
             return redirect()->back()->with('alert-success',trans('main_trans.success'));
@@ -51,6 +54,7 @@ class StationController extends Controller
             $station->city_id = $request->city_id;
             $station->lat = $request->lat;
             $station->lon = $request->lon;
+            $station->company_id = $request->company_id;
             $station->admin_id = auth('admin')->id();
             $station->update();
             return redirect()->back()->with('alert-success',trans('main_trans.success'));

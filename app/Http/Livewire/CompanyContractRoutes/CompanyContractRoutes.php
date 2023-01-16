@@ -12,29 +12,35 @@ use App\Models\ContractClient;
 use App\Models\Route;
 use App\Models\BusType;
 use App\Models\StaticTable;
+use App\Models\Company;
+use App\Models\Discount;
+use App\Models\contractDiscount;
 
 class CompanyContractRoutes extends Component
 {
     use WithFileUploads;
     public $ids,$showIndex,$showForm,$type;
-    public $contracts_id,$company_id,$route_id,$bus_type_id,$service_type_id,$service_value;
+    public $contracts_id,$company_id,$route_id,$bus_type_id,$service_type_id,$service_value,$contract_client_id,$discount_id;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
-    public function mount()
+    public function mount($contract_client_id)
     {
         $this->tittle='Company Contract Routes';
         $this->showForm=false;
+        $this->contracts_id=$contract_client_id;
     }
     public function render()
     {
-        $results=CpmanyContractRoute::paginate();
+        $results=CpmanyContractRoute::where('contracts_id',$this->contracts_id)->paginate();
         $contracts=ContractClient::select('id','name')->get();
-        $companies=StaticTable ::select('id','name')->whereType('company')->get();
+        // $companies=StaticTable ::select('id','name')->whereType('company')->get();
+        $companies=Company ::select('id','name')->get();
         $routes=Route::select('id','name')->get();
         $bus_types=BusType::select('id','name')->get();
         $service_types=StaticTable::select('id','name')->whereType('service')->get();
-        return view('livewire.company-contract-route.company-contract-route',compact('routes','bus_types','service_types','contracts','companies','results'))->extends('layouts.master');
+        $discounts=Discount::select('id','title')->get();
+        return view('livewire.company-contract-route.company-contract-route',compact('routes','discounts','bus_types','service_types','contracts','companies','results'))->extends('layouts.master');
     }
   
     public function edit_form($id)
@@ -65,27 +71,9 @@ class CompanyContractRoutes extends Component
         $this->user_delete_id=$id;
         $this->emit('showDelete');
     }
-    // public function delete_at()
-    // {
-    //     $data=CpmanyContractRoute::find($this->user_delete_id);
-    //     dd('good');
-    //     if ($data->deleted_at != null) {
-    //         $data->deleted_at= null;
-    //     }else{
-    //         $data->deleted_at= now();
-    //     }
-    //     $data->save();
-    //     session()->flash('success_message','deleted successfully');
-    //     $this->emit('remove_modal');
-    // }
     public function delete_at()
     {
         $data=CpmanyContractRoute::find($this->user_delete_id);
-        // if ($data->deleted_at != null) {
-        //     $data->deleted_at= null;
-        // }else{
-        //     $data->deleted_at= now();
-        // }
         $data->delete();
         session()->flash('success_message','deleted successfully');
         $this->emit('remove_modal');
@@ -114,9 +102,24 @@ class CompanyContractRoutes extends Component
         $check=$data->save();
 
         if ($check) {
+            $discount_defin=Discount::find($this->discount_id);
+            if ($discount_defin->presentage != null) {
+                $amount_after_discount=($discount_defin->presentage * $this->service_value)/100;
+            }elseif ($discount_defin->amount != null) {
+                $amount_after_discount=$discount_defin->amount;
+            }else{
+                $amount_after_discount=$this->service_value;
+            }
+
+            $discount_data=new contractDiscount();
+            $discount_data->contract_client_id=$this->contracts_id;
+            $discount_data->company_contract_id=$data->id;
+            $discount_data->discount_id=$this->discount_id;
+            $discount_data->discount_value=$amount_after_discount;
+            $discount_data->save();
             $this->resetInput();
             $this->emit('toggle');
-            // return redirect()->to('company-contract-route');
+            return redirect()->to('company-contract-route/'.$this->contracts_id);
         }
     }
     
@@ -129,12 +132,12 @@ class CompanyContractRoutes extends Component
     public function resetInput()
     {
         $this->ids=null;
-        $this->contracts_id=null;
         $this->company_id=null;
         $this->route_id=null;
         $this->bus_type_id=null;
         $this->service_type_id=null;
         $this->service_value=null;
+        $this->discount_id=null;
     }
     public function active_ms($id)
     {

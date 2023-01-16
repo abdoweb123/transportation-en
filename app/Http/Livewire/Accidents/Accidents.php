@@ -8,7 +8,7 @@ use App\Models\Accident;
 use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use Illuminate\Support\Facades\Auth;
 class Accidents extends Component
 {
     use WithFileUploads;
@@ -23,7 +23,7 @@ class Accidents extends Component
     }
     public function render()
     {
-        $results=Accident::paginate();
+        $results=Accident::whereAdminId(Auth::guard('admin')->id())->with('driver')->paginate();
         return view('livewire.accidents.accidents',[
             'results'=>$results,
         ])->extends('layouts.master');

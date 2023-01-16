@@ -8,7 +8,7 @@ use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\DriverSalary;
-
+use Illuminate\Support\Facades\Auth;
 class DriverSalaries extends Component
 {
     use WithFileUploads;
@@ -23,7 +23,9 @@ class DriverSalaries extends Component
     }
     public function render()
     {
-        $results=DriverSalary::with('driver','bus_type','route')->paginate();
+        $results=DriverSalary::whereHas('driver',function($driver){
+            $driver->where('admin_id',Auth::guard('admin')->id());
+        })->with('driver','bus_type','route')->paginate();
         return view('livewire.driver-salaries.driver-salaries',[
             'results'=>$results,
         ])->extends('layouts.master');

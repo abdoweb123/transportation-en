@@ -109,7 +109,7 @@
                             @endforeach
                         </table>
 
-{{--                        <div> {{$data['myEmployees']->links('pagination::bootstrap-4')}}</div>--}}
+                       <div> {{$data['myEmployees']->links('pagination::bootstrap-4')}}</div>
                     </div>
                 </div>
             </div>

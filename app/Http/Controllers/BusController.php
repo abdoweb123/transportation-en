@@ -13,6 +13,7 @@ use App\Models\Seat;
 use App\Models\StaticTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class BusController extends Controller
 {
@@ -20,7 +21,7 @@ class BusController extends Controller
     /*** index function ***/
     public function index()
     {
-        $buses = Bus::latest()->paginate(10);
+        $buses = Bus::whereAdminId(Auth::guard('admin')->id())->latest()->paginate(10);
         $busTypes = BusType::select('id','name')->get();
         $gas_types = StaticTable::select('id','name')->whereType('gas_type')->get();
         return view('pages.Buses.index',compact('buses','busTypes','gas_types'));

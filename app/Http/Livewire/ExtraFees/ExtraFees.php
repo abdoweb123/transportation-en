@@ -7,11 +7,14 @@ use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\ExtraFee;
-
+use App\Models\Driver;
+use App\Models\Bus;
+use App\Models\StaticTable;
+use Illuminate\Support\Facades\Auth;
 class ExtraFees extends Component
 {
     use WithFileUploads;
-    public $ids,$showIndex,$showForm,$type;
+    public $ids,$showIndex,$showForm,$type,$driver_id,$bus_id,$type_id;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
@@ -22,9 +25,25 @@ class ExtraFees extends Component
     }
     public function render()
     {
-        $results=ExtraFee::with('type','bus','driver')->paginate();
+        $results=ExtraFee::whereAdminId(Auth::guard('admin')->id())->with('type','bus','driver');
+        if ($this->driver_id != null) {
+            $results=$results->where('driver_id',$this->driver_id);
+        }
+        if ($this->bus_id != null) {
+            $results=$results->where('bus_id',$this->bus_id);
+        }
+        if ($this->type_id != null) {
+            $results=$results->where('type_id',$this->type_id);
+        }
+        $results=$results->paginate();
+        $drivers=Driver::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
+        $buses=Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->get();
+        $bus_types=StaticTable::whereAdminId(Auth::guard('admin')->id())->select('id','name')->whereType('extra_fees_type')->get();
         return view('livewire.extra-fees.extra-fees',[
             'results'=>$results,
+            'drivers'=>$drivers,
+            'buses'=>$buses,
+            'bus_types'=>$bus_types,
         ])->extends('layouts.master');
     }
   

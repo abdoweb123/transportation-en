@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRequestCity;
 use App\Http\Requests\UpdateRequestCity;
 use App\Models\City;
+use App\Models\Company;
 use App\Models\Station;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class CityController extends Controller
 {
 
     /*** index function  ***/
     public function index()
     {
-        $cities = City::all();
-        return view('pages.Cities.index', compact('cities'));
+        $cities = City::whereAdminId(Auth::guard('admin')->id())->paginate();
+        $comapnies=Company::select('id','name')->get();
+        return view('pages.Cities.index', compact('cities','comapnies'));
     }
 
 
@@ -27,6 +29,7 @@ class CityController extends Controller
             $city = new City();
             $city->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
             $city->admin_id = auth('admin')->id();
+            $city->company_id=$request->company_id;
             $city->save();
             return redirect()->back()->with('alert-success',trans('main_trans.success'));
         }
@@ -45,6 +48,7 @@ class CityController extends Controller
             $city = City::findOrFail($request->id);
             $city->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
             $city->admin_id = auth('admin')->id();
+            $city->company_id=$request->company_id;
             $city->update();
             return redirect()->back()->with('alert-info',trans('main_trans.info'));
         }

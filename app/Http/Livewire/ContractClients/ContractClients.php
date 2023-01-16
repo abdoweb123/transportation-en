@@ -6,9 +6,11 @@ use App\Models\ContractClient;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\StaticTable;
+use App\Models\Company;
 
 class ContractClients extends Component
 {
@@ -25,7 +27,7 @@ class ContractClients extends Component
     }
     public function render()
     {
-        $results=ContractClient::with('company')->paginate();
+        $results=ContractClient::whereAdminId(Auth::guard('admin')->id())->with('company')->paginate();
         return view('livewire.contract-clients.contract-clients',[
             'results'=>$results,
         ])->extends('layouts.master');
@@ -56,12 +58,12 @@ class ContractClients extends Component
         }else{
             $data= new ContractClient();
         }
-        $company=StaticTable::where('name','like','%'.$this->company_id.'%')->first();
+        $company=Company::where('name','like','%'.$this->company_id.'%')->first();
         if ($company != null) {
             $company_id_get=$company->id;
         }else{
-            $new_company=new StaticTable();
-            $new_company->type='company';
+            $new_company=new Company();
+            $data->admin_id=Auth::guard('admin')->id();
             $new_company->name=$this->company_id;
             $new_company->save();
             $company_id_get=$new_company->id;
@@ -70,6 +72,7 @@ class ContractClients extends Component
         $data->name=$this->name;
         $data->company_id=$company_id_get;
         $data->start_date=$this->start_date;
+        $data->admin_id=Auth::guard('admin')->id();
         $data->end_date=$this->end_date;
         $data->number_of_routes=$this->number_of_routes;
         $check=$data->save();

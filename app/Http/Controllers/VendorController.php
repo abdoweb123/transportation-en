@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\VendorRequest;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class VendorController extends Controller
 {
 
     /*** index function  ***/
     public function index()
     {
-        $vendors = Vendor::latest()->paginate(10);
+        $vendors = Vendor::whereAdminId(Auth::guard('admin')->id())->latest()->paginate(10);
         return view('pages.Vendors.index', compact('vendors'));
     }
 

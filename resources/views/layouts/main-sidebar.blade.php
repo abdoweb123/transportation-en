@@ -9,7 +9,7 @@
 
 
                     <li>
-                        <a href="{{route('admin.dashboard')}}" style="padding-bottom:30px;">
+                        <a href="{{url('dashboard')}}" style="padding-bottom:30px;">
                             <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">Dashboard</span>
                             </div>
                         </a>
@@ -23,8 +23,11 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="Fleet" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{url('static-table/bus_model')}}"><i class='fas fa-infinity'></i>Bus Model</a></li>
+                            <li> <a href="{{url('static-table/bank')}}"><i class='fas fa-money-bill-wave-alt'></i>Bank</a></li>
+                            <li> <a href="{{url('static-table/insurance_company')}}"><i class='fas fa-landmark'></i>Insurance company</a></li>
                             <li> <a href="{{route('busTypes.index')}}"><i class='fas fa-bus-alt'></i> Buses Type List</a></li>
-                            <li> <a href="{{route('buses.index')}}"><i class='fas fa-bus'></i>Buses List</a></li>
+                            <li> <a href="{{url('buses')}}"><i class='fas fa-bus'></i>Buses List</a></li>
                             <li> <a href="{{route('seats.create')}}"><i class='fas fa-business-time'></i> Add Design to bus</a></li>
                             <li> <a href="{{url('static-table/penalty_type')}}"><i class="fab fa-penny-arcade"></i>  Penalty Type</a> </li>
                             <li> <a href="{{route('getAllDrivers')}}"><i class='fas fa-screwdriver'></i> drivers </a></li>
@@ -40,6 +43,8 @@
                             <li> <a href="{{route('issues.index')}}"><i class="fas fa-wrench"></i>Bus Categories Issues </a> </li>
                             <li> <a href="{{route('reminders.index')}}"><i class="fas fa-bell"></i>Reminders </a> </li>
                             <li> <a href="{{route('reminderHistory.index')}}"><i class="fas fa-history"></i>Reminder History </a></li>
+                            <li> <a href="{{url('car-payments')}}"><i class="fas fa-history"></i>car payments</a></li>
+                            {{-- <li> <a href="{{route('car-payment-dates')}}"><i class="fas fa-history"></i>car payments </a></li> --}}
                         </ul>
                     </li>
 
@@ -57,19 +62,20 @@
                             <li> <a href="{{route('routes.index')}}">Routes List</a> </li>
                             <li> <a href="{{route('routeStations.index')}}">Route Stations List</a> </li>
                             <li> <a href="{{route('myEmployees.index')}}">Employees List</a> </li>
-                            <li> <a href="{{route('bookingRequests.index')}}">Booking Requests</a> </li>
-                            <li> <a href="{{route('employeeRunTrips.index')}}">Employees Run Trip</a> </li>
+                            {{-- <li> <a href="{{route('bookingRequests.index')}}">Booking Requests</a> </li>
+                            <li> <a href="{{route('employeeRunTrips.index')}}">Employees Run Trip</a> </li> --}}
                             <li> <a href="{{route('departments.index')}}">Departments List</a> </li>
                             <li> <a href="{{route('employeeJobs.index')}}">Jobs List</a> </li>
-                            <li> <a href="{{url('static-table/company')}}">Campanies</a></li>
+                            <li> <a href="{{url('companies')}}">Campanies</a></li>
                             <li> <a href="{{url('contract-client')}}">Contract Client</a></li>
                             <li> <a href="{{url('static-table/suppliers')}}">Suppliers</a></li>
                             <li> <a href="{{url('contract-sublier')}}">Contract Subliers</a></li>
-                            <li> <a href="{{url('company-contract-route')}}">company contract route</a></li>
-                            <li> <a href="{{url('suplier-contract-route')}}">suplier contract route</a></li>
+                            {{-- <li> <a href="{{url('company-contract-route')}}">company contract route</a></li> --}}
+                            {{-- <li> <a href="{{url('suplier-contract-route')}}">suplier contract route</a></li> --}}
                             <li> <a href="{{url('static-table/service')}}">services type</a></li>
-
-                            {{--  <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Buses</li>  --}}
+                            <li> <a href="{{url('static-table/gudget_brand')}}">gudget brand</a></li>
+                            <li> <a href="{{url('static-table/gudget_type')}}">gudget type</a></li>
+                            <li> <a href="{{url('static-table/discount_type')}}">discount type</a></li>
 
                         </ul>
                     </li>
@@ -99,15 +105,18 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="reports" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('revenues')}}">revenues</a></li>
+                            <li> <a href="{{route('expenses')}}">Expenses</a></li>
                             <li> <a href="{{route('emptySeatsPerBus')}}">Empty Seats Per Bus</a> </li>
                             <li> <a href="{{route('getRunTripByBus_id')}}">Names Of Employees Per Bus</a></li>
-                            <li> <a href="{{route('emptySeatsPerRoute')}}">Empty Seats Per Route</a></li>
+                            {{-- <li> <a href="{{route('emptySeatsPerRoute')}}">Empty Seats Per Route</a></li> --}}
                             <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Route</a></li>
                             <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Departure</a></li>
                             <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Arrival</a></li>
+                            
                         </ul>
                     </li>
-
+                    
 
 
 

@@ -11,7 +11,7 @@ use App\Models\Driver;
 use App\Models\BusType;
 use App\Models\Route;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\Auth;
 class Edit extends Component
 {
     use WithFileUploads;
@@ -23,9 +23,9 @@ class Edit extends Component
     ];
     public function render()
     {
-        $drivers=Driver::select('id','name')->get();
-        $bus_types=BusType::select('id','name')->get();
-        $routes=Route::select('id','name')->get();
+        $drivers=Driver::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
+        $bus_types=BusType::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
+        $routes=Route::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
         return view('livewire.driver-salaries.edit',compact('drivers','bus_types','routes'))->extends('layouts.master');
     }
 

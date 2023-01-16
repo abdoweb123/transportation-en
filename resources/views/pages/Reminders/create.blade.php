@@ -59,11 +59,11 @@
                                 </select>
                             </div>
                             <div class="col">
-                                <label class="mr-sm-2">Category Issue</label>
+                                <label class="mr-sm-2">Issue</label>
                                 <select name="issue_id" class="form-control" required>
                                     <option value=" " selected>-- Choose --</option>
                                     @foreach($data['issues'] as $issue)
-                                        <option value="{{$issue->id}}" {{old('issue_id') == $issue->id ? 'selected' : ''}}>{{$issue->category->name}}</option>
+                                        <option value="{{$issue->id}}" {{old('issue_id') == $issue->id ? 'selected' : ''}}>{{$issue->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -92,11 +92,17 @@
                                 <label class="mr-sm-2">Threeshold Distance</label>
                                 <input type="text" name="threeshold_distance" value="{{old('threeshold_distance')}}" class="form-control" required>
                             </div>
-                            <div class="col-8">
+                            <div class="col-4">
                                 <label class="mr-sm-2">Task</label>
                                 <input type="text" name="task" value="{{old('task')}}" class="form-control" required>
                             </div>
+                            
+                            <div class="col-4">
+                                <label class="mr-sm-2">Distance Reading</label>
+                                <input type="number" name="distance_reading" value="{{old('distance_reading')}}" class="form-control" required>
+                            </div>
                         </div>
+                      
 
                         <br><br>
 

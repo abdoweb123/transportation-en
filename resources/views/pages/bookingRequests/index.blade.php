@@ -56,7 +56,7 @@
 
                     {{--  button of add_modal_office  --}}
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-4">
                             <a href="{{route('getAddBooking')}}" class="button x-small">
                                 Add Booking
                             </a>
@@ -65,15 +65,35 @@
                             </a>
                         </div>
 
-                        <div class="col text-right">
-                            <form action="{{route('import.excelEmployee')}}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <input type="file" name="excel" class="form-control" style="width:50%; display:inline-block; padding:11px" required>
-                                <button class="button x-small">
-                                    <i class="ti-import"></i>  Import Excel Sheet
-                                </button>
-                            </form>
+                        {{-- <div class="col text-right"> --}}
+                        <div class="col-md-8 ">
+                            {{--  --}}
+                                <form action="{{route('import.excelEmployee')}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row">
+                                    <div class="col-md-4">
+                                        <button class="button x-small">
+                                            <i class="ti-import"></i>  Import Excel Sheet
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="file" name="excel" class="form-control" style="width:50%; display:inline-block; padding:11px" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control mr-sm-2 p-2" name="company_id">
+                                            <option selected >choose</option>
+                                            @if(count($companies))
+                                                @foreach($companies as $company)
+                                                    <option value="{{$company->id}}">{{$company->name}}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        @error('company_id')<span style="color: red"> {{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                                </form>
                         </div>
+                        {{-- </div> --}}
                     </div>
                     <div class="line mb-3" style="border-bottom: 1px solid #e9ecef; padding-bottom:30px">
                     </div>
@@ -184,7 +204,7 @@
                             @endforeach
                         </table>
 
-{{--                        <div> {{$bookingRequests->links('pagination::bootstrap-4')}}</div>--}}
+                       <div> {{$bookingRequests->links('pagination::bootstrap-4')}}</div>
 
                     </div>
                 </div>

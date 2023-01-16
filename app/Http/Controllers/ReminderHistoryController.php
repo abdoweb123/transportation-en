@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Reminder;
 use App\Models\ReminderHistory;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class ReminderHistoryController extends Controller
 {
 
     /*** index function  ***/
     public function index()
     {
-        $reminderHistory= ReminderHistory::all();
+        $reminderHistory= ReminderHistory::whereAdminId(Auth::guard('admin')->id())->paginate();
         return view('pages.ReminderHistory.index', compact('reminderHistory'));
     }
 
@@ -29,7 +29,7 @@ class ReminderHistoryController extends Controller
     /*** destroy function  ***/
     public function getReminder($id)
     {
-        $data['reminders'] = Reminder::where('id',$id)->get();
+        $data['reminders'] = Reminder::whereAdminId(Auth::guard('admin')->id())->where('id',$id)->get();
         return view('pages.Reminders.index', compact('data'));
     }
 

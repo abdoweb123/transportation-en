@@ -8,25 +8,38 @@ use App\Models\User;
 use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use App\Models\ContractClient;
+use App\Models\Route;
+use App\Models\BusType;
+use App\Models\StaticTable;
+use App\Models\Discount;
+use App\Models\contractDiscount;
 class SuplierContractRoutes extends Component
 {
     use WithFileUploads;
     public $ids,$showIndex,$showForm,$type;
+    public $suplier_contract_id,$suplier_id,$route_id,$bus_type_id,$discount_id
+    ,$service_type_id,$service_value;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
-    public function mount()
+    public function mount($suplier_contract_id)
     {
         $this->tittle='suplier Contract Routes';
         $this->showForm=false;
+        // // $this->suplier_contract_id=$suplier_contract_id;
     }
     public function render()
-    {
-        $results=SublierCotractRoute::paginate();
-        return view('livewire.suplier-contract-route.suplier-contract-route',[
-            'results'=>$results,
-        ])->extends('layouts.master');
+    { 
+        $results=SublierCotractRoute::with('suplier_contract')->paginate();
+
+        $supliers=StaticTable::select('id','name')->whereType('suppliers')->get();
+        $routes=Route::select('id','name')->get();
+        $bus_types=BusType::select('id','name')->get();
+        $service_types=StaticTable::select('id','name')->whereType('service')->get(); 
+        $discounts=Discount::select('id','title')->get();
+
+        return view('livewire.suplier-contract-route.suplier-contract-route',compact('discounts','routes','bus_types','service_types','supliers','results'))->extends('layouts.master');
     }
   
     public function edit_form($id)
@@ -92,4 +105,58 @@ class SuplierContractRoutes extends Component
         }
         $data->save();
     }
+    public function store_update()
+    {
+        $validate=$this->validate([
+            // 'suplier_contract_id'=>'required',
+            'suplier_id'=>'required',
+            'route_id'=>'required',
+            'bus_type_id'=>'required',
+            'service_type_id'=>'required'
+        ]);
+        if($this->ids != null){
+            $data=SublierCotractRoute::find($this->ids);
+        }else{
+            $data= new SublierCotractRoute();
+            $data->operations_number=SublierCotractRoute::count()+1;
+        }
+        $data->suplier_contract_id=$this->suplier_contract_id;
+        $data->suplier_id=$this->suplier_id;
+        $data->route_id=$this->route_id;
+        $data->bus_type_id=$this->bus_type_id;
+        $data->service_type_id=$this->service_type_id;
+        $data->service_value=$this->service_value;
+        $check=$data->save();
+
+        if ($check) {
+            // $discount_defin=Discount::find($this->discount_id);
+            // if ($discount_defin->presentage != null) {
+            //     $amount_after_discount=($discount_defin->presentage * $this->service_value)/100;
+            // }elseif ($discount_defin->amount != null) {
+            //     $amount_after_discount=$discount_defin->amount;
+            // }else{
+            //     $amount_after_discount=$this->service_value;
+            // }
+
+            // $discount_data=new contractDiscount();
+            // $discount_data->contract_client_id=$this->contracts_id;
+            // $discount_data->company_contract_id=$data->id;
+            // $discount_data->discount_id=$this->discount_id;
+            // $discount_data->discount_value=$amount_after_discount;
+            // $discount_data->save();
+            $this->resetInput();
+            // return redirect()->to('suplier-contract-route');
+        }
+    }
+    public function resetInput()
+    {
+        $this->ids=null;
+        $this->contracts_id=null;
+        $this->suplier_id=null;
+        $this->route_id=null;
+        $this->bus_type_id=null;
+        $this->service_type_id=null;
+        $this->service_value=null;
+    }
+    
 }

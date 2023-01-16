@@ -7,14 +7,14 @@ use App\Models\Bus;
 use App\Models\Issue;
 use App\Models\Reminder;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class ReminderController extends Controller
 {
 
     /*** index function  ***/
     public function index()
     {
-        $data['reminders']= Reminder::latest()->paginate(50);
+        $data['reminders']= Reminder::whereAdminId(Auth::guard('admin')->id())->latest()->paginate(50);
         return view('pages.Reminders.index', compact('data'));
     }
 
@@ -23,8 +23,8 @@ class ReminderController extends Controller
     /*** create function  ***/
     public function create()
     {
-        $data['buses'] = Bus::select('id','code')->get();
-        $data['issues'] = Issue::select('id','category_id')->get();
+        $data['buses'] = Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->get();
+        $data['issues'] = Issue::whereAdminId(Auth::guard('admin')->id())->select('id','title','category_id')->get();
         return view('pages.Reminders.create', compact('data'));
     }
 
@@ -42,6 +42,7 @@ class ReminderController extends Controller
         $reminder->distance = $request->distance;
         $reminder->threeshold_distance = $request->threeshold_distance;
         $reminder->task = $request->task;
+        $reminder->distance_reading = $request->distance_reading;
         $reminder->admin_id = auth('admin')->id();
         $reminder->active = 1;
         $reminder->save();
@@ -72,6 +73,7 @@ class ReminderController extends Controller
         $reminder->distance = $request->distance;
         $reminder->threeshold_distance = $request->threeshold_distance;
         $reminder->task = $request->task;
+        $reminder->distance_reading = $request->distance_reading;
         $reminder->admin_id = auth('admin')->id();
         $reminder->active = $request->active;
         $reminder->update();

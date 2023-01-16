@@ -12,7 +12,7 @@ use App\Models\BusType;
 use App\Models\Route;
 use App\Models\Bus;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\Auth;
 class Edit extends Component
 {
     use WithFileUploads;
@@ -24,10 +24,10 @@ class Edit extends Component
     ];
     public function render()
     {
-        $drivers=Driver::select('id','name')->get();
-        $bus_types=BusType::select('id','name')->get();
-        $routes=Route::select('id','name')->get();
-        $buses=Bus::select('id','code')->get();
+        $drivers=Driver::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
+        $bus_types=BusType::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
+        $routes=Route::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
+        $buses=Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->get();
         return view('livewire.gases.edit',compact('drivers','bus_types','routes','buses'))->extends('layouts.master');
     }
 
@@ -45,12 +45,24 @@ class Edit extends Component
             $data= new Gas();
         }
         $data->driver_id=$this->driver_id;
+        $data->admin_id=Auth::guard('admin')->id();
         $data->bus_type_id=$this->bus_type_id;
         $data->route_id=$this->route_id;
         $data->gas_amount=$this->gas_amount;
         $data->bus_id=$this->bus_id;
         $data->paid_amount=$this->paid_amount;
         $data->kilometer=$this->kilometer;
+
+        $data_befor=Gas::where(['driver_id'=>$this->driver_id,'bus_type_id'=>$this->bus_type_id,'bus_id'=>$this->bus_id])->latest()->first();
+        if ($data_befor != null) {
+            $data->distance =$this->kilometer - $data_befor->kilometer;
+            $data->leter_k =$this->gas_amount / $data->distance;
+            $data->amount_k =$this->paid_amount / $data->distance;
+        }else{
+            $data->distance =$this->kilometer;
+            $data->leter_k =$this->gas_amount / $this->kilometer;
+            $data->amount_k =$this->paid_amount / $this->kilometer;
+        }
         $check=$data->save();
 
         if ($check) {

@@ -11,10 +11,14 @@ use App\Models\StaticTable;
 use Livewire\Component;
 use App\Models\Penelty;
 use App\Models\Driver;
+use App\Models\Company;
+use App\Models\EmployeeRunTrip;
+use App\Models\Bus;
 class Edit extends Component
 {
     use WithFileUploads;
-    public $ids,$description,$driver_id,$penelty_type_id,$date,$amount,$driver_pay,$company_pay;
+    public $ids,$description,$driver_id,$penelty_type_id,$date,$amount
+    ,$distance_reading,$driver_pay,$company_pay,$employee_run_trip_id,$company_id,$bus_id;
    
     public $showIndex,$showForm;
     protected $listeners=[
@@ -32,6 +36,10 @@ class Edit extends Component
             $this->amount=$data->amount;
             $this->driver_pay=$data->driver_pay;
             $this->company_pay=$data->company_pay;
+            $this->company_id=$data->company_id;
+            $this->distance_reading=$data->distance_reading;
+            $this->employee_run_trip_id=$data->employee_run_trip_id;
+            $this->bus_id=$data->bus_id;
         }
         $this->chk=true;
     }
@@ -39,7 +47,10 @@ class Edit extends Component
     {
         $penelty_types=StaticTable::select('id','name')->where('type','penalty_type')->get();
         $drivers=Driver::select('id','name')->get();
-        return view('livewire.penelties.edit',compact('penelty_types','drivers'))->extends('layouts.master');
+        $companies=Company::select('id','name')->get();
+        $run_trip_emplyees=EmployeeRunTrip::select('id','date', 'time','route_id')->get();
+        $buses=Bus::select('id','code')->get();
+        return view('livewire.penelties.edit',compact('penelty_types','drivers','companies','buses','run_trip_emplyees'))->extends('layouts.master');
     }
 
     public function store_update()
@@ -66,6 +77,10 @@ class Edit extends Component
         $data->amount=$this->amount;
         $data->driver_pay=$this->driver_pay;
         $data->company_pay=$this->company_pay;
+        $data->company_id=$this->company_id;
+        $data->distance_reading=$this->distance_reading;
+        $data->employee_run_trip_id=$this->employee_run_trip_id;
+        $data->bus_id=$this->bus_id;
         $check=$data->save();
 
         if ($check) {
@@ -77,7 +92,17 @@ class Edit extends Component
     public function get_object($edit_object)
     {
         $this->ids=$edit_object['id'];
-        // $this->name=$edit_object['name'];
+        $this->description=$edit_object['description'];
+        $this->driver_id=$edit_object['driver_id'];
+        $this->penelty_type_id=$edit_object['penelty_type_id'];
+        $this->date=$edit_object['date'];
+        $this->amount=$edit_object['amount'];
+        $this->company_id=$edit_object['company_id'];
+        $this->employee_run_trip_id=$edit_object['employee_run_trip_id'];
+        $this->distance_reading=$edit_object['distance_reading'];
+        $this->company_pay=$edit_object['company_pay'];
+        $this->bus_id=$edit_object['bus_id'];
+        $this->driver_pay=$edit_object['driver_pay'];
     }
 
     public function resetInput()
@@ -90,5 +115,9 @@ class Edit extends Component
         $this->amount=null;
         $this->driver_pay=null;
         $this->company_pay=null;
+        $this->company_id  =null;
+        $this->employee_run_trip_id =null;
+        $this->distance_reading =null;
+        $this->bus_id=null;
     }
 }

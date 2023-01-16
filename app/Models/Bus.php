@@ -24,7 +24,7 @@ class Bus extends Model
 
     public function busType()
     {
-        return $this->belongsTo(BusType::class,'busType_id');
+        return $this->belongsTo(BusType::class,'busType_id')->with('contract_route');
     }
 
 
@@ -63,12 +63,41 @@ class Bus extends Model
         return $this->belongsToMany(Bus::class,'employee_run_trip_buses', 'bus_id','employeeRunTrip_id');
     }
 
+    public function employee_run_trip_buses()
+    {
+        return $this->hasMany(EmployeeRunTripBus::class,'bus_id')->with('drivers');
+    }
+
 
     public function reminders()
     {
         return $this->hasMany(Reminder::class,'bus_id');
     }
 
+    public function penelties()
+    {
+        return $this->hasMany(Penelty::class,'bus_id');
+    }
+
+    public function accidents()
+    {
+        return $this->hasMany(Accident::class,'bus_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(CarPayment::class,'bus_id')->with('car_payment_dates');
+    }
+    
+    public function gas()
+    {
+        return $this->hasMany(Gas::class,'bus_id');
+    }
+
+    public function extera_fees()
+    {
+        return $this->hasMany(ExtraFee::class,'bus_id');
+    }
    /*** end relations ***/
 
 } //end of class

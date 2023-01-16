@@ -13,7 +13,7 @@ class Driver extends Model
 
     protected $fillable = ['name', 'admin_id', 'image', 'title', 'password', 'role', 'email', 'mobile',
                            'email_verified_at', 'fcm_token', 'bio', 'balance', 'real_balance', 'percentage',
-                            'office_id', 'manager'
+                            'office_id', 'manager','national_id','insurance_kind_id','expiration_insurance_date','insurance_insurance_date'
                             ];
 
 
@@ -48,6 +48,10 @@ class Driver extends Model
         return $this->hasMany(EmployeeRunTrip::class,'driver_id');
     }
 
+    public function driver_salary()
+    {
+        return $this->hasOne(DriverSalary::class,'driver_id');
+    }
 
     /*** end relations ***/
 

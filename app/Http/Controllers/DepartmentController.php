@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends Controller
 {
@@ -11,8 +13,9 @@ class DepartmentController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $departments = Department::latest()->paginate(10);
-        return view('pages.Departments.index', compact('departments'));
+        $departments = Department::whereAdminId(Auth::guard('admin')->id())->latest()->paginate(10);
+        $comapnies=Company::select('id','name')->get();
+        return view('pages.Departments.index', compact('departments','comapnies'));
     }
 
 
@@ -31,6 +34,7 @@ class DepartmentController extends Controller
 
         $department = new Department();
         $department->name = $request['name'];
+        $department->company_id= $request['company_id'];
         $department->admin_id = auth('admin')->id();
         $department->active = 1;
         $department->save();
@@ -53,6 +57,8 @@ class DepartmentController extends Controller
 
         $department->name = $request['name'];
         $department->admin_id = auth('admin')->id();
+        $department->company_id= $request['company_id'];
+
         $department->active = $request['active'];
         $department->update();
         return redirect()->route('departments.index')->with('alert-success','Data is updated successfully');

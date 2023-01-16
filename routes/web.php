@@ -10,7 +10,7 @@ use App\Http\Controllers\BusTypeController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\EmployeeRunTripController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\ReminderController; 
 use App\Http\Controllers\ReminderHistoryController;
 use App\Http\Controllers\RouteStationController;
 use App\Http\Controllers\SeatController;
@@ -59,6 +59,14 @@ use App\Http\Livewire\CarPaymentDates\CarPaymentDates;
 use App\Http\Livewire\DriverSalaries\DriverSalaries;
 use App\Http\Livewire\Gases\Gases;
 use App\Http\Livewire\ExtraFees\ExtraFees;
+use App\Http\Livewire\Reports\Revenues;
+use App\Http\Livewire\Reports\Expenses;
+use App\Http\Livewire\ReminderDetails\ReminderDetails;
+use App\Http\Livewire\Home;
+use App\Http\Livewire\Companies\Companies;
+use App\Http\Livewire\Discounts\Discounts;
+use App\Http\Livewire\CarPayments\CarPaymentsEdit;
+use App\Http\Livewire\Buses\Buses;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,17 +85,17 @@ Route::group(['middleware'=>['guest']], function ()
 });
 
 
+Route::get('/dashboard', Home::class)->name('dashboard');
 
 
-
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function(){
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth:admin']], function(){
 
 
     // ====================== admin login ======================
-    Route::group(['namespace' => 'Auth'], function () {
-        Route::post('/login', [LoginController::class,'login'])->middleware('guest')->name('login.admin');
-        Route::get('/logout', [LoginController::class,'logout'])->middleware('auth:admin')->name('logout');
-    });
+    // Route::group(['namespace' => 'Auth'], function () {
+    //     Route::post('/login', [LoginController::class,'login'])->middleware('guest')->name('login.admin');
+    //     Route::post('/logout', [LoginController::class,'logout'])->middleware('auth:admin')->name('logout');
+    // });
 
 
     // ====================== admin ( employee ) ======================
@@ -129,7 +137,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
 
 
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', Home::class)->name('dashboard');
 
     Route::resource('cities',CityController::class);
     Route::resource('stations',StationController::class)->except('create','edit','show');
@@ -137,7 +146,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('busTypes',BusTypeController::class)->except('create','edit','show');
     Route::get('show/busType/seats/{id}',[BusTypeController::class,'showBusTypeSeats'])->name('show.busType.seats');
 
-    Route::resource('buses',BusController::class);
+    // Route::resource('buses',BusController::class);
     Route::get('show/bus/seats/{id}',[BusController::class,'showBusSeats'])->name('show.bus.seats');
 
     Route::resource('seats',SeatController::class)->except('update','edit');
@@ -216,14 +225,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('static-table/{type}',StaticTables::class)->name('static-table');
     // contract client
     Route::get('contract-client',ContractClients::class)->name('contract-client');
-    Route::get('contract-client-edit/{id}',ContractClientsEdit::class)->name('contract-client');
+    Route::get('contract-client-edit/{id}',ContractClientsEdit::class);
       // contract subliers
     Route::get('contract-sublier',ContractSubliers::class)->name('contract-sublier');
-    Route::get('contract-sublier-edit/{id}',ContractSubliersEdit::class)->name('contract-sublier');
-    Route::get('company-contract-route',CompanyContractRoutes::class)->name('company-contract-route');
+    Route::get('contract-sublier-edit/{id}',ContractSubliersEdit::class);
+    Route::get('company-contract-route/{contract_client_id}',CompanyContractRoutes::class)->name('company-contract-route');
     Route::get('company-contract-route-edit/{id}',CompanyContractRoutesEdit::class)->name('company-contract-route-edit');
-    Route::get('suplier-contract-route',SuplierContractRoutes::class)->name('suplier-contract-route');
+    Route::get('suplier-contract-route/{suplier_contract_id}',SuplierContractRoutes::class)->name('suplier-contract-route');
     Route::get('suplier-contract-route-edit/{id}',SuplierContractRoutesEdit::class)->name('suplier-contract-route-edit');
+    // discount
+    Route::get('discounts',Discounts::class)->name('discounts');
+
 
     //   Penelty
     Route::get('penelties',Penelties::class)->name('penelties');
@@ -232,12 +244,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('accidents',Accidents::class)->name('accidents');
     // car_payments_table
     Route::get('car-payments',CarPayments::class)->name('car-payment');
+    Route::get('car-payment-edit/{payment_id}',CarPaymentsEdit::class);
     Route::get('car-payment-dates/{car_payment_id}',CarPaymentDates::class)->name('car-payment-dates');
     // driver sallary
     Route::get('driver-salary',DriverSalaries::class)->name('driver-salary');
 
     Route::get('gases',Gases::class)->name('gases');
     Route::get('extra-fees',ExtraFees::class)->name('extra-fees');
+    Route::get('buses',Buses::class)->name('buses');
 
 
     // Reports
@@ -249,6 +263,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     Route::get('empty/seats/per/Route',[BusController::class,'emptySeatsPerRoute'])->name('emptySeatsPerRoute');
 
+    Route::get('revenues',Revenues::class)->name('revenues');
+    Route::get('expenses',Expenses::class)->name('expenses');
+    Route::get('reminder-history',ReminderDetails::class)->name('reminder-history');
+    Route::get('companies',Companies::class)->name('companies');
 
 
 }); //end of routes
+Route::get('revenues',Revenues::class)->name('revenues');

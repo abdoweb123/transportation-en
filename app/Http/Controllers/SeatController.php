@@ -7,6 +7,7 @@ use App\Models\Bus;
 use App\Models\BusType;
 use App\Models\Seat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SeatController extends Controller
 {
@@ -23,7 +24,7 @@ class SeatController extends Controller
     /*** create function  ***/
     public function create()
     {
-        $busTypes = BusType::whereDoesntHave('seats')->get();
+        $busTypes = BusType::whereAdminId(Auth::guard('admin')->id())->whereDoesntHave('seats')->get();
         return view('pages.Seats.create', compact('busTypes'));
     }
 
@@ -41,18 +42,23 @@ class SeatController extends Controller
 
 
         $inputs = $request->input('type');
-        foreach ($inputs as $id => $value)
-        {
-            if ($value == null)
-                $value = '1';  //acceptable
+        if ($inputs != null) {
+            foreach ($inputs as $id => $value)
+            {
+                if ($value == null)
+                    $value = '1';  //acceptable
 
-                Seat::create([
-                   'name'=>$id,
-                   'busType_id'=>$request->busType_id,
-                   'admin_id'=>auth('admin')->id(),
-                   'type'=>$value,
-                ]);
+                    Seat::create([
+                    'name'=>$id,
+                    'busType_id'=>$request->busType_id,
+                    'admin_id'=>auth('admin')->id(),
+                    'type'=>$value,
+                    ]);
+            }
+        }else{
+            return redirect()->back()->with('alert-success', ' من فضلك اضغط علي زر show seat design!');
         }
+
          return redirect()->back()->with('alert-success', 'تم حفظ البيانات بنجاح');
     }
 
