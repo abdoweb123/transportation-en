@@ -13,10 +13,11 @@ use App\Models\ContractClient;
 use App\Models\Route;
 use App\Models\BusType;
 use App\Models\Company;
+use App\Models\Discount;
 class CompanyContractRoutesEdit extends Component
 {
     use WithFileUploads;
-    public $ids,$contracts_id,$company_id,$route_id,$bus_type_id
+    public $ids,$contracts_id,$company_id,$route_id,$bus_type_id,$discount_id,$payment_type,$rate_charge
     ,$service_type_id,$service_value;
    
     public $showIndex,$showForm;
@@ -35,6 +36,9 @@ class CompanyContractRoutesEdit extends Component
             $this->service_type_id=$contract->service_type_id;
             $this->service_value=$contract->service_value;
             $this->number_of_routes=$contract->number_of_routes;
+            $this->discount_id=$contract->discount_id;
+            $this->payment_type=$contract->payment_type;
+            $this->rate_charge=$contract->rate_charge;
         }
         $this->chk=true;
     }
@@ -46,7 +50,9 @@ class CompanyContractRoutesEdit extends Component
         $routes=Route::select('id','name')->get();
         $bus_types=BusType::select('id','name')->get();
         $service_types=StaticTable::select('id','name')->whereType('service')->get();
-        return view('livewire.company-contract-route.company-contract-route-edit',compact('routes','bus_types','service_types','contracts','companies'))->extends('layouts.master');
+        $discounts=Discount::select('id','title')->get();
+
+        return view('livewire.company-contract-route.company-contract-route-edit',compact('routes','bus_types','service_types','contracts','companies','discounts'))->extends('layouts.master');
     }
     
 
@@ -71,6 +77,12 @@ class CompanyContractRoutesEdit extends Component
         $data->bus_type_id=$this->bus_type_id;
         $data->service_type_id=$this->service_type_id;
         $data->service_value=$this->service_value;
+        if ($this->rate_charge == null) {
+            $data->rate_charge="N";
+        }else {
+            $data->rate_charge=$this->rate_charge;
+        }
+        $data->payment_type=$this->payment_type;
         $check=$data->save();
 
         if ($check) {

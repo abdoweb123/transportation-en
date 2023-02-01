@@ -9,14 +9,14 @@ use Intervention\Image\Facades\Image;
 use App\Models\Gas;
 use App\Models\Driver;
 use App\Models\BusType;
-use App\Models\Route;
+use App\Models\StaticTable;
 use App\Models\Bus;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 class Edit extends Component
 {
     use WithFileUploads;
-    public $ids,$bus_id,$kilometer,$gas_amount,$paid_amount,$driver_id,$date,$bus_type_id,$route_id;
+    public $ids,$bus_id,$kilometer,$gas_amount,$paid_amount,$driver_id,$date,$bus_type_id,$suplier_type_id;
    
     public $showIndex,$showForm;
     protected $listeners=[
@@ -26,9 +26,10 @@ class Edit extends Component
     {
         $drivers=Driver::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
         $bus_types=BusType::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
-        $routes=Route::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
+        // $routes=Route::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
         $buses=Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->get();
-        return view('livewire.gases.edit',compact('drivers','bus_types','routes','buses'))->extends('layouts.master');
+        $suplier_types=StaticTable::select('id','name')->whereType('supplier_type')->get();
+        return view('livewire.gases.edit',compact('drivers','bus_types','suplier_types','buses'))->extends('layouts.master');
     }
 
     public function store_update()
@@ -36,7 +37,7 @@ class Edit extends Component
         $validate=$this->validate([
             'driver_id'=>'required|int',
             'bus_type_id'=>'required|int',
-            'route_id'=>'required|int',
+            'suplier_type_id'=>'required|int',
             'bus_id'=>'required|int',
         ]);
         if($this->ids != null){
@@ -47,7 +48,7 @@ class Edit extends Component
         $data->driver_id=$this->driver_id;
         $data->admin_id=Auth::guard('admin')->id();
         $data->bus_type_id=$this->bus_type_id;
-        $data->route_id=$this->route_id;
+        $data->suplier_type_id=$this->suplier_type_id;
         $data->gas_amount=$this->gas_amount;
         $data->bus_id=$this->bus_id;
         $data->paid_amount=$this->paid_amount;
@@ -76,7 +77,7 @@ class Edit extends Component
         $this->ids=$edit_object['id'];
         $this->driver_id=$edit_object['driver_id'];
         $this->bus_type_id=$edit_object['bus_type_id'];
-        $this->route_id=$edit_object['route_id'];
+        $this->suplier_type_id=$edit_object['suplier_type_id'];
         $this->bus_id=$edit_object['bus_id'];
         $this->kilometer=$edit_object['kilometer'];
         $this->gas_amount=$edit_object['gas_amount'];
@@ -88,7 +89,7 @@ class Edit extends Component
         $this->ids=null;
         $this->date=null;
         $this->bus_type_id=null;
-        $this->route_id=null;
+        $this->suplier_type_id=null;
         $this->bus_id=null;
         $this->kilometer=null;
         $this->gas_amount=null;

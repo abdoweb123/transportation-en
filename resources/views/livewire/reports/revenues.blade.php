@@ -85,21 +85,22 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>year  </th>
-                                    <th> month</th>
-                                    <th>client name  </th>
-                                    <th> contract start date  </th>
-                                    <th> contract end date </th>
-                                    <th> number of contracted lines </th>
-                                    <th>  line name </th>
-                                    <th>  bus type </th>
-                                    <th>  services type </th>
-                                    <th>  services value </th>
-                                    <th>  Number of runs </th>
-                                    <th>  total of revenues </th>
-                                    <th>  count of penelties </th>
-                                    <th>  total of penelties </th>
-                                    <th>  Net revenue   </th>
+                                    <th style="background-color:#000000; color:white">{{ trans('main_trans.year') }}  </th>
+                                    <th style="background-color:#000000; color:white"> {{ trans('main_trans.month') }}</th>
+                                    <th style="background-color:#000000; color:white">{{ trans('main_trans.client_name') }} </th>
+                                    <th style="background-color:#000000; color:white">{{ trans('main_trans.contract_start_date') }}  </th>
+                                    <th style="background-color:#000000; color:white">{{ trans('main_trans.contract_end_date') }} </th>
+                    
+                                    <th style="background-color:#000000; color:white">{{ trans('main_trans.number_of_contracted_lines') }} </th>
+                                    <th style="background-color:#00b0f0; color:black">{{ trans('main_trans.bus_type') }}</th>
+                                    <th style="background-color:#00b0f0; color:black">{{ trans('main_trans.bus_type') }}</th>
+                                    <th style="background-color:#ffff00; color:black">{{ trans('main_trans.services_type') }}</th>
+                                    <th style="background-color:#ffff00; color:black">{{ trans('main_trans.services_value') }}</th>
+                                    <th style="background-color:#ffff00; color:black">{{ trans('main_trans.number_of_runs') }} </th>
+                                    <th style="background-color:#ffff00; color:black">{{ trans('main_trans.total_of_revenues') }} </th>
+                                    <th style="background-color:#ff0000; color:black">{{ trans('main_trans.count_of_penelties') }} </th>
+                                    <th style="background-color:#ff0000; color:black">{{ trans('main_trans.total_of_penelties') }} </th>
+                                    <th style="background-color:#01b070; color:black">{{ trans('main_trans.net_revenue') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -122,8 +123,11 @@
                                             <td>{{ @$result->service_value }}</td>
                                             <td>{{ @$result->route->employeeRunTrips->count() }}</td>
                                             <td>{{ @$result->route->employeeRunTrips->count() * @$result->service_value }}</td>
-                                            <td>{{ @$result->route->employeeRunTrips->count('penelties_count') }}</td>
-                                            <td>{{ @$result->route->employeeRunTrips->sum('penelties_sum_amount') - @$result->discounts_sum_discount_value }}</td>
+                                            {{-- <td>{{ @$result->route->employeeRunTrips->count('penelties_count') }}</td>
+                                            <td>{{ @$result->route->employeeRunTrips->sum('penelties_sum_amount') - @$result->discounts_sum_discount_value }}</td> --}}
+                                            <td>{{ @$result->contract->discounts->count() }}</td>
+                                            <td>{{ @$result->contract->discounts->sum('discount_value') }}</td>
+                                            {{-- <td>{{ @$result->contract->withSum('discounts','discount_value') }}</td> --}}
                                             <td>{{ (@$result->route->employeeRunTrips->count() * @$result->service_value) - @$result->route->employeeRunTrips->sum('penelties_sum_amount') }}</td>
                                         </tr>
                                     @endforeach

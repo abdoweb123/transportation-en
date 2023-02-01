@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
-class Driver extends Model
+class Driver extends Authenticatable 
 {
     use HasFactory , SoftDeletes;
-
+    use HasApiTokens;
 
     protected $fillable = ['name', 'admin_id', 'image', 'title', 'password', 'role', 'email', 'mobile',
                            'email_verified_at', 'fcm_token', 'bio', 'balance', 'real_balance', 'percentage',
@@ -51,6 +53,16 @@ class Driver extends Model
     public function driver_salary()
     {
         return $this->hasOne(DriverSalary::class,'driver_id');
+    }
+
+    public function employeeRunTripsBuses()
+    {
+        return $this->hasMany(EmployeeRunTripBus::class,'driver_id');
+    }
+
+    public function station_tracker()
+    {
+        return $this->hasMany(StationTracker::class,'driver_id');
     }
 
     /*** end relations ***/

@@ -51,9 +51,13 @@ class BookingRequest extends Model
 
     public function bus()
     {
-        return $this->belongsTo(Bus::class,'bus_id');
+        return $this->belongsTo(Bus::class,'bus_id')->with('busType','location_tracker:id,bus_id,driver_id,lat,long');
     }
 
+    public function employee_run_trip()
+    {
+        return $this->belongsTo(EmployeeRunTrip::class,'employeeRunTrip_id');
+    }
 
     /*** end relations ***/
 

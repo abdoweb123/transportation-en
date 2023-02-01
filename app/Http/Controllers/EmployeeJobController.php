@@ -12,9 +12,11 @@ class EmployeeJobController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $employeeJobs = EmployeeJob::whereAdminId(Auth::guard('admin')->id())->latest()->paginate(10);
+        $employeeJobs = EmployeeJob::whereAdminId(Auth::guard('admin')->id());
         $comapnies=Company::select('id','name')->get();
-        return view('pages.EmployeeJobs.index', compact('employeeJobs','comapnies'));
+        $employeeJobs=$employeeJobs->latest()->paginate(10);
+        $request_company_id=request('company_id');
+        return view('pages.EmployeeJobs.index', compact('employeeJobs','comapnies','request_company_id'));
     }
 
 

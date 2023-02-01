@@ -30,15 +30,31 @@ class Route extends Model
 
     public function bookingRequest()
     {
-        return $this->hasMany(BookingRequest::class,'route_id');
+        return $this->hasMany(BookingRequest::class,'route_id','id');
     }
 
 
     public function employeeRunTrips()
     {
-        return $this->hasMany(EmployeeRunTrip::class,'route_id')->with('penelties');
+        return $this->hasMany(EmployeeRunTrip::class,'route_id')->with('penelties','bus');
     }
 
+    public function employeeRunTripBuses()
+    {
+        return $this->hasManyThrough(
+            EmployeeRunTripBus::class,
+            EmployeeRunTrip::class,
+            'route_id', 
+            'employeeRunTrip_id',
+            'id',
+            'id' 
+        )->with('bus');
+    }
+
+    public function company_contract_route()
+    {
+        return $this->hasOne(CotractRoute::class,'route_id','id');
+    }
     /*** end relations ***/
 
 } //end of class

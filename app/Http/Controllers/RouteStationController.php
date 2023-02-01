@@ -24,6 +24,19 @@ use Illuminate\Support\Facades\Auth;
 class RouteStationController extends Controller
 {
 
+    public function switch_status(Request $request)
+    {
+        $data=RouteStation::find($request->id);
+
+        if ($data->active == 0) {
+            $data->active = 1;
+        }else{
+            $data->active = 0;
+        }
+        $data->save();
+        return response()->json('تم التعديل بنجاح');
+    }
+
     /* operation function  */
     public function operation()
     {
@@ -350,11 +363,16 @@ class RouteStationController extends Controller
     /* get all offices */
     public function index()
     {
-        $routeStations = RouteStation::whereAdminId(Auth::guard('admin')->id())->paginate();
+        $routeStations = RouteStation::whereAdminId(Auth::guard('admin')->id());
         $routes = Route::select('id','name')->get();
         $stations = Station::select('id','name')->get();
         $comapnies=Company::select('id','name')->get();
-        return view('pages.RouteStation.index', compact('routeStations','routes','stations','comapnies'));
+        if (request('company_id')) {
+            $routeStations=$routeStations->where('company_id',request('company_id'));
+        }
+        $routeStations=$routeStations->paginate();
+        $request_company_id=request('company_id');
+        return view('pages.RouteStation.index', compact('routeStations','routes','stations','comapnies','request_company_id'));
     }
 
 

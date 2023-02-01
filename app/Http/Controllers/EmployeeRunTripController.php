@@ -16,7 +16,7 @@ class EmployeeRunTripController extends Controller
     /*** get all offices ***/
     public function index()
     {
-        $employeeRunTrips = EmployeeRunTrip::all();
+        $employeeRunTrips = EmployeeRunTrip::paginate();
         $routes = Route::select('id','name')->get();
         $drivers = Driver::select('id','name')->get();
         $buses = Bus::select('id','code')->get();

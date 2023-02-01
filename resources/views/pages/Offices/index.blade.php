@@ -58,7 +58,26 @@
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                         Add Office
                     </button>
-                    <br><br>
+                    <button type="button" class="button x-small" >
+                        <i class="far fa-file-excel"></i> Excel
+                     </button>
+                     <br><br>
+ 
+                         <form action="offices" method="GET">
+                             <div class="row mb-4" >
+                                 <div class="col-md-4">
+                                     <select name="company_id" class="form-control">
+                                         <option value=" ">-- Choose --</option>
+                                         @foreach($comapnies as $company)
+                                             <option value="{{$company->id}}" {{$request_company_id == $company->id ? 'selected' : ''}}>{{$company->name}}</option>
+                                         @endforeach
+                                     </select>
+                                 </div>
+                                 <div class="col-md-4">
+                                     <button class="btn btn-info font-weight-bolder font-size-sm"><i class="fas fa-filter"></i> filter</button>
+                                 </div>
+                             </div>
+                         </form>
 
                     <div class="table-responsive">
                         <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
@@ -71,6 +90,7 @@
                                 <th>City</th>
                                 <th>Station</th>
                                 <th>Entered By</th>
+                                <th> status</th>
                                 <th>Processes</th>
                             </tr>
                             </thead>
@@ -83,6 +103,12 @@
                                     <td>@isset($item->city->name)  {{ $item->city->name }} @else _____ @endisset</td>
                                     <td>@isset($item->station->name)  {{ $item->station->name }} @else _____ @endisset</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
+                                    <td>
+                                        <label class="switch">
+                                            <input type="checkbox" class="checkbox" value="{{ $item->id }}" {{ ($item->is_active == 'Y' ? 'checked' : '') }}>
+                                            <span class="slider round"></span>
+                                          </label>
+                                    </td>
                                     <td>
                                         <a type="button" class="process" style="cursor:pointer" data-toggle="modal"
                                            data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
@@ -129,6 +155,21 @@
     <script>
         $(document).ready(function(){
             $(".messages").delay(5000).slideUp(300);
+        });
+    </script>
+    <script>
+        $('.checkbox').on('click',function(){
+            var item_id  = $(this).val();
+            $.ajax({
+                url:'offices-status',
+                type:'GET',
+                data:{id:item_id}
+            }).done(function(response) {
+            //success
+            }).fail(function(error){
+            //failure
+            console.log('faild');
+            })
         });
     </script>
 @endsection

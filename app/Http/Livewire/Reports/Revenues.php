@@ -28,7 +28,7 @@ class Revenues extends Component
             $route->with(['employeeRunTrips'=>function($empoyee_run_trip){
                 $empoyee_run_trip->withCount('penelties')->withSum('penelties','amount');
             }]);
-        }])->withSum('discounts','discount_value');
+        }])->withSum('discounts','discount_value'); 
         $this->results=$dataa->get();
     }
     public function render()

@@ -13,27 +13,27 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>year  </th>
-                <th> month</th>
-                <th>client name  </th>
-                <th> bus type </th>
-                <th> service type </th>
-                <th> service value </th>
-                <th>number of maintenance </th>
-                {{-- <th>total maintenance value </th> --}}
-                <th>  count of penelties </th>
-                <th>  total of penelties </th>
-                <th> Accident Count </th>
-                <th> insurance Pay </th>
-                <th> Company pay </th>
-                <th> fixing Amount </th>
-                <th> debt Amount </th>
-                <th> total debt </th>
-                <th> driver numbers </th>
-                <th> total driver amount </th>
-                <th> total gas </th>
-                <th> extera fees </th>
-                <th> total expenses </th>
+                <th style="background-color:black; color:white">{{ trans('main_trans.year') }}  </th>
+                <th style="background-color:black; color:white"> {{ trans('main_trans.month') }}</th>
+                <th style="background-color:black; color:white">{{ trans('main_trans.client_name') }} </th>
+                <th style="background-color:black; color:white">{{ trans('main_trans.bus_type') }}</th>
+                <th style="background-color:black; color:white">{{ trans('main_trans.servic_type') }} </th>
+                <th style="background-color:rgb(170, 183, 253); color:white">{{ trans('main_trans.service_value') }}</th>
+                <th style="background-color:rgb(170, 183, 253); color:white">{{ trans('main_trans.number_of_maintenance') }} </th>
+                <th style="background-color:rgb(170, 183, 253); color:white">{{ trans('main_trans.total_maintenance_value') }} </th>
+                <th style="background-color:rgb(98, 108, 165); color:white">{{ trans('main_trans.count_of_penelties') }} </th>
+                <th style="background-color:rgb(21, 179, 47); color:white">{{ trans('main_trans.total_of_penelties') }} </th>
+                <th style="background-color:rgb(21, 179, 47); color:white">{{ trans('main_trans.Accident_Count') }}</th>
+                <th style="background-color:rgb(21, 179, 47); color:white">{{ trans('main_trans.insurance_Pay') }}</th>
+                <th style="background-color:rgb(21, 179, 47); color:white">{{ trans('main_trans.Company_pay') }}</th>
+                <th style="background-color:rgb(21, 179, 47); color:white">{{ trans('main_trans.fixing_Amount') }}</th>
+                <th style="background-color:rgb(58, 67, 119); color:white">{{ trans('main_trans.debt_Amount') }}</th>
+                <th style="background-color:rgb(58, 67, 119); color:white">{{ trans('main_trans.total_debt') }}</th>
+                <th style="background-color:rgb(119, 58, 99); color:white">{{ trans('main_trans.driver_numbers') }}</th>
+                <th style="background-color:rgb(119, 58, 99); color:white">{{ trans('main_trans.total_driver_amount') }} </th>
+                <th style="background-color:rgb(248, 158, 218); color:white">{{ trans('main_trans.total_gas') }}</th>
+                <th style="background-color:rgb(140, 226, 128); color:white">{{ trans('main_trans.extera_fees') }}</th>
+                <th style="background-color:rgb(107, 11, 75); color:white">{{ trans('main_trans.total_expenses') }}</th>
             </tr>
             </thead>
             <tbody>

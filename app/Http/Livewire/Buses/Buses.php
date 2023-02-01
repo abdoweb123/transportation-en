@@ -30,7 +30,16 @@ class Buses extends Component
             'results'=>$results,
         ])->extends('layouts.master');
     }
-  
+    public function switch_status($id)
+    {
+        $data=Bus::find($id);
+        if($data->is_active == "Y"){
+            $data->is_active="N";
+        }else{
+            $data->is_active="Y";
+        }
+        $data->save();
+    }
     public function edit_form($id)
     {
         $this->showForm=!$this->showForm;

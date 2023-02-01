@@ -13,9 +13,11 @@ class DepartmentController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $departments = Department::whereAdminId(Auth::guard('admin')->id())->latest()->paginate(10);
+        $departments = Department::whereAdminId(Auth::guard('admin')->id());
         $comapnies=Company::select('id','name')->get();
-        return view('pages.Departments.index', compact('departments','comapnies'));
+        $departments=$departments->latest()->paginate(10);
+        $request_company_id=request('company_id');
+        return view('pages.Departments.index', compact('departments','comapnies','request_company_id'));
     }
 
 

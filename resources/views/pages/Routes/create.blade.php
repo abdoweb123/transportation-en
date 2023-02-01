@@ -29,6 +29,10 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col-md-12">
+                            <label class="mr-sm-2">description</label>
+                            <textarea name="description" class="form-control" id="" cols="15" rows="5"></textarea>
+                        </div>
                     </div>
 
                     <br><br>

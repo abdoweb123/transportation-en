@@ -25,7 +25,7 @@ class EmployeeRunTrip extends Model
 
     public function route()
     {
-        return $this->belongsTo(Route::class,'route_id');
+        return $this->belongsTo(Route::class,'route_id')->with('routeStations:id,route_id,station_id,station_name');
     }
 
 
@@ -37,17 +37,29 @@ class EmployeeRunTrip extends Model
 
     public function bus()
     {
-        return $this->belongsToMany(Bus::class,'employee_run_trip_buses','employeeRunTrip_id', 'bus_id');
+        return $this->belongsToMany(Bus::class,'employee_run_trip_buses','employeeRunTrip_id', 'bus_id')->withSum('busType','slug');
     }
 
     public function bus_one()
     {
         return $this->belongsTo(Bus::class);
     }
-
+    public function company()
+    {
+        return $this->belongsTo(Company::class,'company_id');
+    }
     public function penelties()
     {
         return $this->hasMany(Penelty::class,'employee_run_trip_id','id');
+    }
+    public function employee_run_trip_buses()
+    {
+        return $this->hasMany(EmployeeRunTripBus::class,'employeeRunTrip_id','id')->with('bus');
+    }
+
+    public function employees()
+    {
+        return $this->belongsToMany(MyEmployee::class,'booking_requests','employeeRunTrip_id', 'employee_id');
     }
 
     /*** end relations ***/

@@ -10,7 +10,7 @@ class CotractRoute extends Model
     use HasFactory;
     public function contract()
     {
-        return $this->hasOne(ContractClient::class,'id','contracts_id')->withCount('cotract_routes');
+        return $this->hasOne(ContractClient::class,'id','contracts_id')->with('discounts')->withCount('cotract_routes');
     }
     public function company()
     {

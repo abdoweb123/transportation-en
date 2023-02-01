@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Queue\Jobs\Job;
-
-class MyEmployee extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
+class MyEmployee extends Authenticatable
 {
     use HasFactory , SoftDeletes;
-
+    use HasApiTokens;
 
     protected $fillable = ['oracle_id', 'office_id', 'collectionPoint_id', 'employeeJob_id', 'department_id',
                             'admin_id', 'address', 'gender', 'phone', 'email', 'password', 'active'];

@@ -22,8 +22,14 @@ class MyEmployeeController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $data['myEmployees']= MyEmployee::whereAdminId(Auth::guard('admin')->id())->paginate();
-        return view('pages.MyEmployees.index', compact('data'));
+        $data['myEmployees']= MyEmployee::whereAdminId(Auth::guard('admin')->id());
+        if (request('company_id')) {
+            $data['myEmployees']=$data['myEmployees']->where('company_id',request('company_id'));
+        }
+        $comapnies=Company::select('id','name')->get();
+        $data['myEmployees']=$data['myEmployees']->paginate();
+        $request_company_id=request('company_id');
+        return view('pages.MyEmployees.index', compact('data','comapnies','request_company_id'));
     }
 
 
@@ -146,6 +152,9 @@ class MyEmployeeController extends Controller
     /*** import excel function  ***/
     public function import(Request $request)
     {
+        if ($request->company_id == 0) {
+            return redirect()->back()->with('alert-danger','plz choose company!');
+        }
             $file = $request->file('excel');
             $data=[
                'company_id'=> $request->company_id

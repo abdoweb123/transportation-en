@@ -12,7 +12,7 @@
         <div class="dropdown-divider"></div>
         @if(isset($results))
             @foreach($results as $result)
-            <a href="{{ url('all/offers/'.$result->job_id.'/'.$result->company_id) }}" class="dropdown-item">{{ @$result->bus->code .' : '.$item->issue->category->name .':'.$item->task}} <small class="float-right text-muted time">{{$result->created_at}}</small> </a>
+            <a href="{{ url('all/offers/'.$result->job_id.'/'.$result->company_id) }}" class="dropdown-item">{{ @$result->bus->code .' : '.$result->issue->category->name .':'.$result->task}} <small class="float-right text-muted time">{{$result->created_at}}</small> </a>
             @endforeach
         @endif
     </div>

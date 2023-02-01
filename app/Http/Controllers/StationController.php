@@ -15,10 +15,15 @@ class StationController extends Controller
    /*** index function  ***/
     public function index()
     {
-        $stations = Station::whereAdminId(Auth::guard('admin')->id())->paginate();
+        $stations = Station::whereAdminId(Auth::guard('admin')->id());
         $cities = City::select('id','name')->get();
         $comapnies=Company::select('id','name')->get();
-        return view('pages.Stations.index', compact('stations','cities','comapnies'));
+        if (request('company_id')) {
+            $stations=$stations->where('company_id',request('company_id'));
+        }
+        $stations=$stations->paginate();
+        $request_company_id=request('company_id');
+        return view('pages.Stations.index', compact('stations','cities','comapnies','request_company_id'));
     }
 
 
@@ -44,6 +49,18 @@ class StationController extends Controller
     }
 
 
+    public function switch_status(Request $request)
+    {
+        $data=Station::find($request->id);
+
+        if ($data->is_active == 'Y') {
+            $data->is_active = 'N';
+        }else{
+            $data->is_active = 'Y';
+        }
+        $data->save();
+        return response()->json('تم التعديل بنجاح');
+    }
 
     /*** update function  ***/
     public function update(UpdateRequestStation $request)

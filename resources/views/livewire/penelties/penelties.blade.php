@@ -17,7 +17,7 @@
                 <div class="card card-statistics h-100">
                     <div class="card-body">
                         @foreach(['danger','warning','success','info'] as $msg)
-                            @if(Session::has('alert-'.$msg))
+                            @if(Session::has('error_message'))
                                 <div class="alert alert-{{$msg}}">
                                     {{Session::get('alert-'.$msg)}}
                                 </div>

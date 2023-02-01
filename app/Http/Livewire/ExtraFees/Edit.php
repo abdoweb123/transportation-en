@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 class Edit extends Component
 {
     use WithFileUploads;
-    public $ids,$description,$driver_id,$bus_id,$date,$type_id,$amount,$distance_reading;
+    public $ids,$description,$driver_id,$bus_id,$date,$type_id,$amount,$distance_reading,$time;
    
     public $showIndex,$showForm;
     protected $listeners=[
@@ -49,6 +49,8 @@ class Edit extends Component
         $data->description=$this->description;
         $data->bus_id=$this->bus_id;
         $data->distance_reading=$this->distance_reading;
+        $data->date=$this->date;
+        $data->time=$this->time;
         $check=$data->save();
 
         if ($check) {
@@ -66,6 +68,8 @@ class Edit extends Component
         $this->description=$edit_object['description'];
         $this->bus_id=$edit_object['bus_id'];
         $this->distance_reading=$edit_object['distance_reading'];
+        $this->date=$edit_object['date'];
+        $this->time=$edit_object['time'];
     }
     
     public function resetInput()
@@ -77,5 +81,7 @@ class Edit extends Component
         $this->driver_id=null;
         $this->bus_id=null;
         $this->distance_reading=null;
+        $this->date=null;
+        $this->time=null;
     }
 }

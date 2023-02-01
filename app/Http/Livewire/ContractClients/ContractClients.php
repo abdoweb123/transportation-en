@@ -16,7 +16,7 @@ class ContractClients extends Component
 {
     use WithFileUploads;
     public $ids,$showIndex,$showForm,$type;
-    public $name,$company_id,$start_date,$end_date,$number_of_routes,$serches,$chk;
+    public $name,$company_id,$start_date,$end_date,$number_of_routes,$serches,$chk,$company_id_search;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
@@ -27,9 +27,15 @@ class ContractClients extends Component
     }
     public function render()
     {
-        $results=ContractClient::whereAdminId(Auth::guard('admin')->id())->with('company')->paginate();
+        $results=ContractClient::whereAdminId(Auth::guard('admin')->id())->with('company');
+        if ($this->company_id_search != null) {
+            // dd('ff');
+            $results=$results->whereCompanyId($this->company_id_search);
+        }
+        $comapnies =Company::select('id','name')->get();
         return view('livewire.contract-clients.contract-clients',[
-            'results'=>$results,
+            'results'=>$results->paginate(),
+            'comapnies'=>$comapnies,
         ])->extends('layouts.master');
     }
     public function togglee()

@@ -57,7 +57,26 @@
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                        Add Job
                     </button>
-                    <br><br>
+                    <button type="button" class="button x-small" >
+                        <i class="far fa-file-excel"></i> Excel
+                     </button>
+                     <br><br>
+ 
+                         <form action="employeeJobs" method="GET">
+                             <div class="row mb-4" >
+                                 <div class="col-md-4">
+                                     <select name="company_id" class="form-control">
+                                         <option value=" ">-- Choose --</option>
+                                         @foreach($comapnies as $company)
+                                             <option value="{{$company->id}}" {{$request_company_id == $company->id ? 'selected' : ''}}>{{$company->name}}</option>
+                                         @endforeach
+                                     </select>
+                                 </div>
+                                 <div class="col-md-4">
+                                     <button class="btn btn-info font-weight-bolder font-size-sm"><i class="fas fa-filter"></i> filter</button>
+                                 </div>
+                             </div>
+                         </form>
 
                     <div class="table-responsive">
                         <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"

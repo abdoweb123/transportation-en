@@ -24,7 +24,7 @@ class Bus extends Model
 
     public function busType()
     {
-        return $this->belongsTo(BusType::class,'busType_id')->with('contract_route');
+        return $this->hasOne(BusType::class,'id','busType_id')->with('contract_route');
     }
 
 
@@ -65,7 +65,7 @@ class Bus extends Model
 
     public function employee_run_trip_buses()
     {
-        return $this->hasMany(EmployeeRunTripBus::class,'bus_id')->with('drivers');
+        return $this->hasMany(EmployeeRunTripBus::class,'bus_id')->with('drivers','employeeRunTrip');
     }
 
 
@@ -97,6 +97,11 @@ class Bus extends Model
     public function extera_fees()
     {
         return $this->hasMany(ExtraFee::class,'bus_id');
+    }
+
+    public function location_tracker()
+    {
+        return $this->hasMany(LocationTracker::class,'bus_id','id');
     }
    /*** end relations ***/
 

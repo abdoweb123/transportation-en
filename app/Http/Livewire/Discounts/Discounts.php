@@ -48,6 +48,16 @@ class Discounts extends Component
         }
         $data->save();
     }
+    public function switch_status($id)
+    {
+        $data=Discount::find($id);
+        if($data->is_active == "Y"){
+            $data->is_active="N";
+        }else{
+            $data->is_active="Y";
+        }
+        $data->save();
+    }
     public function switch()
     {
         $this->showForm= !$this->showForm;

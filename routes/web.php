@@ -67,6 +67,12 @@ use App\Http\Livewire\Companies\Companies;
 use App\Http\Livewire\Discounts\Discounts;
 use App\Http\Livewire\CarPayments\CarPaymentsEdit;
 use App\Http\Livewire\Buses\Buses;
+use App\Http\Livewire\Borrows\Borrows;
+use App\Http\Livewire\EmployeeRunTrips\EmployeeRunTrips;
+use App\Http\Livewire\SwapRequests\SwapRequests;
+use App\Http\Livewire\EmployeeRunTrips\SeatBooking;
+use App\Http\Livewire\Reports\EmptySeatPerRoute;
+use App\Http\Livewire\Reports\PerContractRoute;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -141,8 +147,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('/dashboard', Home::class)->name('dashboard');
 
     Route::resource('cities',CityController::class);
+    Route::get('citiy-status',[CityController::class,'switch_status']);
     Route::resource('stations',StationController::class)->except('create','edit','show');
+    Route::get('stations-status',[StationController::class,'switch_status']);
     Route::resource('offices',OfficeController::class);
+    Route::get('offices-status',[OfficeController::class,'switch_status']);
+
     Route::resource('busTypes',BusTypeController::class)->except('create','edit','show');
     Route::get('show/busType/seats/{id}',[BusTypeController::class,'showBusTypeSeats'])->name('show.busType.seats');
 
@@ -192,7 +202,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('departments',DepartmentController::class)->except('create','show','edit');
     Route::resource('myEmployees',MyEmployeeController::class)->except('show');
     Route::resource('routes',RouteController::class)->except('edit','show','create');
+    Route::get('routes-status',[RouteController::class,'switch_status']);
+
     Route::resource('routeStations',RouteStationController::class)->except('edit','show','create');
+    Route::get('routeStations-status',[RouteStationController::class,'switch_status']);
+
     Route::resource('employeeRunTrips',EmployeeRunTripController::class)->except('edit','show','create','store');
     Route::resource('reminders',ReminderController::class)->except('show');
     Route::resource('reminderHistory',ReminderHistoryController::class)->only('index','destroy');
@@ -256,6 +270,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     // Reports
     Route::get('empty/seats/per/bus',[BusController::class,'emptySeatsPerBus'])->name('emptySeatsPerBus');
+    Route::get('excel/empty/seats/per/bus',[BusController::class,'excelemptySeatsPerBus'])->name('excelemptySeatsPerBus');
+    Route::get('busdetailsbookingrequest',[BusController::class,'busdetailsbookingrequest'])->name('busdetailsbookingrequest');
+    Route::get('BusdetailsbookingrequestExcel',[BusController::class,'BusdetailsbookingrequestExcel'])->name('BusdetailsbookingrequestExcel');
+    Route::get('bookingrequest-report',[BusController::class,'bookingrequest_report'])->name('bookingrequest-report');
+    Route::get('bookingrequest-report-excel',[BusController::class,'bookingrequest_report_excel'])->name('bookingrequest-report-excel');
+
 
     Route::get('employees/names/per/bus',[BusController::class,'getRunTripByBus_id'])->name('getRunTripByBus_id');
 
@@ -267,7 +287,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('expenses',Expenses::class)->name('expenses');
     Route::get('reminder-history',ReminderDetails::class)->name('reminder-history');
     Route::get('companies',Companies::class)->name('companies');
+    Route::get('borrows',Borrows::class)->name('borrows');
+    Route::get('employeeRunTripsNew',EmployeeRunTrips::class);
+    Route::get('swap-request',SwapRequests::class);
+    Route::get('seat-booking/{employee_runTrip_id}/{employee_runTrip_bus_id}',SeatBooking::class);
 
+    Route::get('empty-seat-per-route',EmptySeatPerRoute::class);
+    Route::get('empty-contract-route',PerContractRoute::class);
+    
 
 }); //end of routes
-Route::get('revenues',Revenues::class)->name('revenues');
+// Route::get('revenues',Revenues::class)->name('revenues');

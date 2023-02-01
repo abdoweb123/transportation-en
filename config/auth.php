@@ -48,7 +48,6 @@ return [
             'provider' => 'admins',
         ],
 
-
 //        'superVisor' => [
 //            'driver' => 'session',
 //            'provider' => 'superVisors',
@@ -56,11 +55,26 @@ return [
 //
 //
 //
-//        'employee' => [
-//            'driver' => 'session',
-//            'provider' => 'employees',
-//        ],
+       'employee' => [
+           'driver' => 'session',
+           'provider' => 'employees',
+       ],
 
+       'employee-api' => [
+            'driver' => 'passport',
+            'provider' => 'employees',
+            'hash' => false,
+        ],
+        'driver' => [
+            'driver' => 'session',
+            'provider' => 'drivers',
+        ],
+        
+        'driver-api' => [
+            'driver' => 'passport',
+            'provider' => 'drivers',
+            'hash' => false,
+        ],
 
     ],
 
@@ -95,10 +109,14 @@ return [
         ],
 
 
-//        'employees' => [
-//            'driver' => 'eloquent',
-//            'model' => App\Models\Employee::class,
-//        ],
+       'employees' => [
+           'driver' => 'eloquent',
+           'model' => App\Models\MyEmployee::class,
+       ],
+       'drivers' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Driver::class,
+    ],
 //
 //
 //        'superVisors' => [

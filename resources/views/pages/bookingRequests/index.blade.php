@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <select class="form-control mr-sm-2 p-2" name="company_id">
-                                            <option selected >choose</option>
+                                            <option selected value="0" >choose</option>
                                             @if(count($companies))
                                                 @foreach($companies as $company)
                                                     <option value="{{$company->id}}">{{$company->name}}</option>
@@ -145,7 +145,20 @@
                                     @endforeach
                                 </select>
                             </div>
-                                <div class="col-3">
+                            <div class="col">
+                                <label for="name_ar" class="mr-sm-2">Company :</label>
+                                <select class="form-control mr-sm-2 p-2" name="company_id">
+                                    <option selected value="0" >Choose Company</option>
+                                    @if(count($companies))
+                                        @foreach($companies as $company)
+                                            <option value="{{$company->id}}">{{$company->name}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
                                     <label for="name_ar" class="mr-sm-2"> </label>
                                     <input type="submit" value="Report" class="btn btn-success form-control" style="background-color: #84ba3f; color: white; font-size: 16px;">
                                 </div>
@@ -161,6 +174,7 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>employee</th>
                                 <th>Collection Point From</th>
                                 <th>Collection Point To</th>
                                 <th>Route</th>
@@ -174,6 +188,7 @@
                             @foreach ($bookingRequests as $item)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
+                                    <td>{{ $item->myEmployee->name }}</td>
                                     <td>@isset($item->collection_point_from->name)  {{ $item->collection_point_from->name }} @else _______ @endisset</td>
                                     <td>@isset($item->collection_point_to->name)  {{ $item->collection_point_to->name }} @else _______ @endisset</td>
                                     <td>@isset($item->route->name)  {{ $item->route->name }} @else _______ @endisset</td>
@@ -199,7 +214,6 @@
 
 
                                 <!--  page of show_modal_office -->
-{{--                                @include('pages.bookingRequests.show')--}}
 
                             @endforeach
                         </table>

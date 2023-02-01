@@ -16,4 +16,8 @@ class ContractClient extends Model
     {
         return $this->hasMany(CotractRoute::class,'contracts_id','id');
     }
+    public function discounts()
+    {
+        return $this->hasMany(contractDiscount::class,'contract_client_id','id');
+    }
 }

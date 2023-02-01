@@ -24,9 +24,27 @@ class EmployeeRunTripBus extends Model
 
     public function drivers()
     {
-        return $this->belongsTo(Driver::class);
+        return $this->belongsTo(Driver::class,'driver_id');
     }
 
+    public function employeeRunTrip()
+    {
+        return $this->belongsTo(EmployeeRunTrip::class,'employeeRunTrip_id');
+    }
+
+    public function bus()
+    {
+        return $this->belongsTo(Bus::class,'bus_id');
+    }
+    public function client_trackers()
+    {
+        return $this->hasMany(ClientTracker::class,'employee_run_trip_bus_id')->with('employee');
+    }
+    public function station_tracker()
+    {
+        return $this->hasMany(StationTracker::class,'employee_run_trip_bus_id');
+    }
+    
     /*** end relations ***/
 
 } //end of class

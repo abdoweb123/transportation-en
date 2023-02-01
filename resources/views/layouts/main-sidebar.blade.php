@@ -32,18 +32,21 @@
                             <li> <a href="{{url('static-table/penalty_type')}}"><i class="fab fa-penny-arcade"></i>  Penalty Type</a> </li>
                             <li> <a href="{{route('getAllDrivers')}}"><i class='fas fa-screwdriver'></i> drivers </a></li>
                             <li> <a href="{{url('penelties')}}"><i class="fab fa-paypal"></i>penelties</a> </li>
+                            <li> <a href="{{url('static-table/accident_type')}}"><i class="fab fa-penny-arcade"></i>  Accident Type</a> </li>
                             <li> <a href="{{url('accidents')}}"><i class="fab fa-accessible-icon"></i>  accidents</a> </li>
                             <li> <a href="{{url('driver-salary')}}"><i class="fas fa-screwdriver"></i>  driver salary</a> </li>
-                            <li> <a href="{{url('gases')}}"><i class="fas fa-gas-pump"></i> gases</a> </li>
-                            <li> <a href="{{url('static-table/gas_type')}}"><i class="fas fa-glass-martini-alt"></i>gas type</a> </li>
+                            <li> <a href="{{url('gases')}}"><i class="fas fa-gas-pump"></i> Fuel</a> </li>
+                            <li> <a href="{{url('static-table/gas_type')}}"><i class="fas fa-glass-martini-alt"></i>Fuel type</a> </li>
                             <li> <a href="{{url('static-table/extra_fees_type')}}"><i class="fas fa-external-link-square-alt"></i>Extra fees types</a> </li>
                             <li> <a href="{{url('extra-fees')}}"><i class="fas fa-code-branch"></i>Extra fees</a> </li>
                             <li> <a href="{{route('vendors.index')}}"><i class="fas fa-store"></i>Vendors</a> </li>
+                            <li> <a href="{{url('static-table/vendor_type')}}"><i class="fas fa-external-link-square-alt"></i>Vendor Type</a> </li>
                             <li> <a href="{{route('categories.index')}}"><i class="fas fa-bus-alt"></i>Bus Categories</a> </li>
                             <li> <a href="{{route('issues.index')}}"><i class="fas fa-wrench"></i>Bus Categories Issues </a> </li>
                             <li> <a href="{{route('reminders.index')}}"><i class="fas fa-bell"></i>Reminders </a> </li>
                             <li> <a href="{{route('reminderHistory.index')}}"><i class="fas fa-history"></i>Reminder History </a></li>
                             <li> <a href="{{url('car-payments')}}"><i class="fas fa-history"></i>car payments</a></li>
+                            <li> <a href="{{url('static-table/borrow_type')}}"><i class="fas fa-external-link-square-alt"></i>borrow Type</a> </li>
                             {{-- <li> <a href="{{route('car-payment-dates')}}"><i class="fas fa-history"></i>car payments </a></li> --}}
                         </ul>
                     </li>
@@ -69,6 +72,7 @@
                             <li> <a href="{{url('companies')}}">Campanies</a></li>
                             <li> <a href="{{url('contract-client')}}">Contract Client</a></li>
                             <li> <a href="{{url('static-table/suppliers')}}">Suppliers</a></li>
+                            <li> <a href="{{url('static-table/supplier_type')}}">Suppliers Type</a></li>
                             <li> <a href="{{url('contract-sublier')}}">Contract Subliers</a></li>
                             {{-- <li> <a href="{{url('company-contract-route')}}">company contract route</a></li> --}}
                             {{-- <li> <a href="{{url('suplier-contract-route')}}">suplier contract route</a></li> --}}
@@ -76,6 +80,7 @@
                             <li> <a href="{{url('static-table/gudget_brand')}}">gudget brand</a></li>
                             <li> <a href="{{url('static-table/gudget_type')}}">gudget type</a></li>
                             <li> <a href="{{url('static-table/discount_type')}}">discount type</a></li>
+                            <li> <a href="{{url('discounts')}}">discounts</a></li>
 
                         </ul>
                     </li>
@@ -91,8 +96,9 @@
                         </a>
                         <ul id="database_booking_request" class="collapse" data-parent="#sidebarnav">
                             <li> <a href="{{route('bookingRequests.index')}}">Booking Requests</a> </li>
-                            <li> <a href="{{route('employeeRunTrips.index')}}">Employees Run Trip</a> </li>
+                            <li> <a href="{{url('employeeRunTripsNew')}}">Employees Run Trip</a> </li>
                             <li> <a href="{{route('getAssignEmployee')}}">Assign Employee</a> </li>
+                            <li> <a href="{{url('swap-request')}}">Swap Request</a> </li>
                         </ul>
                     </li>
 
@@ -107,12 +113,12 @@
                         <ul id="reports" class="collapse" data-parent="#sidebarnav">
                             <li> <a href="{{route('revenues')}}">revenues</a></li>
                             <li> <a href="{{route('expenses')}}">Expenses</a></li>
-                            <li> <a href="{{route('emptySeatsPerBus')}}">Empty Seats Per Bus</a> </li>
+                            <li> <a href="{{route('emptySeatsPerBus')}}">Empty seats per car</a> </li>
                             <li> <a href="{{route('getRunTripByBus_id')}}">Names Of Employees Per Bus</a></li>
                             {{-- <li> <a href="{{route('emptySeatsPerRoute')}}">Empty Seats Per Route</a></li> --}}
-                            <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Route</a></li>
-                            <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Departure</a></li>
-                            <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Arrival</a></li>
+                            <li> <a href="{{route('bookingrequest-report')}}">Booking Request</a></li>
+                            {{-- <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Departure</a></li>
+                            <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Arrival</a></li> --}}
                             
                         </ul>
                     </li>

@@ -103,6 +103,26 @@
                                                 </select>
                                                 @error('discount_id')<span style="color: red"> {{ $message }}</span>@enderror
                                             </div>
+                                            <div class="col-md-6">
+                                                <label for="payment_type" class="mr-sm-2">payment types</label>
+                                                <select name="payment_type" class="form-control mr-sm-2 p-2" id="" class="w-100 mb-10" wire:model.lazy='payment_type'>
+                                                    <option value="0"> </option>
+                                                    @if (count(trans('main_trans.payment_type')))
+                                                        @foreach (trans('main_trans.payment_type') as $key=>$value)
+                                                            <option value="{{ $key }}">{{ $value }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                                @error('payment_type')<span style="color: red"> {{ $message }}</span>@enderror
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="payment_type" class="mr-sm-2">Rate Charge</label>
+                                                    <label for="payment_type" class="mr-sm-2">Rate Charge</label><br>
+                                                    <input type="radio"  wire:model='rate_charge' id="age1" name="age" value="Y">
+                                                    <label for="age1">Apply Route Cahrge</label><br>
+                                                    <input type="radio"  wire:model='rate_charge' id="age2" name="age" value="N">
+                                                    <label for="age2">Not Apply Route Cahrge</label><br>  
+                                            </div>
                                         </div>
                                     </div>
                                     <br><br>

@@ -33,16 +33,6 @@
 @else
 <div class="row mb-10">
     <div class="col-md-4">
-        <select wire:model='driver_id' class="form-control mr-sm-2 p-2" style="width: 100%" >
-            <option value="">choose driver </option>
-            @isset($drivers)
-                @foreach ($drivers as $driver)
-                    <option value="{{ $driver->id }}">{{ $driver->name }}</option>
-                @endforeach
-            @endisset
-        </select>
-    </div>
-    <div class="col-md-4">
         <select wire:model='bus_id' class="form-control mr-sm-2 p-2" style="width: 100%" >
             <option value="">choose bus </option>
             @isset($buses)
@@ -62,6 +52,18 @@
             @endisset
         </select>
     </div>
+    <div class="col-md-4">
+        <select wire:model='driver_id' class="form-control mr-sm-2 p-2" style="width: 100%" >
+            <option value="">choose driver </option>
+            @isset($drivers)
+                @foreach ($drivers as $driver)
+                    <option value="{{ $driver->id }}">{{ $driver->name }}</option>
+                @endforeach
+            @endisset
+        </select>
+    </div>
+  
+   
 </div>
                         <div class="table-responsive">
                             <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
@@ -73,7 +75,7 @@
                                     <th>bus type </th>
                                     <th>kilometer </th>
                                     <th>driver </th>
-                                    <th>route </th>
+                                    {{-- <th>route </th> --}}
                                     <th>Gas Amount </th>
                                     <th>paid amount </th>
                                     <th>distance</th>
@@ -91,7 +93,7 @@
                                             <td>{{ @$result->bus_type->name }}</td>
                                             <td>{{ @$result->kilometer }}</td>
                                             <td>{{ @$result->driver->name }}</td>
-                                            <td>{{ @$result->route->name }}</td>
+                                            {{-- <td>{{ @$result->route->name }}</td> --}}
                                             <td>{{ @$result->gas_amount }}</td>
                                             <td>{{ @$result->paid_amount }}</td>
                                             <td>{{ @$result->distance }}</td>

@@ -67,8 +67,12 @@
                                 <input type="date" name="date" @isset($request)value="{{$request->date}}" @endisset class="form-control" required>
                             </div>
                             <div class="col">
-                                <label for="name_ar" class="mr-sm-2">Time :</label>
-                                <input type="time" name="time" @isset($request)value="{{$request->time}}" @endisset class="form-control" style="padding:11px" required>
+                                <label for="name_ar" class="mr-sm-2">Time From :</label>
+                                <input type="time" name="time_from" @isset($request)value="{{$request->time_from}}" @endisset class="form-control" style="padding:11px" required>
+                            </div>
+                            <div class="col">
+                                <label for="name_ar" class="mr-sm-2">Time To:</label>
+                                <input type="time" name="time_to" @isset($request)value="{{$request->time_to}}" @endisset class="form-control" style="padding:11px" required>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -93,9 +97,19 @@
 
                                 </select>
                             </div>
+                            <div class="col">
+                                <label for="name_ar" class="mr-sm-2">Companies :</label>
+                                <select class="form-control mr-sm-2 p-2" name="bus_id" required>
+                                    <option class="custom-select mr-sm-2 p-2" value=" ">--- Choose ---</option>
+                                    @foreach($companies as $company)
+                                        <option value="{{$company->id}}" @isset($request){{$company->id == $request->company_id ? 'selected' : ''}}@endisset>{{ $company->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
                         </div>
                         <div class="row">
-                            <div class="col-md-4" style="margin-bottom: 15px;">
+                            <div class="col" style="margin-bottom: 15px;">
                                 <label for="name_ar" class="mr-sm-2 d-block">Type :</label>
                                 <div class="row form-control" style="display:flex; margin-left:0">
                                     <div class="col">
@@ -106,15 +120,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <label for="name_ar" class="mr-sm-2">Companies :</label>
-                                <select class="form-control mr-sm-2 p-2" name="bus_id" required>
-                                    <option class="custom-select mr-sm-2 p-2" value=" ">--- Choose ---</option>
-                                    @foreach($companies as $company)
-                                        <option value="{{$company->id}}" @isset($request){{$company->id == $request->company_id ? 'selected' : ''}}@endisset>{{ $company->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                           
                             <div class="col-md-4">
                                 <label for="name_ar" class="mr-sm-2"> </label>
                                 <input type="submit" value="Search" class="btn btn-success form-control" style="background-color:#84ba3f; color:white; font-size:16px; padding:10px; margin-bottom:-35px;">

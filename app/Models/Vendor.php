@@ -10,7 +10,7 @@ class Vendor extends Model
 {
     use HasFactory ,SoftDeletes;
 
-    protected $fillable = ['name', 'phone', 'email', 'description', 'active', 'admin_id'];
+    protected $fillable = ['name', 'phone', 'email', 'description', 'active', 'admin_id','vendor_type_id','registration_number','national_id','taxes_number'];
 
 
     /*** start relations ***/

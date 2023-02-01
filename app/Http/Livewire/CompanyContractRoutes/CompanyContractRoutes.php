@@ -20,12 +20,13 @@ class CompanyContractRoutes extends Component
 {
     use WithFileUploads;
     public $ids,$showIndex,$showForm,$type;
-    public $contracts_id,$company_id,$route_id,$bus_type_id,$service_type_id,$service_value,$contract_client_id,$discount_id;
+    public $contracts_id,$company_id,$route_id,$bus_type_id,$service_type_id,$service_value,$contract_client_id,$discount_id,$payment_type,$rate_charge;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
     public function mount($contract_client_id)
     {
+        $this->rate_charge='N';
         $this->tittle='Company Contract Routes';
         $this->showForm=false;
         $this->contracts_id=$contract_client_id;
@@ -98,7 +99,9 @@ class CompanyContractRoutes extends Component
         $data->route_id=$this->route_id;
         $data->bus_type_id=$this->bus_type_id;
         $data->service_type_id=$this->service_type_id;
+        $data->rate_charge=$this->rate_charge;
         $data->service_value=$this->service_value;
+        $data->payment_type=$this->payment_type;
         $check=$data->save();
 
         if ($check) {
@@ -137,7 +140,9 @@ class CompanyContractRoutes extends Component
         $this->bus_type_id=null;
         $this->service_type_id=null;
         $this->service_value=null;
+        $this->payment_type=null;
         $this->discount_id=null;
+        $this->rate_charge=null;
     }
     public function active_ms($id)
     {

@@ -41,6 +41,7 @@
                                     <th>title </th>
                                     <th>amount</th>
                                     <th>presentage </th>
+                                    <th>status</th>
                                     <th>actions</th>
                                 </tr>
                                 </thead>
@@ -53,6 +54,12 @@
                                             <td>{{ @$result->title }}</td>
                                             <td>{{ @$result->amount }}</td>
                                             <td>{{ @$result->presentage }}</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" class="checkbox" wire:change='switch_status({{ $result->id }})' {{ ($result->is_active == 'Y' ? 'checked' : '') }}>
+                                                    <span class="slider round"></span>
+                                                  </label>
+                                            </td>
                                             <td style="width: 15%">
                                                 <button class="btn btn-primary"  title="تعديل"  wire:click='edit_form({{ $result->id }})'>
                                                     <i  class="fa fa-edit"></i>

@@ -15,11 +15,27 @@ class CityController extends Controller
     /*** index function  ***/
     public function index()
     {
-        $cities = City::whereAdminId(Auth::guard('admin')->id())->paginate();
+        $cities = City::whereAdminId(Auth::guard('admin')->id());
         $comapnies=Company::select('id','name')->get();
-        return view('pages.Cities.index', compact('cities','comapnies'));
+        if (request('company_id')) {
+            $cities=$cities->where('company_id',request('company_id'));
+        }
+        $cities=$cities->paginate();
+        $request_company_id=request('company_id');
+        return view('pages.Cities.index', compact('cities','comapnies','request_company_id'));
     }
+    public function switch_status(Request $request)
+    {
+        $data=City::find($request->id);
 
+        if ($data->is_active == 'Y') {
+            $data->is_active = 'N';
+        }else{
+            $data->is_active = 'Y';
+        }
+        $data->save();
+        return response()->json('تم التعديل بنجاح');
+    }
 
 
     /*** store function  ***/

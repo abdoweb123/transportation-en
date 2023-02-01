@@ -83,6 +83,10 @@ class BookingRequestController extends Controller
         {
             $bookingRequests = BookingRequest::whereBetween('date',[$request->startDate,$request->endDate])->whereBetween('time',[$request->startTime,$request->endTime])->where('route_id',$request->route_id)->where('collection_point_from_id',$request->collection_point_from_id)->where('collection_point_to_id',$request->collection_point_to_id);
         }
+
+        if ($request->company_id) {
+            $bookingRequests=$bookingRequests->whereCompanyId($request->company_id);
+        }
         // else{
         //     $bookingRequests = BookingRequest::paginate();
         // }
@@ -177,7 +181,8 @@ class BookingRequestController extends Controller
                 ->where('employee_run_trips.company_id',$request->company_id)
                 ->where('employee_run_trips.date',$request->date)
                 ->where('employee_run_trip_buses.bus_id',$request->bus_id)
-                ->where('employee_run_trips.time',$request->time)->latest()->select('employee_run_trips.*','buses.code as bus_code','routes.name as route_name')->paginate(100);
+                ->whereBetween('employee_run_trips.time',[$request->time_from,$request->time_to])
+                ->latest()->select('employee_run_trips.*','buses.code as bus_code','routes.name as route_name')->paginate(100);
 
             return view('pages.bookingRequests.addBooking',compact('newBookings','companies','request','request','routes','buses'));
         }

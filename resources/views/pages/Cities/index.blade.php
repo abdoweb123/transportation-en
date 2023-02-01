@@ -18,6 +18,62 @@
         margin-left: 2px;
     }
     i{padding: 0 0 3px;}
+    
+    /*.dataTables_length{display: none}*/
+    .messages , .alert-danger {width:30%}
+    .switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
 </style>
 
 
@@ -59,7 +115,26 @@
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                         {{ trans('cities_trans.add_city') }}
                     </button>
+                    <button type="button" class="button x-small" >
+                       <i class="far fa-file-excel"></i> Excel
+                    </button>
                     <br><br>
+
+                        <form action="cities" method="GET">
+                            <div class="row mb-4" >
+                                <div class="col-md-4">
+                                    <select name="company_id" class="form-control">
+                                        <option value=" ">-- Choose --</option>
+                                        @foreach($comapnies as $company)
+                                            <option value="{{$company->id}}" {{$request_company_id == $company->id ? 'selected' : ''}}>{{$company->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-info font-weight-bolder font-size-sm"><i class="fas fa-filter"></i> filter</button>
+                                </div>
+                            </div>
+                        </form>
 
                     <div class="table-responsive">
                         <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
@@ -70,6 +145,7 @@
                                 <th>{{ trans('cities_trans.city_name_ar') }}</th>
                                 <th>{{ trans('cities_trans.city_name_en') }}</th>
                                 <th>Entered By</th>
+                                <th> status</th>
                                 <th>{{ trans('main_trans.processes') }}</th>
                             </tr>
                             </thead>
@@ -80,6 +156,12 @@
                                     <td>{{ $item->getTranslation('name', 'ar')  }}</td>
                                     <td>{{ $item->getTranslation('name', 'en')  }}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
+                                    <td>
+                                        <label class="switch">
+                                            <input type="checkbox" class="checkbox" value="{{ $item->id }}" {{ ($item->is_active == 'Y' ? 'checked' : '') }}>
+                                            <span class="slider round"></span>
+                                          </label>
+                                    </td>
                                     <td>
                                         <button type="button" class="process" style="cursor:pointer" data-toggle="modal"
                                            data-target="#edit{{ $item->id }}" title="{{ trans('main_trans.edit') }}">
@@ -126,6 +208,21 @@
     <script>
         $(document).ready(function(){
             $(".alert").delay(5000).slideUp(300);
+        });
+    </script>
+     <script>
+        $('.checkbox').on('click',function(){
+            var item_id  = $(this).val();
+            $.ajax({
+                url:'citiy-status',
+                type:'GET',
+                data:{id:item_id}
+            }).done(function(response) {
+            //success
+            }).fail(function(error){
+            //failure
+            console.log('faild');
+            })
         });
     </script>
 @endsection

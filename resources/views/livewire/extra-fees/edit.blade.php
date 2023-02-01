@@ -54,6 +54,16 @@
                     <input id="distance_reading" type="number" class="form-control" wire:model.lazy='distance_reading'>
                     @error('distance_reading')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
+                <div class="col-md-6 mb-2">
+                    <label for="date" class="mr-sm-2">date </label>
+                    <input id="date" type="date" class="form-control" wire:model.lazy='date'>
+                    @error('date')<span style="color: red"> {{ $message }}</span>@enderror
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label for="time" class="mr-sm-2">time </label>
+                    <input id="time" type="time" class="form-control" wire:model.lazy='time'>
+                    @error('time')<span style="color: red"> {{ $message }}</span>@enderror
+                </div>
             </div>
         </div>
         <br><br>

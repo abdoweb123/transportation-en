@@ -86,7 +86,17 @@
                         @endforeach
 
                         <br><br>
-
+                        <div class="row mb-4" >
+                            <div class="col-md-4">
+                                <select name="company_id" class="form-control mr-sm-2 p-2" >
+                                    <option value=" ">-- Choose --</option>
+                                    @foreach($comapnies as $company)
+                                        <option value="{{$company->id}}" wire:model='company_id_search'>{{$company->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                           
+                        </div>
                         {{-- <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
                             {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
                             </button> --}}
@@ -140,7 +150,6 @@
                 </div>
         </div>
 
-    </div>
     @section('js')
         @toastr_js
         @toastr_render

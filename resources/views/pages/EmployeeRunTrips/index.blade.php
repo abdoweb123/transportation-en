@@ -81,8 +81,8 @@
                                     <td>{{ $item->date  }}</td>
                                     <td>{{ $item->time  }}</td>
                                     @foreach($item->bus as $bus)
-                                        <td>@isset($bus->code)  {{$bus->code }} @else _____ @endisset</td>
-                                    @endforeach
+                                    <td>@isset($bus->code)  {{$bus->code }} @else _____ @endisset</td>
+                                @endforeach
 {{--                                    <td>{{ $item->tatol }}</td>--}}
                                     <td>{{ $item->total }}</td>
                                     <td>@isset($item->driver->name)  {{ $item->driver->name }} @else _____ @endisset</td>
@@ -111,7 +111,7 @@
                             @endforeach
                         </table>
 
-{{--                        <div> {{$employeeRunTrips->links('pagination::bootstrap-4')}}</div>--}}
+                       <div> {{$employeeRunTrips->links('pagination::bootstrap-4')}}</div>
 
                     </div>
                 </div>
