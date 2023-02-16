@@ -38,8 +38,9 @@ class Edit extends Component
     public function store_update()
     {
         $validate=$this->validate([
-            'description'=>'required',
+            // 'description'=>'required',
             'driver_id'=>'required',
+            'bus_id'=>'required',
             'date'=>'required',
             'time'=>'required',
             'fixing_amount'=>'required',
@@ -79,7 +80,7 @@ class Edit extends Component
                 $bus->save();
             }
             $this->resetInput();
-            return redirect()->to('accidents');
+            return redirect()->to('accidents')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

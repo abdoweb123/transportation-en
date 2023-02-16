@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col">
                             <label for="name_ar" class="mr-sm-2">Station :</label>
-                            <select class="form-control mr-sm-2 p-2" name="station_id">
+                            <select class="form-control mr-sm-2 p-2" name="station_id[]" multiple>
                                 <option class="custom-select mr-sm-2 p-2" value=" ">--- Choose ---</option>
                                 @foreach($stations as $station)
                                     <option value="{{$station->id}}">{{ $station->name }}</option>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="col">
                             <label for="name_ar" class="mr-sm-2">Route :</label>
-                            <select class="form-control mr-sm-2 p-2" name="route_id">
+                            <select class="form-control mr-sm-2 p-2" name="route_id" >
                                 <option class="custom-select mr-sm-2 p-2" value=" ">--- Choose ---</option>
                                 @foreach($routes as $route)
                                     <option value="{{$route->id}}">{{ $route->name }}</option>

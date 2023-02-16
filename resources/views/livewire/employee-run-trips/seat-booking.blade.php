@@ -201,7 +201,7 @@
                                                 </label> --}}
                                                 
                                                 {{-- <input type="radio" id="{{ $template }}{{ $itemindex }}{{ $index }}" name="{{ $itemindex }}" value="{{ $index }}" wire:model.defer='collection_selected.{{ $itemindex }}.{{ $index }}'> --}}
-                                                <input type="radio" id="{{ $template }}{{ $itemindex }}{{ $index }}" name="{{ $itemindex }}" value="{{ $index }}" wire:model.defer='collection_selected.{{ $itemindex }}.{{ $index }}' wire:click='count_arr({{ $index }})'>
+                                                <input type="checkbox" id="{{ $template }}{{ $itemindex }}{{ $index }}" name="{{ $itemindex }}" value="{{ $index }}" wire:model='collection_selected.{{ $itemindex }}.{{ $index }}' wire:click='count_arr({{ $index }},{{ $itemindex }})'>
                                                 <label for="age1">Collection  {{ @$index+1 }}</label><br>
                                                
                                             @endforeach

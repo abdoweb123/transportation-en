@@ -72,7 +72,7 @@ class Edit extends Component
             $reminder->start_date=date('Y-m-d');
             $reminder->save();
             $this->resetInput();
-            return redirect()->to('reminder-history');
+            return redirect()->to('reminder-history')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

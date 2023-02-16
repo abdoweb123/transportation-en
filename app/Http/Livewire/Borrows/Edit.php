@@ -52,7 +52,7 @@ class Edit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('borrows');
+            return redirect()->to('borrows')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

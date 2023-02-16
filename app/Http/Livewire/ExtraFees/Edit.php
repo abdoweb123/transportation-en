@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 class Edit extends Component
 {
     use WithFileUploads;
-    public $ids,$description,$driver_id,$bus_id,$date,$type_id,$amount,$distance_reading,$time;
+    public $ids,$description,$driver_id=0,$bus_id,$date,$type_id,$amount,$distance_reading,$time;
    
     public $showIndex,$showForm;
     protected $listeners=[
@@ -25,17 +25,20 @@ class Edit extends Component
     public function render()
     {
         $drivers=Driver::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
-        $types=StaticTable::whereAdminId(Auth::guard('admin')->id())->select('id','name')->whereType('extra_fees_type')->get();
-        $buses=Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->get();
+        $types=StaticTable::whereAdminId(Auth::guard('admin')->id())->select('id','name')->whereType('extra_fees_type')->whereIsActive('Y')->get();
+        $buses=Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->whereIsActive('Y')->get();
         return view('livewire.extra-fees.edit',compact('drivers','types','buses'))->extends('layouts.master');
     }
 
     public function store_update()
     {
         $validate=$this->validate([
+            'bus_id'=>'required|int',
             'type_id'=>'required|int',
             'amount'=>'required|int',
             'description'=>'required',
+            'date'=>'required',
+            'time'=>'required',
         ]);
         if($this->ids != null){
             $data=ExtraFee::find($this->ids);
@@ -55,7 +58,7 @@ class Edit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('extra-fees');
+            return redirect()->to('extra-fees')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

@@ -51,6 +51,13 @@
                             </ul>
                         </div>
                     @endif
+                    @if (Session::has('dataa'))
+                        @foreach( Session::get('dataa') as  $value)
+                            <div class="alert alert-danger">
+                                the row that name ar is( {{ $value[0] }} ) and name en is ({{ $value[1] }}) not added because data not complete
+                            </div>
+                        @endforeach
+                    @endif
 
 
                     @foreach(['danger','warning','success','info'] as $msg)
@@ -65,12 +72,12 @@
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                         {{ trans('stations_trans.add_station') }}
                     </button>
-                    <button type="button" class="button x-small" >
+                    <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel">
                         <i class="far fa-file-excel"></i> Excel
                      </button>
                      <br><br>
  
-                         <form action="stations" method="GET">
+                         {{-- <form action="stations" method="GET">
                              <div class="row mb-4" >
                                  <div class="col-md-4">
                                      <select name="company_id" class="form-control">
@@ -84,7 +91,7 @@
                                      <button class="btn btn-info font-weight-bolder font-size-sm"><i class="fas fa-filter"></i> filter</button>
                                  </div>
                              </div>
-                         </form>
+                         </form> --}}
 
                     <div class="table-responsive">
                         <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
@@ -108,9 +115,9 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $item->getTranslation('name', 'ar')  }}</td>
                                     <td>{{ $item->getTranslation('name', 'en')  }}</td>
+                                    <td>@isset($item->city->name)  {{ $item->city->name }} @else _____ @endisset</td>
                                     <td>@isset($item->lat)  {{ $item->lat }} @else _____ @endisset</td>
                                     <td>@isset($item->lon)  {{ $item->lon }} @else _____ @endisset</td>
-                                    <td>@isset($item->city->name)  {{ $item->city->name }} @else _____ @endisset</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
                                     <td>
                                         <label class="switch">

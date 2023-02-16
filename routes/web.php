@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 //use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\Auth\RegisterUserController;
 use App\Http\Controllers\BookingRequestController;
 use App\Http\Controllers\BusController;
@@ -73,6 +74,12 @@ use App\Http\Livewire\SwapRequests\SwapRequests;
 use App\Http\Livewire\EmployeeRunTrips\SeatBooking;
 use App\Http\Livewire\Reports\EmptySeatPerRoute;
 use App\Http\Livewire\Reports\PerContractRoute;
+use App\Http\Livewire\ReportDetails\Maintance;
+use App\Http\Livewire\ReportDetails\PenaltyDetails;
+use App\Http\Livewire\ReportDetails\AccidentDetails;
+use App\Http\Livewire\ReportDetails\DebtDetails;
+use App\Http\Livewire\ReportDetails\GasDetails;
+use App\Http\Livewire\ReportDetails\ExterFeesDetails;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -147,8 +154,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('/dashboard', Home::class)->name('dashboard');
 
     Route::resource('cities',CityController::class);
+    Route::post('importCities',[CityController::class,'import_cities']);
     Route::get('citiy-status',[CityController::class,'switch_status']);
     Route::resource('stations',StationController::class)->except('create','edit','show');
+    Route::post('importStation',[StationController::class,'import_file']);
+
     Route::get('stations-status',[StationController::class,'switch_status']);
     Route::resource('offices',OfficeController::class);
     Route::get('offices-status',[OfficeController::class,'switch_status']);
@@ -201,10 +211,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('employeeJobs',EmployeeJobController::class)->except('create','show','edit');
     Route::resource('departments',DepartmentController::class)->except('create','show','edit');
     Route::resource('myEmployees',MyEmployeeController::class)->except('show');
+    Route::post('importEmployees',[MyEmployeeController::class,'import_file']);
     Route::resource('routes',RouteController::class)->except('edit','show','create');
+    Route::post('importRoutes',[RouteController::class,'import_file']);
+
     Route::get('routes-status',[RouteController::class,'switch_status']);
 
     Route::resource('routeStations',RouteStationController::class)->except('edit','show','create');
+    Route::post('importroute_station',[RouteStationController::class,'import_file']);
     Route::get('routeStations-status',[RouteStationController::class,'switch_status']);
 
     Route::resource('employeeRunTrips',EmployeeRunTripController::class)->except('edit','show','create','store');
@@ -232,6 +246,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('swap/bus/{booking_id?}/{employee_id?}',[BookingRequestController::class,'swapBus'])->name('swapBus');
     Route::get('getRouteStations/{id}',[BookingRequestController::class,'getRouteStations']); //by ajax
     Route::post('swapBusFinal',[BookingRequestController::class,'swapBusFinal'])->name('swapBusFinal');
+    Route::resource('countries',CountryController::class)->except('show','edit','create');
 
 
     // trans port
@@ -262,6 +277,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('car-payment-dates/{car_payment_id}',CarPaymentDates::class)->name('car-payment-dates');
     // driver sallary
     Route::get('driver-salary',DriverSalaries::class)->name('driver-salary');
+    Route::post('importDrivers',[DriverController::class,'import_file']);
 
     Route::get('gases',Gases::class)->name('gases');
     Route::get('extra-fees',ExtraFees::class)->name('extra-fees');
@@ -292,6 +308,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('swap-request',SwapRequests::class);
     Route::get('seat-booking/{employee_runTrip_id}/{employee_runTrip_bus_id}',SeatBooking::class);
 
+    // report details
+    Route::get('maintance-details/{bus_id}',Maintance::class);
+    Route::get('penalty-details/{bus_id}',PenaltyDetails::class);
+    Route::get('accident-details/{bus_id}',AccidentDetails::class);
+    Route::get('debt-details/{bus_id}',DebtDetails::class);
+    Route::get('fuel-details/{bus_id}',GasDetails::class);
+    Route::get('extera-fees/{bus_id}',ExterFeesDetails::class);
+    
+    
     Route::get('empty-seat-per-route',EmptySeatPerRoute::class);
     Route::get('empty-contract-route',PerContractRoute::class);
     

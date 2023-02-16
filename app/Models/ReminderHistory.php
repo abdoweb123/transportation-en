@@ -32,6 +32,16 @@ class ReminderHistory extends Model
     {
         return $this->belongsTo(Vendor::class,'vendor_id');
     }
+    
+    public function brand()
+    {
+        return $this->belongsTo(StaticTable::class,'gudget_brand_id')->whereType('gudget_brand');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(StaticTable::class,'gudget_type_id')->whereType('gudget_type');
+    }
 
     /*** end relations ***/
 

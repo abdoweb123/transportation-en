@@ -123,6 +123,11 @@
                                                     <input type="radio"  wire:model='rate_charge' id="age2" name="age" value="N">
                                                     <label for="age2">Not Apply Route Cahrge</label><br>  
                                             </div>
+                                            <div class="col-md-6">
+                                                <label for="charge_value" class="mr-sm-2">charge value</label>
+                                                <input id="charge_value" type="number" class="form-control " wire:model.lazy='charge_value'>
+                                                @error('charge_value')<span style="color: red"> {{ $message }}</span>@enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <br><br>
@@ -150,8 +155,20 @@
                             @endif
                         @endforeach
 
-                        <br><br>
+                        @if (isset($result_export))
+                            @foreach($result_export as $msg)
+                                <div class="alert alert-danger">
+                                    the row that have {{ $msg[0] .',' .$msg[1] .','.$msg[2]}} not added becuse date not complete
+                                </div>
+                            @endforeach
+                        @endif
 
+                        <br><br>
+                        <div class="col-xl-12">
+                            <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel">
+                                <i class="far fa-file-excel"></i> Excel
+                             </button>
+                        </div>
                         {{-- <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
                             {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
                             </button> --}}
@@ -200,6 +217,69 @@
                         </div>
                     </div>
                 </div>
+
+                <div wire:ignore.self class="modal fade" id="importExcel" tabindex="-1" role="dialog"aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
+                                    add file
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- add_form -->
+                                <form wire:submit.prevent='import_file' enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @if (count($errors) > 0)
+                                                @foreach($errors->all() as $error)
+                                                    <div class="alert alert-{{$msg}}">
+                                                        {{ $error }} <br>
+                                                    </div>
+                                                @endforeach      
+                                            @endif
+                                        </div>
+                                        <div class="col-md-12">
+                                            @if (isset($result_export))
+                                                @foreach($result_export as $msg)
+                                                    <div class="alert alert-danger">
+                                                        the row that have {{ $msg[0] .',' .$msg[1] .','.$msg[2]}} not added becuse date not complete
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                        <div class="col">
+                                            <label for="file" class="mr-sm-2">{{ trans('cities_trans.file') }}:</label>
+                                            {{-- <input type="text" name="test" value="test" id=""> --}}
+                                            <input type="file" name="excel" wire:model.defer='excel'>
+                                        </div>
+                                        <div class="col">
+                                            <label for="company_id">company</label>
+                                            <select class="form-control mr-sm-2 p-2" name="company_id" wire:model.defer='company_excel_id'>
+                                                <option selected >choose</option>
+                                                @if(count($companies))
+                                                    @foreach($companies as $company)
+                                                        <option value="{{$company->id}}">{{$company->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            @error('company_id')<span style="color: red"> {{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main_trans.close') }}</button>
+                                        <button type="submit" class="btn btn-success">{{ trans('main_trans.submit') }}</button>
+                                    </div>
+                                </form>
+            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
         </div>
 
     </div>

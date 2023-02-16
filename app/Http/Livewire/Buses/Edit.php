@@ -19,8 +19,8 @@ class Edit extends Component
 {
     use WithFileUploads;
     public $ids,$name,$code,$busType_id,$gas_type_id,$motor_number
-    ,$suplier_id,$driver_id,
-    $shase_number,$bus_model_id,$insurance_company_id,$bank_id,
+    ,$suplier_id=0,$driver_id=0,
+    $shase_number,$bus_model_id,$insurance_company_id=0,$bank_id=0,$advertisement_image,
     $image_face,$image_left,
     $expiration_insurance_from,$expiration_insurance_to,
     $insurance_insurance_from,$insurance_insurance_to;
@@ -49,16 +49,13 @@ class Edit extends Component
             'busType_id'=>'required',
             'gas_type_id'=>'required',
             'motor_number'=>'required',
-            'suplier_id'=>'required',
-            'driver_id'=>'required',
-            'shase_number'=>'required',
             'bus_model_id'=>'required',
-            'insurance_company_id'=>'required',
-            'bank_id'=>'required',
-            'expiration_insurance_from'=>'required',
-            'expiration_insurance_to'=>'required',
-            'insurance_insurance_from'=>'required',
-            'insurance_insurance_to'=>'required',
+            // 'insurance_company_id'=>'required',
+            // 'bank_id'=>'required',
+            // 'expiration_insurance_from'=>'required',
+            // 'expiration_insurance_to'=>'required',
+            // 'insurance_insurance_from'=>'required',
+            // 'insurance_insurance_to'=>'required',
         ]);
         if($this->ids != null){
             $data=Bus::find($this->ids);
@@ -81,30 +78,69 @@ class Edit extends Component
         $data->insurance_insurance_from=$this->insurance_insurance_from;
         $data->insurance_insurance_to=$this->insurance_insurance_to;
 
-        if( $this->image_face )
-        {
-            $image = $this->image_face;
-            $path = 'assets/images/';
-            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move($path,$photo);
-            $data->image_face = "$photo";
+        if ($this->image_face != $data->image_face) {
+            $img=$this->image_face;
+            $file_name = date('Y_m_d_h_i_s_').Str::slug($this->name).'image_face'.'.'.$img->getClientOriginalExtension();
+            $destinationPath = public_path('assets/images/');
+            $image_data = Image::make($img->getRealPath());
+            $img_name = $image_data->save($destinationPath."/".$file_name);
+            if(is_null($data->image_face)==0)
+            {
+                @unlink("assets/images/".$data->image_face);
+            }
+            $data->image_face=$file_name;
         }
 
-        if( $this->image_left )
-        {
-            $image = $this->image_left;
-            $path = 'assets/images/';
-            $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move($path,$photo);
-            $data->image_left = "$photo";
+        if ($this->image_left != $data->image_left) {
+            $img=$this->image_left;
+            $file_name = date('Y_m_d_h_i_s_').Str::slug($this->name).'image_left'.'.'.$img->getClientOriginalExtension();
+            $destinationPath = public_path('assets/images/');
+            $image_data = Image::make($img->getRealPath());
+            $img_name = $image_data->save($destinationPath."/".$file_name);
+            if(is_null($data->image_left)==0)
+            {
+                @unlink("assets/images/".$data->image_left);
+            }
+            $data->image_left=$file_name;
         }
+
+        if ($this->advertisement_image != $data->advertisement_image) {
+            $img=$this->advertisement_image;
+            $file_name = date('Y_m_d_h_i_s_').Str::slug($this->name).'advertisement_image'.'.'.$img->getClientOriginalExtension();
+            $destinationPath = public_path('assets/images/');
+            $image_data = Image::make($img->getRealPath());
+            $img_name = $image_data->save($destinationPath."/".$file_name);
+            if(is_null($data->advertisement_image)==0)
+            {
+                @unlink("assets/images/".$data->advertisement_image);
+            }
+            $data->advertisement_image=$file_name;
+        }
+
+        // if( $this->image_face )
+        // {
+        //     $image = $this->image_face;
+        //     $path = 'assets/images/';
+        //     $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+        //     $image->move($path,$photo);
+        //     $data->image_face = "$photo";
+        // }
+
+        // if( $this->image_left )
+        // {
+        //     $image = $this->image_left;
+        //     $path = 'assets/images/';
+        //     $photo = time() . rand(1,20000). uniqid() . '.' . $image->getClientOriginalExtension();
+        //     $image->move($path,$photo);
+        //     $data->image_left = "$photo";
+        // }
 
         $data->admin_id=Auth::guard('admin')->id();
         $check=$data->save();
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('buses');
+            return redirect()->to('buses')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     
@@ -126,6 +162,9 @@ class Edit extends Component
         $this->expiration_insurance_to=$edit_object['expiration_insurance_to'];
         $this->insurance_insurance_from=$edit_object['insurance_insurance_from'];
         $this->insurance_insurance_to=$edit_object['insurance_insurance_to'];
+        $this->advertisement_image=$edit_object['advertisement_image'];
+        $this->image_face=$edit_object['image_face'];
+        $this->image_left=$edit_object['image_left'];
     }
 
     public function resetInput()

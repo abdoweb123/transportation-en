@@ -7,7 +7,8 @@ use App\Models\Route;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\RouteImport;
 class RouteController extends Controller
 {
 
@@ -37,7 +38,22 @@ class RouteController extends Controller
         return response()->json('تم التعديل بنجاح');
     }
 
-
+   
+    
+    
+     public function import_file(Request $request)
+        {
+            if ($request->excel == null) {
+                return redirect()->back()->with('alert-danger','plz check file!');
+            }
+            $data=[
+                'company_id'=>$request->company_id
+            ];
+            $dataa=new RouteImport($data);
+            Excel::import($dataa,$request->excel);
+    
+            return redirect()->route('routes.index')->with('alert-info','تم الاضافه بنجاح');
+        }
     /*** create an office ***/
     public function store(RouteRequest $request)
     {

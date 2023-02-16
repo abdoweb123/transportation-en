@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 class Edit extends Component
 {
     use WithFileUploads;
-    public $ids,$bus_id,$kilometer,$gas_amount,$paid_amount,$driver_id,$date,$bus_type_id,$suplier_type_id;
+    public $ids,$bus_id,$kilometer,$gas_amount,$paid_amount,$driver_id,$date,$bus_type_id,$suplier_type_id,$fuel_price=0;
    
     public $showIndex,$showForm;
     protected $listeners=[
@@ -27,8 +27,8 @@ class Edit extends Component
         $drivers=Driver::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
         $bus_types=BusType::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
         // $routes=Route::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
-        $buses=Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->get();
-        $suplier_types=StaticTable::select('id','name')->whereType('supplier_type')->get();
+        $buses=Bus::whereAdminId(Auth::guard('admin')->id())->select('id','code')->whereIsActive('Y')->get();
+        $suplier_types=StaticTable::select('id','name')->whereType('supplier_type')->whereIsActive('Y')->get();
         return view('livewire.gases.edit',compact('drivers','bus_types','suplier_types','buses'))->extends('layouts.master');
     }
 
@@ -36,7 +36,7 @@ class Edit extends Component
     {
         $validate=$this->validate([
             'driver_id'=>'required|int',
-            'bus_type_id'=>'required|int',
+            // 'bus_type_id'=>'required|int',
             'suplier_type_id'=>'required|int',
             'bus_id'=>'required|int',
         ]);
@@ -68,10 +68,25 @@ class Edit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('gases');
+            return redirect()->to('gases')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
-    
+     
+    public function change_bus_id()
+    {
+        $bus=Bus::with('fuel_type')->find($this->bus_id);
+        if($bus != null){
+            $this->bus_type_id=$bus->busType_id;
+            if($bus->fuel_type != null){
+                $this->fuel_price=$bus->fuel_type->amount;
+            }
+        }
+    }
+
+    public function change_gas_amount()
+    {
+        $this->paid_amount = $this->fuel_price * $this->gas_amount;
+    }
     public function get_object($edit_object)
     {
         $this->ids=$edit_object['id'];

@@ -101,6 +101,13 @@
                             <input type="radio"  wire:model='rate_charge' id="age2" name="age" value="N">
                             <label for="age2">Not Apply Route Cahrge</label><br>  
                         </div>
+                        @if($rate_charge == 'Y')
+                            <div class="col-md-6">
+                                <label for="charge_value" class="mr-sm-2">charge value</label>
+                                <input id="charge_value" type="number" class="form-control " wire:model.lazy='charge_value'>
+                                @error('charge_value')<span style="color: red"> {{ $message }}</span>@enderror
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <br><br>

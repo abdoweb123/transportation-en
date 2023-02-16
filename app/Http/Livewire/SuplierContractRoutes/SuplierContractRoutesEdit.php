@@ -73,7 +73,7 @@ class SuplierContractRoutesEdit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('suplier-contract-route/'.$this->suplier_contract_id);
+            return redirect()->to('suplier-contract-route/'.$this->suplier_contract_id)->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

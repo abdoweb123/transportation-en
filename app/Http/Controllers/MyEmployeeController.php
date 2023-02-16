@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
+use App\Imports\EmployeesImport;
 
 class MyEmployeeController extends Controller
 {
@@ -45,6 +46,24 @@ class MyEmployeeController extends Controller
         return view('pages.MyEmployees.create', compact('data'));
     }
 
+    
+     public function import_file(Request $request)
+        {
+            if ($request->excel == null) {
+                return redirect()->back()->with('alert-danger','plz check file!');
+            }elseif ($request->company_id == null) {
+                return redirect()->back()->with('alert-danger','plz check company!');
+            } 
+            $data=[
+                'company_id'=>$request->company_id
+            ];
+            $dataa=new EmployeesImport($data);
+            Excel::import($dataa,$request->excel);
+            if($dataa->arr_inf_not_add){
+                return redirect()->route('myEmployees.index')->with([ 'dataa' => $dataa->arr_inf_not_add ]);
+            }
+            return redirect()->route('myEmployees.index')->with('alert-info','تم الاضافه بنجاح');
+        }
 
 
     /*** store function  ***/

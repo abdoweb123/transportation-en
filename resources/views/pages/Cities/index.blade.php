@@ -115,7 +115,7 @@ input:checked + .slider:before {
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                         {{ trans('cities_trans.add_city') }}
                     </button>
-                    <button type="button" class="button x-small" >
+                    <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel"> 
                        <i class="far fa-file-excel"></i> Excel
                     </button>
                     <br><br>

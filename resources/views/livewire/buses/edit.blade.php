@@ -2,18 +2,32 @@
     <form wire:submit.prevent='store_update'>
         <div class="card-body">
             <div class="row">
+                <div class="col-md-12 mb-2">
+                    @if($image_face != null)
+                        <img src="{{ url('assets/images/'.$image_face) }}" title="image_face" alt="" style="height:50px;width50px;">
+                    @endif
+                    @if($image_left != null)
+                        <img src="{{ url('assets/images/'.$image_left) }}" title="image_left" alt="" style="height:50px;width50px;">
+                    @endif
+                    @if($advertisement_image != null)
+                        <img src="{{ url('assets/images/'.$advertisement_image) }}" title="advertisement_image" alt="" style="height:50px;width50px;">
+                    @endif
+                   
+                    
+
+                </div>
                 <div class="col-md-6 mb-2">
-                    <label for="name" class="mr-sm-2">name</label>
+                    <label for="name" class="mr-sm-2 ">name <span style="color:red">*</span></label>
                     <input id="name" type="text" class="form-control" wire:model.lazy='name'>
                     @error('name')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
                 <div class="col-md-6 mb-2">
-                    <label for="code" class="mr-sm-2">code</label>
+                    <label for="code" class="mr-sm-2">code <span style="color:red">*</span></label>
                     <input id="code" type="text" class="form-control" wire:model.lazy='code'>
                     @error('code')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
                 <div class="col-md-6 mb-2">
-                    <label for="busType_id">busTypes</label>
+                    <label for="busType_id">busTypes <span style="color:red">*</span> </label>
                     <select class="form-control mr-sm-2 p-2" name="busType_id" wire:model.lazy='busType_id'>
                         <option selected >choose</option>
                         @if(count($busTypes))
@@ -25,7 +39,7 @@
                     @error('busType_id')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
                 <div class="col-md-6 mb-2">
-                    <label for="gas_type_id">gas_types</label>
+                    <label for="gas_type_id">gas_types <span style="color:red">*</span></label>
                     <select class="form-control mr-sm-2 p-2" name="gas_type_id" wire:model.lazy='gas_type_id'>
                         <option selected >choose</option>
                         @if(count($gas_types))
@@ -37,7 +51,7 @@
                     @error('gas_type_id')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
                 <div class="col-md-6 mb-2">
-                    <label for="motor_number" class="mr-sm-2">motor_number</label>
+                    <label for="motor_number" class="mr-sm-2">motor_number <span style="color:red">*</span></label>
                     <input id="motor_number" type="number" class="form-control" wire:model.lazy='motor_number'>
                     @error('motor_number')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
@@ -71,7 +85,7 @@
                     @error('shase_number')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
                 <div class="col-md-6 mb-2">
-                    <label for="bus_model_id">bus_models</label>
+                    <label for="bus_model_id">bus_models <span style="color:red">*</span></label>
                     <select class="form-control mr-sm-2 p-2" name="bus_model_id" wire:model.lazy='bus_model_id'>
                         <option selected >choose</option>
                         @if(count($bus_models))
@@ -107,15 +121,21 @@
                     @error('bank_id')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
                 <div class="col-md-6 mb-4">
-                    <label for="face_iamge" class="mr-sm-2">face iamge</label>
-                    <input id="face_iamge" type="file" class="form-control" wire:model.lazy='image_face'>
-                    @error('face_iamge')<span style="color: red"> {{ $message }}</span>@enderror
+                    <label for="face_image" class="mr-sm-2">face image</label>
+                    <input id="face_image" type="file" class="form-control" wire:model.lazy='image_face'>
+                    @error('image_face')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
-                <div class="col-md-12 mb-2">
-                    <label for="face_left" class="mr-sm-2">iamge left</label>
+                <div class="col-md-6 mb-2">
+                    <label for="face_left" class="mr-sm-2">image left</label>
                     <input id="face_left" type="file" class="form-control" wire:model.lazy='image_left'>
                     @error('face_left')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
+                <div class="col-md-6 mb-2">
+                    <label for="advertisement_image" class="mr-sm-2">Advertisement image</label>
+                    <input id="advertisement_image" type="file" class="form-control" wire:model.lazy='advertisement_image'>
+                    @error('advertisement_image')<span style="color: red"> {{ $message }}</span>@enderror
+                </div>
+                
                 <div class="col-md-6 mb-2">
                     <label for="expiration_insurance_from" class="mr-sm-2">Expiration of the insurance license From</label>
                     <input id="expiration_insurance_from" type="date" class="form-control" wire:model.lazy='expiration_insurance_from'>

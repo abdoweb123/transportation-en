@@ -20,7 +20,8 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\RouteStationImport;
 class RouteStationController extends Controller
 {
 
@@ -375,22 +376,41 @@ class RouteStationController extends Controller
         return view('pages.RouteStation.index', compact('routeStations','routes','stations','comapnies','request_company_id'));
     }
 
-
+    public function import_file(Request $request)
+    {
+        if ($request->excel == null) {
+            return redirect()->back()->with('alert-danger','plz check file!');
+        }
+        $data=[
+            'company_id'=> $request->company_id
+         ];
+        $dataa=new RouteStationImport($data);
+        Excel::import($dataa,$request->excel);
+        if($dataa->arr_inf_not_add){
+            return redirect()->route('routeStations.index')->with([ 'dataa' => $dataa->arr_inf_not_add ]);
+        }
+        return redirect()->route('routeStations.index')->with('alert-info','تم الاضافه بنجاح');
+    }
 
     /* create an office */
     public function store(RouteStationRequest $request)
     {
         try {
-            $routeStation = new RouteStation();
-            $routeStation->route_id = $request->route_id;
-            $routeStation->station_id = $request->station_id;
-            $routeStation->admin_id = auth('admin')->id();
-            $routeStation->active = 1;
-            $routeStation->company_id = $request->company_id;
-            $routeStation->save();
-
-            $routeStation->station_name = $routeStation->station->name;
-            $routeStation->update();
+            if($request->station_id){
+                foreach($request->station_id as $station){
+                    $routeStation = new RouteStation();
+                    $routeStation->route_id = $request->route_id;
+                    $routeStation->station_id = $station;
+                    $routeStation->admin_id = auth('admin')->id();
+                    $routeStation->active = 1;
+                    $routeStation->company_id = $request->company_id;
+                    $routeStation->save();
+        
+                    $routeStation->station_name = $routeStation->station->name;
+                    $routeStation->update();
+                }
+            }
+            
             return redirect()->back()->with('alert-success','Data is saved successfully');
         }
         catch (\Exception $exception)

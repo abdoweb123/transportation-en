@@ -39,6 +39,7 @@
                                     <th>#</th>
                                     <th>name </th>
                                     <th>email </th>
+                                    <th>action </th>
                                 </tr>
                                 </thead>
                                 <tbody>

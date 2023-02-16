@@ -59,7 +59,7 @@ class CarPaymentsEdit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('car-payments');
+            return redirect()->to('car-payments')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

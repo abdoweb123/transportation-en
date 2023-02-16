@@ -88,7 +88,7 @@ class Edit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('penelties');
+            return redirect()->to('penelties')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

@@ -17,7 +17,7 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Category Name :</label>
+                            <label for="name_ar" class="mr-sm-2">Category Name <span style="color:red">*</span>:</label>
                             <select class="form-control" name="category_id">
                                 <option value=" " selected>-- Choose --</option>
                                 @foreach($categories as $category)
@@ -26,13 +26,13 @@
                             </select>
                         </div>
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Title :</label>
+                            <label for="name_ar" class="mr-sm-2">Title <span style="color:red">*</span>:</label>
                             <input type="text" name="title" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2 d-block">Priority :</label>
+                            <label for="name_ar" class="mr-sm-2 d-block">Priority <span style="color:red">*</span>:</label>
                             <div class="row">
                                 @for($i=1; $i<=5; $i++)
                                      <div class="col-4 mb-2">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Type :</label>
+                            <label for="name_ar" class="mr-sm-2">Type <span style="color:red">*</span>:</label>
                             <select name="type" class="form-control">
                                 <option value=" " selected>-- Choose --</option>
                                 <option value="1">Renewal</option>

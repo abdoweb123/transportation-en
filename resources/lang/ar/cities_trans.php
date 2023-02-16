@@ -18,4 +18,5 @@ return [
     'warning_city' => 'هل أنت متأكد من عملية الحذف ؟',
     'city_name_ar_validation' => 'اسم المدينة باللغة العربية مطلوب',
     'city_name_en_validation' => 'اسم المدينة باللغة الإنجليزية مطلوب',
+    'file' => 'الملف',
 ];

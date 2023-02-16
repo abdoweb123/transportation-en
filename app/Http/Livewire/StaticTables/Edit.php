@@ -14,7 +14,7 @@ use Livewire\Component;
 class Edit extends Component
 {
     use WithFileUploads;
-    public $ids,$name,$type;
+    public $ids,$name,$type,$amount=0,$supplier_kind_id=0;
    
     public $showIndex,$showForm;
     protected $listeners=[
@@ -26,7 +26,11 @@ class Edit extends Component
     }
     public function render()
     {
-        return view('livewire.static-tables.edit')->extends('layouts.master');
+        $supplier_kinds=null;
+        if($this->type == 'suppliers'){
+            $supplier_kinds=StaticTable::whereType('suppliers_kind')->whereIsActive('Y')->get();
+        }
+        return view('livewire.static-tables.edit',compact('supplier_kinds'))->extends('layouts.master');
     }
 
     public function store_update()
@@ -42,12 +46,14 @@ class Edit extends Component
 
         $data->name=$this->name;
         $data->type=$this->type;
+        $data->amount=$this->amount;
+        $data->parent_id=$this->supplier_kind_id;
         $data->admin_id=Auth::guard('admin')->id();
         $check=$data->save();
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('static-table/'.$this->type);
+            return redirect()->to('static-table/'.$this->type)->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     
@@ -55,6 +61,8 @@ class Edit extends Component
     {
         $this->ids=$edit_object['id'];
         $this->name=$edit_object['name'];
+        $this->amount=$edit_object['amount'];
+        $this->supplier_kind_id=$edit_object['parent_id'];
     }
 
     public function resetInput()

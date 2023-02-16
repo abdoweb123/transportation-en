@@ -9,6 +9,9 @@ use App\Models\Station;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\StationImport;
 class StationController extends Controller
 {
 
@@ -37,7 +40,10 @@ class StationController extends Controller
             $station->city_id = $request->city_id;
             $station->lat = $request->lat;
             $station->lon = $request->lon;
-            $station->company_id = $request->company_id;
+            $station->description = $request->description;
+            $station->description_en = $request->description_en;
+            $station->lon = $request->lon;
+            // $station->company_id = $request->company_id;
             $station->admin_id = auth('admin')->id();
             $station->save();
             return redirect()->back()->with('alert-success',trans('main_trans.success'));
@@ -48,6 +54,23 @@ class StationController extends Controller
         }
     }
 
+    
+    
+    public function import_file(Request $request)
+    {
+        if ($request->excel == null) {
+            return redirect()->back()->with('alert-danger','plz check file!');
+        }
+        $data=[
+            'company_id'=>$request->company_id
+        ];
+        $dataa=new StationImport($data);
+        Excel::import($dataa,$request->excel);
+        if ($dataa->arr_inf_not_add) {
+            return redirect()->to('stations')->with(['dataa'=>$dataa->arr_inf_not_add]);
+        }
+        return redirect()->to('stations')->with('alert-info','تم الاضافه بنجاح');
+    }
 
     public function switch_status(Request $request)
     {
@@ -71,8 +94,10 @@ class StationController extends Controller
             $station->city_id = $request->city_id;
             $station->lat = $request->lat;
             $station->lon = $request->lon;
-            $station->company_id = $request->company_id;
+            // $station->company_id = $request->company_id;
             $station->admin_id = auth('admin')->id();
+            $station->description = $request->description;
+            $station->description_en = $request->description_en;
             $station->update();
             return redirect()->back()->with('alert-success',trans('main_trans.success'));
         }

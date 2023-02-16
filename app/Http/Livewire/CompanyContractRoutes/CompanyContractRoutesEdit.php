@@ -17,7 +17,7 @@ use App\Models\Discount;
 class CompanyContractRoutesEdit extends Component
 {
     use WithFileUploads;
-    public $ids,$contracts_id,$company_id,$route_id,$bus_type_id,$discount_id,$payment_type,$rate_charge
+    public $ids,$contracts_id,$company_id,$route_id,$bus_type_id,$discount_id,$payment_type,$rate_charge,$charge_value
     ,$service_type_id,$service_value;
    
     public $showIndex,$showForm;
@@ -39,6 +39,7 @@ class CompanyContractRoutesEdit extends Component
             $this->discount_id=$contract->discount_id;
             $this->payment_type=$contract->payment_type;
             $this->rate_charge=$contract->rate_charge;
+            $this->charge_value=$contract->charge_value;
         }
         $this->chk=true;
     }
@@ -77,6 +78,7 @@ class CompanyContractRoutesEdit extends Component
         $data->bus_type_id=$this->bus_type_id;
         $data->service_type_id=$this->service_type_id;
         $data->service_value=$this->service_value;
+        $data->charge_value=$this->charge_value;
         if ($this->rate_charge == null) {
             $data->rate_charge="N";
         }else {
@@ -87,7 +89,7 @@ class CompanyContractRoutesEdit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('company-contract-route/'.$this->contracts_id);
+            return redirect()->to('company-contract-route/'.$this->contracts_id)->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     
@@ -106,5 +108,6 @@ class CompanyContractRoutesEdit extends Component
         $this->bus_type_id=null;
         $this->service_type_id=null;
         $this->service_value=null;
+        $this->charge_value=null;
     }
 }

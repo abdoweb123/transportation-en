@@ -9,10 +9,12 @@ use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ContractSubliers as importContractSubliers;
 class ContractSubliers extends Component
 {
     use WithFileUploads;
-    public $ids,$showIndex,$showForm,$type;
+    public $ids,$showIndex,$showForm,$type,$excel;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
@@ -47,6 +49,18 @@ class ContractSubliers extends Component
             $data->arrived="Y";
         }
         $data->save();
+    }
+ 
+
+
+    public function import_file()
+    {
+        if ($this->excel == null) {
+            return session()->flash('alert-danger','plz check file!');
+        }
+        Excel::import(new importContractSubliers(),$this->excel);
+
+        return redirect()->to('contract-sublier')->with('alert-info','تم الاضافه بنجاح');
     }
     public function switch()
     {

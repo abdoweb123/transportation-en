@@ -55,10 +55,16 @@ class SeatBooking extends Component
         $this->templates[]='';
     }
 
-    public function count_arr($index)
+    public function count_arr($index,$itemindex)
     {
-        // dd($index);
-        // dd($this->arr_count);
+        // dd(($this->collection_selected));
+        if (array_key_exists($itemindex,$this->collection_selected)) {
+           if (count($this->collection_selected[$itemindex]) != 1) {
+                unset($this->collection_selected[$itemindex]);
+                $this->collection_selected +=[$itemindex=>[$index=>$index]];
+           }
+        }
+        // dd($this->collection_selected);
         // return 'fdfdfdfd';
         if (array_key_exists($index,$this->arr_count)) {
             $this->arr_count[$index] +=1; 

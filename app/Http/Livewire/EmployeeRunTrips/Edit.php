@@ -76,7 +76,7 @@ class Edit extends Component
             }
 
             $this->resetInput();
-            return redirect()->to('employeeRunTripsNew');
+            return redirect()->to('employeeRunTripsNew')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

@@ -18,7 +18,7 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            <label for="Name" class="mr-sm-2">Name :</label>
+                            <label for="Name" class="mr-sm-2">Name <span style="color:red">*</span>:</label>
                             <input id="Name" type="text" name="name" class="form-control" value="{{ $item->name }}" required>
                         </div>
                         <div class="col">

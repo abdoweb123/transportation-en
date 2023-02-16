@@ -9,6 +9,8 @@ use App\Models\Company;
 use App\Models\Station;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\CitiesImport;
 class CityController extends Controller
 {
 
@@ -35,6 +37,20 @@ class CityController extends Controller
         }
         $data->save();
         return response()->json('تم التعديل بنجاح');
+    }
+
+    public function import_cities(Request $request)
+    {
+        if ($request->excel == null) {
+            return redirect()->back()->with('alert-danger','plz check file!');
+        }
+        $data=[
+            'company_id'=>$request->company_id
+        ];
+        $dataa=new CitiesImport($data);
+        Excel::import($dataa,$request->excel);
+
+        return redirect()->route('cities.index')->with('alert-info','تم الاضافه بنجاح');
     }
 
 

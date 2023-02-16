@@ -17,27 +17,27 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Name :</label>
+                            <label for="name_ar" class="mr-sm-2">Name <span style="color:red">*</span> :</label>
                             <input type="text" name="name" class="form-control">
                         </div>
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Phone :</label>
+                            <label for="name_ar" class="mr-sm-2">Phone <span style="color:red">*</span>:</label>
                             <input type="text" name="phone" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="registration_number" class="mr-sm-2">Registration Number :</label>
+                            <label for="registration_number" class="mr-sm-2">Registration Number <span style="color:red">*</span>:</label>
                             <input type="text" name="registration_number" class="form-control">
                         </div>
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Taxes Number :</label>
+                            <label for="name_ar" class="mr-sm-2">Taxes Number <span style="color:red">*</span>:</label>
                             <input type="text" name="taxes_number" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="vendor_type" class="mr-sm-2">Vendor Type:</label>
+                            <label for="vendor_type" class="mr-sm-2">Vendor Type <span style="color:red">*</span>:</label>
                             <select class="form-control mr-sm-2 p-2" name="vendor_type_id">
                                 <option class="custom-select mr-sm-2 p-2" value=" ">{{ trans('stations_trans.choose') }}</option>
                                 @foreach($vendor_types as $vendor_type)
@@ -46,19 +46,19 @@
                             </select>
                         </div>
                         <div class="col">
-                            <label for="national_id" class="mr-sm-2">National Id:</label>
+                            <label for="national_id" class="mr-sm-2">National Id <span style="color:red">*</span>:</label>
                             <input type="text" name="national_id" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Email :</label>
+                            <label for="name_ar" class="mr-sm-2">Email <span style="color:red">*</span>:</label>
                             <input type="email" name="email" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Description :</label>
+                            <label for="name_ar" class="mr-sm-2">Description <span style="color:red">*</span>:</label>
                             <textarea name="description" class="form-control"></textarea>
                         </div>
                     </div>

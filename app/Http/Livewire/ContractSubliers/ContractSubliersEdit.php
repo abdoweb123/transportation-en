@@ -95,7 +95,7 @@ class ContractSubliersEdit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('contract-sublier');
+            return redirect()->to('contract-sublier')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

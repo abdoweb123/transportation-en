@@ -50,7 +50,7 @@ class Edit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('driver-salary');
+            return redirect()->to('driver-salary')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

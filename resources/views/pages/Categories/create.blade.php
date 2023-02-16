@@ -17,7 +17,7 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            <label for="name_ar" class="mr-sm-2">Name :</label>
+                            <label for="name_ar" class="mr-sm-2">Name <span style="color:red">*</span>:</label>
                             <input id="name_ar" type="text" name="name" class="form-control">
                         </div>
                     </div>

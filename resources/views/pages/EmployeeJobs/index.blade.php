@@ -57,9 +57,9 @@
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                        Add Job
                     </button>
-                    <button type="button" class="button x-small" >
+                    {{-- <button type="button" class="button x-small" >
                         <i class="far fa-file-excel"></i> Excel
-                     </button>
+                     </button> --}}
                      <br><br>
  
                          <form action="employeeJobs" method="GET">

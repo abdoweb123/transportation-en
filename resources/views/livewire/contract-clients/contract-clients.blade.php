@@ -88,13 +88,16 @@
                         <br><br>
                         <div class="row mb-4" >
                             <div class="col-md-4">
-                                <select name="company_id" class="form-control mr-sm-2 p-2" >
-                                    <option value=" ">-- Choose --</option>
+                                <select name="company_id" class="form-control mr-sm-2 p-2" wire:model='company_id_search'>
+                                    <option value="0">-- Choose Company --</option>
                                     @foreach($comapnies as $company)
-                                        <option value="{{$company->id}}" wire:model='company_id_search'>{{$company->name}}</option>
+                                        <option value="{{$company->id}}" >{{$company->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
+                            <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel"> 
+                                <i class="far fa-file-excel"></i> Excel
+                             </button>
                            
                         </div>
                         {{-- <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
@@ -148,6 +151,57 @@
                         </div>
                     </div>
                 </div>
+
+                <div wire:ignore.self class="modal fade" id="importExcel" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
+                            add file
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- add_form -->
+                        <form wire:submit.prevent='import_file' enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @if (count($errors) > 0)
+                                        @foreach($errors->all() as $error)
+                                            <div class="alert alert-{{$msg}}">
+                                                {{ $error }} <br>
+                                            </div>
+                                        @endforeach      
+                                    @endif
+                                </div>
+                                <div class="col">
+                                    <label for="file" class="mr-sm-2">{{ trans('cities_trans.file') }}:</label>
+                                    {{-- <input type="text" name="test" value="test" id=""> --}}
+                                    <input type="file" name="excel" wire:model.defer='excel' required>
+                                </div>
+                                <div class="col">
+                                    <label for="file" class="mr-sm-2">company:</label>
+                                    <select name="company_id" class="form-control" wire:model.defer='company_export_id'>
+                                        <option value=" ">-- Choose --</option>
+                                        @foreach($comapnies as $company)
+                                            <option value="{{$company->id}}" >{{$company->name}}</option>
+                                        @endforeach
+                                    </select>
+                                   </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main_trans.close') }}</button>
+                                <button type="submit" class="btn btn-success">{{ trans('main_trans.submit') }}</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
 
     @section('js')

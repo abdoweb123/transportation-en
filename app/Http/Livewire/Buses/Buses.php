@@ -10,11 +10,12 @@ use App\Models\Bus;
 use App\Models\Driver;
 use App\Models\StaticTable;
 use Illuminate\Support\Facades\Auth;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\BusImport;
 class Buses extends Component
 {
     use WithFileUploads;
-    public $ids,$showIndex,$showForm,$type,$driver_id,$bus_id,$type_id;
+    public $ids,$showIndex,$showForm,$type,$driver_id,$bus_id,$type_id,$excel,$result_export;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
@@ -30,6 +31,24 @@ class Buses extends Component
             'results'=>$results,
         ])->extends('layouts.master');
     }
+
+    public function import_file()
+    {
+        if ($this->excel == null) {
+            return session()->flash('alert-danger','plz check file!');
+        }
+
+        $dataa=new BusImport();
+
+        Excel::import( $dataa,$this->excel);
+        if ($dataa->arr_inf_not_add) {
+            $this->emit('remove_model_export');
+          $this->result_export=$dataa->arr_inf_not_add;
+        }else{
+            return redirect()->to('buses')->with('alert-info','تم الاضافه بنجاح');
+        }
+    }
+
     public function switch_status($id)
     {
         $data=Bus::find($id);

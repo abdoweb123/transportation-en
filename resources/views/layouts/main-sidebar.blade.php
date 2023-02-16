@@ -5,118 +5,229 @@
             <div class="scrollbar side-menu-bg">
                 <ul class="nav navbar-nav side-menu" id="sidebarnav">
                     <!-- menu item Dashboard-->
-                    <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">{{trans('main_trans.dashboard')}}</li>
-
-
+                    <input type="text" class="form-control" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
+                    
                     <li>
                         <a href="{{url('dashboard')}}" style="padding-bottom:30px;">
-                            <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">Dashboard</span>
+                            <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">{{ trans('main_trans.dashboard') }}</span>
                             </div>
                         </a>
                     </li>
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#Fleet">
-                            <div class="pull-left"><i class="fab fa-mastodon"></i><span class="right-nav-text">Fleet system management</span>
+                            <div class="pull-left"><i class="fab fa-mastodon"></i><span class="right-nav-text">{{ trans('main_trans.master_data') }}</span>
                             </div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="Fleet" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{url('static-table/bus_model')}}"><i class='fas fa-infinity'></i>Bus Model</a></li>
-                            <li> <a href="{{url('static-table/bank')}}"><i class='fas fa-money-bill-wave-alt'></i>Bank</a></li>
-                            <li> <a href="{{url('static-table/insurance_company')}}"><i class='fas fa-landmark'></i>Insurance company</a></li>
-                            <li> <a href="{{route('busTypes.index')}}"><i class='fas fa-bus-alt'></i> Buses Type List</a></li>
-                            <li> <a href="{{url('buses')}}"><i class='fas fa-bus'></i>Buses List</a></li>
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#master_code">
+                                    <i class="fab fa-digital-ocean"></i>{{ trans('main_trans.system_code') }}
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                                <ul id="master_code" class="collapse" data-parent="#master_code">
+                                    <li> <a href="{{url('static-table/insurance_kind')}}"><i class="menu-item"></i> {{ trans('main_trans.driving_license') }}</a></li>
+                                    <li> <a href="#"><i class="menu-item"></i> {{ trans('main_trans.customer_type') }}</a></li>
+                                    <li> <a href="{{url('static-table/supplier_type')}}"><i class="menu-item"></i> {{ trans('main_trans.supplier_type') }}</a></li>
+                                    <li> <a href="{{url('static-table/service')}}"><i class="menu-item"></i> {{ trans('main_trans.service_type') }}</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#hr_system_code">
+                                    <i class="fas fa-hryvnia"></i>{{ trans('main_trans.hr_system_code') }}
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                                <ul id="hr_system_code" class="collapse" data-parent="#hr_system_code">
+                                    <li> <a href="{{route('departments.index')}}"><i class="menu-item"></i> {{ trans('main_trans.list_of_depart') }}</a> </li>
+                                    <li> <a href="{{route('employeeJobs.index')}}"><i class="menu-item"></i> {{ trans('main_trans.list_of_jod') }}</a> </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#booking_system_codes">
+                                    <i class="fab fa-dochub"></i>{{ trans('main_trans.booking_system_codes') }}
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                                <ul id="booking_system_codes" class="collapse" data-parent="#booking_system_codes">
+                                    <li> <a href="{{url('static-table/discount_type')}}"><i class="menu-item"></i> {{ trans('main_trans.list_of_discount_types') }}</a> </li>
+                                    <li> <a href="{{url('discounts')}}"><i class="menu-item"></i> {{ trans('main_trans.list_of_discounts') }}</a> </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#list_of_benificiaries">
+                                    <i class="fab fa-behance"></i>{{ trans('main_trans.list_of_benificiaries') }}
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                                <ul id="list_of_benificiaries" class="collapse" data-parent="#list_of_benificiaries">
+                                    <li> <a href="{{route('getAllDrivers')}}"><i class="menu-item"></i> {{ trans('main_trans.list_of_driver') }}</a> </li>
+                                    <li> <a href="{{url('companies')}}"><i class="menu-item"></i> {{ trans('main_trans.list_of_customers') }}</a> </li>
+                                    <li> <a href="{{url('static-table/suppliers')}}"><i class="menu-item"></i> {{ trans('main_trans.list_of_suppliers') }}</a> </li>
+                                    <li> <a href="{{route('myEmployees.index')}}"><i class="menu-item"></i> {{ trans('main_trans.list_of_employees') }}</a> </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#list_of_locations">
+                                    <i class="fas fa-location-arrow"></i>{{ trans('main_trans.list_of_locations') }}
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                                <ul id="list_of_locations" class="collapse" data-parent="#list_of_locations">
+                                    <li> <a href="{{ url('countries') }}"><i class="menu-item"></i> {{ trans('main_trans.list_of_governorate') }}</a> </li>
+                                    <li> <a href="{{route('cities.index')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_cities')}}</a> </li>
+                                    <li> <a href="{{route('stations.index')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_stations')}}</a> </li>
+                                    <li> <a href="{{route('offices.index')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_offices')}}</a> </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#fleet_management_systemone">
+                                    <i class="fab fa-first-order-alt"></i>{{ trans('main_trans.fleet_management_system') }}
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+
+                                <ul id="fleet_management_systemone" class="collapse" data-parent="#fleet_management_system">
+                                    <li> <a href="{{url('static-table/penalty_type')}}"><i class="menu-item"></i> {{ trans('main_trans.list_of_penalty_types') }}</a> </li>
+                                    <li> <a href="{{url('static-table/accident_type')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_accident_ypes')}}</a> </li>
+                                    <li> <a href="{{url('static-table/gas_type')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_fuel_types')}}</a> </li>
+                                    <li> <a href="{{route('expenses')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_expenses_types')}}</a> </li>
+                                    <li> <a href="{{url('static-table/gudget_brand')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_spare_parts')}}</a> </li>
+                                    <li> <a href="{{url('static-table/gudget_type')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_spare_part_types')}}</a> </li>
+                                </ul>
+                            </li>
+
+                         
                             <li> <a href="{{route('seats.create')}}"><i class='fas fa-business-time'></i> Add Design to bus</a></li>
-                            <li> <a href="{{url('static-table/penalty_type')}}"><i class="fab fa-penny-arcade"></i>  Penalty Type</a> </li>
-                            <li> <a href="{{route('getAllDrivers')}}"><i class='fas fa-screwdriver'></i> drivers </a></li>
-                            <li> <a href="{{url('penelties')}}"><i class="fab fa-paypal"></i>penelties</a> </li>
-                            <li> <a href="{{url('static-table/accident_type')}}"><i class="fab fa-penny-arcade"></i>  Accident Type</a> </li>
-                            <li> <a href="{{url('accidents')}}"><i class="fab fa-accessible-icon"></i>  accidents</a> </li>
-                            <li> <a href="{{url('driver-salary')}}"><i class="fas fa-screwdriver"></i>  driver salary</a> </li>
-                            <li> <a href="{{url('gases')}}"><i class="fas fa-gas-pump"></i> Fuel</a> </li>
-                            <li> <a href="{{url('static-table/gas_type')}}"><i class="fas fa-glass-martini-alt"></i>Fuel type</a> </li>
                             <li> <a href="{{url('static-table/extra_fees_type')}}"><i class="fas fa-external-link-square-alt"></i>Extra fees types</a> </li>
                             <li> <a href="{{url('extra-fees')}}"><i class="fas fa-code-branch"></i>Extra fees</a> </li>
                             <li> <a href="{{route('vendors.index')}}"><i class="fas fa-store"></i>Vendors</a> </li>
                             <li> <a href="{{url('static-table/vendor_type')}}"><i class="fas fa-external-link-square-alt"></i>Vendor Type</a> </li>
                             <li> <a href="{{route('categories.index')}}"><i class="fas fa-bus-alt"></i>Bus Categories</a> </li>
                             <li> <a href="{{route('issues.index')}}"><i class="fas fa-wrench"></i>Bus Categories Issues </a> </li>
-                            <li> <a href="{{route('reminders.index')}}"><i class="fas fa-bell"></i>Reminders </a> </li>
-                            <li> <a href="{{route('reminderHistory.index')}}"><i class="fas fa-history"></i>Reminder History </a></li>
-                            <li> <a href="{{url('car-payments')}}"><i class="fas fa-history"></i>car payments</a></li>
                             <li> <a href="{{url('static-table/borrow_type')}}"><i class="fas fa-external-link-square-alt"></i>borrow Type</a> </li>
+                            <li> <a href="{{route('routeStations.index')}}">Route Stations List</a> </li>
                             {{-- <li> <a href="{{route('car-payment-dates')}}"><i class="fas fa-history"></i>car payments </a></li> --}}
                         </ul>
                     </li>
 
                     <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#operation_management_system">
+                            <div class="fab fa-glide-g"> <span class="right-nav-text">{{ trans('main_trans.operation_management_system') }}</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="operation_management_system" class="collapse" data-parent="#sidebarnav">
+                            <li> <a href="{{route('routes.index')}}"><i class="fas fa-route"></i> {{ trans('main_trans.list_of_routes') }}</a> </li>
+                        
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#list_of_routes">
+                                    <i class="fab fa-first-order-alt"></i>{{ trans('main_trans.list_of_routes') }}
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+                                <ul id="list_of_routes" class="collapse" data-parent="#list_of_routes">
+                                    <li> <a href="{{url('contract-client')}}"><i class="menu-item"></i> {{ trans('main_trans.customers_contracts') }}</a> </li>
+                                    <li> <a href="{{url('contract-sublier')}}"><i class="menu-item"></i>{{trans('main_trans.suppliers_Contracts')}}</a> </li>
+                                    <li> <a href="{{url('driver-salary')}}"><i class="menu-item"></i>{{trans('main_trans.drivers_Contracts')}}</a> </li>
+                                </ul>
+                            </li>
+                            <li> <a href="{{route('bookingRequests.index')}}"><i class="fas fa-swatchbook"></i> {{ trans('main_trans.booking_list') }}</a> </li>
+                            <li> <a href="{{url('employeeRunTripsNew')}}"><i class="fab fa-cc-stripe"></i> {{ trans('main_trans.list_of_trips') }}</a> </li>
+                            <li> <a href="{{route('getAssignEmployee')}}"><i class="fab fa-markdown"></i>{{ trans('main_trans.route_client_mang') }}</a> </li>
+                            <li> <a href="{{url('swap-request')}}"><i class="fab fa-symfony"></i> {{ trans('main_trans.swap_equests') }}</a> </li>
+
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#fleet_management_system1">
+                            <div class="fab fa-confluence"> <span class="right-nav-text">{{ trans('main_trans.fleet_management_system') }}</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="fleet_management_system1" class="collapse" data-parent="#sidebarnav">
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="collapse" data-target="#fleet_maData">
+                                    <i class="fab fa-first-order-alt"></i>{{ trans('main_trans.fleet_maData') }}
+                                    <div class="pull-right"><i class="ti-plus"></i></div>
+                                    <div class="clearfix"></div>
+                                </a>
+
+                                <ul id="fleet_maData" class="collapse" data-parent="#fleet_maData">
+                                    <li> <a href="{{url('static-table/bank')}}"><i class="menu-item"></i> {{ trans('main_trans.bank_details') }}</a> </li>
+                                    <li> <a href="{{url('static-table/insurance_company')}}"><i class="menu-item"></i> {{ trans('main_trans.insurance_companies') }}</a> </li>
+                                    <li> <a href="{{url('contract-sublier')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_brands')}}</a> </li>
+                                    <li> <a href="{{url('static-table/bus_model')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_models')}}</a> </li>
+                                    <li> <a href="{{route('busTypes.index')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_designs')}}</a> </li>
+                                    <li> <a href="{{url('buses')}}"><i class="menu-item"></i>{{trans('main_trans.list_of_fleet')}}</a> </li>
+                                </ul>
+                            </li>
+                            <li> <a href="{{url('gases')}}"><i class="fas fa-swatchbook"></i> {{ trans('main_trans.Fuel_data') }}</a> </li>
+                            <li> <a href="{{url('penelties')}}"><i class="fab fa-cc-stripe"></i> {{ trans('main_trans.penalty_data') }}</a> </li>
+                            <li> <a href="{{url('accidents')}}"><i class="fab fa-markdown"></i>{{ trans('main_trans.accident_data') }}</a> </li>
+                            <li> <a href="{{route('reminderHistory.index')}}"><i class="fab fa-symfony"></i>{{ trans('main_trans.preventive_maintenance_reminders') }}</a> </li>
+                            <li> <a href="{{route('reminders.index')}}"><i class="fab fa-markdown"></i>{{ trans('main_trans.repair_data') }}</a> </li>
+                            <li> <a href="{{url('car-payments')}}"><i class="fab fa-markdown"></i>{{ trans('main_trans.fleet_installments') }}</a> </li>
+
+
+                        </ul>
+                    </li>
+
+                    {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#database">
                             <div class="pull-left"><i class="ti-dropbox-alt"></i><span class="right-nav-text">Database</span>
                             </div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
-                        <ul id="database" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('cities.index')}}">{{trans('main_trans.cities_list')}}</a> </li>
-                            <li> <a href="{{route('stations.index')}}">{{trans('main_trans.stations_list')}}</a> </li>
-                            <li> <a href="{{route('offices.index')}}">Offices List</a> </li>
-                            <li> <a href="{{route('routes.index')}}">Routes List</a> </li>
-                            <li> <a href="{{route('routeStations.index')}}">Route Stations List</a> </li>
-                            <li> <a href="{{route('myEmployees.index')}}">Employees List</a> </li>
+                        <ul id="database" class="collapse" data-parent="#sidebarnav"> --}}
+                            
                             {{-- <li> <a href="{{route('bookingRequests.index')}}">Booking Requests</a> </li>
                             <li> <a href="{{route('employeeRunTrips.index')}}">Employees Run Trip</a> </li> --}}
-                            <li> <a href="{{route('departments.index')}}">Departments List</a> </li>
-                            <li> <a href="{{route('employeeJobs.index')}}">Jobs List</a> </li>
-                            <li> <a href="{{url('companies')}}">Campanies</a></li>
-                            <li> <a href="{{url('contract-client')}}">Contract Client</a></li>
-                            <li> <a href="{{url('static-table/suppliers')}}">Suppliers</a></li>
-                            <li> <a href="{{url('static-table/supplier_type')}}">Suppliers Type</a></li>
-                            <li> <a href="{{url('contract-sublier')}}">Contract Subliers</a></li>
+    
                             {{-- <li> <a href="{{url('company-contract-route')}}">company contract route</a></li> --}}
                             {{-- <li> <a href="{{url('suplier-contract-route')}}">suplier contract route</a></li> --}}
-                            <li> <a href="{{url('static-table/service')}}">services type</a></li>
-                            <li> <a href="{{url('static-table/gudget_brand')}}">gudget brand</a></li>
-                            <li> <a href="{{url('static-table/gudget_type')}}">gudget type</a></li>
-                            <li> <a href="{{url('static-table/discount_type')}}">discount type</a></li>
-                            <li> <a href="{{url('discounts')}}">discounts</a></li>
-
+                            
+{{-- 
                         </ul>
-                    </li>
+                    </li> --}}
 
 
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#database_booking_request">
-                            {{--  <div class="pull-left"><i class="ti-dropbox-alt"></i><span class="right-nav-text">Booking Request Database</span>  --}}
                             <div class="pull-left"><i class="ti-ticket"></i><span class="right-nav-text">Booking Request Database</span>
                             </div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="database_booking_request" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('bookingRequests.index')}}">Booking Requests</a> </li>
-                            <li> <a href="{{url('employeeRunTripsNew')}}">Employees Run Trip</a> </li>
-                            <li> <a href="{{route('getAssignEmployee')}}">Assign Employee</a> </li>
-                            <li> <a href="{{url('swap-request')}}">Swap Request</a> </li>
+                            
                         </ul>
-                    </li>
+                    </li> --}}
 
 
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#reports">
-                            <div class="pull-left"><i class="ti-notepad"></i><span class="right-nav-text">Reports</span>
+                            <div class="pull-left"><i class="ti-notepad"></i><span class="right-nav-text">{{ trans('main_trans.report') }}</span>
                             </div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="reports" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="{{route('revenues')}}">revenues</a></li>
-                            <li> <a href="{{route('expenses')}}">Expenses</a></li>
-                            <li> <a href="{{route('emptySeatsPerBus')}}">Empty seats per car</a> </li>
-                            <li> <a href="{{route('getRunTripByBus_id')}}">Names Of Employees Per Bus</a></li>
+                            <li> <a href="{{route('revenues')}}">{{ trans('main_trans.revenus') }}</a></li>
+                            <li> <a href="{{route('emptySeatsPerBus')}}">{{ trans('main_trans.empty_seats_per_car') }}</a> </li>
+                            <li> <a href="{{route('getRunTripByBus_id')}}">{{ trans('main_trans.name_of_employee') }}</a></li>
                             {{-- <li> <a href="{{route('emptySeatsPerRoute')}}">Empty Seats Per Route</a></li> --}}
-                            <li> <a href="{{route('bookingrequest-report')}}">Booking Request</a></li>
+                            <li> <a href="{{route('bookingrequest-report')}}">{{ trans('main_trans.boo_request') }}</a></li>
                             {{-- <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Departure</a></li>
                             <li> <a href="{{route('employeeRunTrips.index')}}">Names Of Employees Per Arrival</a></li> --}}
                             
@@ -360,4 +471,4 @@
 
         <!-- Left Sidebar End-->
 
-        <!--=================================
+            

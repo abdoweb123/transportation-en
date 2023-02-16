@@ -52,7 +52,7 @@
                         @method('PUT')
                         <div class="row mb-3">
                             <div class="col">
-                                <label class="mr-sm-2">Bus Code</label>
+                                <label class="mr-sm-2">Bus Code<span style="color:red">*</span></label>
                                 <select name="bus_id" class="form-control" required>
                                     <option value=" " selected>-- Choose --</option>
                                     @foreach($data['buses'] as $bus)
@@ -61,7 +61,7 @@
                                 </select>
                             </div>
                             <div class="col">
-                                <label class="mr-sm-2">Category Issue</label>
+                                <label class="mr-sm-2">Category Issue<span style="color:red">*</span></label>
                                 <select name="issue_id" class="form-control" required>
                                     <option value=" " selected>-- Choose --</option>
                                     @foreach($data['issues'] as $issue)
@@ -70,28 +70,28 @@
                                 </select>
                             </div>
                             <div class="col">
-                                <label class="mr-sm-2">Reminder Days</label>
+                                <label class="mr-sm-2">Reminder Days<span style="color:red">*</span></label>
                                 <input type="number" name="reminder_days" value="{{old('reminder_days',$reminder->reminder_days)}}" class="form-control" required>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col">
-                                <label class="mr-sm-2">Threeshold Days</label>
+                                <label class="mr-sm-2">Threeshold Days<span style="color:red">*</span></label>
                                 <input type="number" name="threeshold_days" value="{{old('threeshold_days',$reminder->threeshold_days)}}" class="form-control" required>
                             </div>
                             <div class="col">
-                                <label class="mr-sm-2">Start Date</label>
+                                <label class="mr-sm-2">Start Date<span style="color:red">*</span></label>
                                 <input type="date" name="start_date" value="{{old('start_date',$reminder->start_date)}}" class="form-control" required>
                             </div>
                             <div class="col">
-                                <label class="mr-sm-2">Distance</label>
+                                <label class="mr-sm-2">Distance<span style="color:red">*</span></label>
                                 <input type="text" name="distance" value="{{old('distance',$reminder->distance)}}" class="form-control" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label class="mr-sm-2">Threeshold Distance</label>
+                                <label class="mr-sm-2">Threeshold Distance<span style="color:red">*</span></label>
                                 <input type="text" name="threeshold_distance" value="{{old('threeshold_distance',$reminder->threeshold_distance)}}" class="form-control" required>
                             </div>
                             <div class="col">
@@ -108,7 +108,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
-                                    <label class="mr-sm-2">Task</label>
+                                    <label class="mr-sm-2">Task<span style="color:red">*</span></label>
                                     <input type="text" name="task" value="{{old('task',$reminder->task)}}" class="form-control" required>
                                 </div>
                             </div>

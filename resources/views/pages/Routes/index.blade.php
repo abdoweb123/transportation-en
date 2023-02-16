@@ -58,12 +58,12 @@
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                         Add Route
                     </button>
-                    <button type="button" class="button x-small" >
+                    <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel">
                         <i class="far fa-file-excel"></i> Excel
                      </button>
                      <br><br>
  
-                         <form action="routes" method="GET">
+                         {{-- <form action="routes" method="GET">
                              <div class="row mb-4" >
                                  <div class="col-md-4">
                                      <select name="company_id" class="form-control">
@@ -77,7 +77,7 @@
                                      <button class="btn btn-info font-weight-bolder font-size-sm"><i class="fas fa-filter"></i> filter</button>
                                  </div>
                              </div>
-                         </form>
+                         </form> --}}
 
                     <div class="table-responsive">
                         <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"

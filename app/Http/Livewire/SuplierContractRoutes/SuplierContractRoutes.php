@@ -13,11 +13,14 @@ use App\Models\Route;
 use App\Models\BusType;
 use App\Models\StaticTable;
 use App\Models\Discount;
+use App\Models\Company;
 use App\Models\contractDiscount;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\SupplierContractRouteImport;
 class SuplierContractRoutes extends Component
 {
     use WithFileUploads;
-    public $ids,$showIndex,$showForm,$type;
+    public $ids,$showIndex,$showForm,$type,$company_id,$excel,$result_export;
     public $suplier_contract_id,$suplier_id,$route_id,$bus_type_id,$discount_id
     ,$service_type_id,$service_value;
     protected $listeners=[
@@ -38,8 +41,8 @@ class SuplierContractRoutes extends Component
         $bus_types=BusType::select('id','name')->get();
         $service_types=StaticTable::select('id','name')->whereType('service')->get(); 
         $discounts=Discount::select('id','title')->get();
-
-        return view('livewire.suplier-contract-route.suplier-contract-route',compact('discounts','routes','bus_types','service_types','supliers','results'))->extends('layouts.master');
+        $companies=Company::select('id','name')->get();
+        return view('livewire.suplier-contract-route.suplier-contract-route',compact('discounts','companies','routes','bus_types','service_types','supliers','results'))->extends('layouts.master');
     }
   
     public function edit_form($id)
@@ -50,6 +53,25 @@ class SuplierContractRoutes extends Component
         {
             $this->emit('getObject',$edit_object);
         }
+    }
+    public function import_file()
+    {
+        if ($this->excel == null) {
+            return session()->flash('alert-danger','plz check file!');
+        }elseif ($this->company_id == null) {
+            return session()->flash('alert-danger','plz check company!');
+        }
+        $data=[
+            'company_id'=> $this->company_id
+         ];
+        $dataa=new SupplierContractRouteImport($data);
+
+        Excel::import( $dataa,$this->excel);
+        if ($dataa->arr_inf_not_add) {
+            $this->result_export=$dataa->arr_inf_not_add;
+          }else{
+              return redirect()->route('store.employees.data')->with('alert-info','تم الاضافه بنجاح');
+          }
     }
     public function arrived($id)
     {

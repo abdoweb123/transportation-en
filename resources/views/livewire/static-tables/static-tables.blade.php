@@ -32,14 +32,22 @@
 @if ($showForm == true)
     <livewire:static-tables.edit :type="$type">
 @else
+@php
+     $amount_dics='d-none';
+    if ($type == 'gas_type') {
+        $amount_dics='';
+    }
+@endphp
                         <div class="table-responsive">
                             <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
                                    style="text-align: center" >
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>الاسم </th>
-                                    <th>االجراءات</th>
+                                    <th>name </th>
+                                    <th class="{{ $amount_dics }}">price </th>
+                                    <td>status</td>
+                                    <th>action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -48,6 +56,13 @@
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ @$result->name }}</td>
+                                            <td class="{{ $amount_dics }}">{{ @$result->amount }}</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" class="checkbox" wire:change='active_ms({{ $result->id }})' {{ ($result->is_active == 'Y' ? 'checked' : '') }}>
+                                                    <span class="slider round"></span>
+                                                  </label>
+                                            </td>
                                             <td style="width: 15%">
                                                 <button class="btn btn-primary"  title="تعديل"  wire:click='edit_form({{ $result->id }})'>
                                                     <i  class="fa fa-edit"></i>

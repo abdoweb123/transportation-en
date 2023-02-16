@@ -3,7 +3,7 @@
         <div class="card-body col-md-8 offset-2">
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="driver_id" class="mr-sm-2">drivers</label>
+                    <label for="driver_id" class="mr-sm-2">drivers <span style="color:red">*</span></label>
                     <select name="driver_id" class="form-control mr-sm-2 p-2" id="" class="w-100 mb-10" wire:model.lazy='driver_id'>
                         <option value="0"> </option>
                         @if (isset($drivers))
@@ -15,7 +15,7 @@
                     @error('driver_id')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
                 <div class="col-md-6">
-                    <label for="payment_type" class="mr-sm-2">payment types</label>
+                    <label for="payment_type" class="mr-sm-2">payment types <span style="color:red">*</span></label>
                     <select name="payment_type" class="form-control mr-sm-2 p-2" id="" class="w-100 mb-10" wire:model.lazy='payment_type'>
                         <option value="0"> </option>
                         @if (count(trans('main_trans.payment_type')))
@@ -27,7 +27,7 @@
                     @error('payment_type')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
                 <div class="col-md-6">
-                    <label for="bus_type_id" class="mr-sm-2">bus types</label>
+                    <label for="bus_type_id" class="mr-sm-2">bus types <span style="color:red">*</span></label>
                     <select name="bus_type_id" class="form-control mr-sm-2 p-2" id="" class="w-100 mb-10" wire:model.lazy='bus_type_id'>
                         <option value="0"> </option>
                         @if (isset($bus_types))
@@ -39,7 +39,7 @@
                     @error('bus_type_id')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
                 <div class="col-md-6">
-                    <label for="route_id" class="mr-sm-2">routes</label>
+                    <label for="route_id" class="mr-sm-2">routes <span style="color:red">*</span></label>
                     <select name="route_id" class="form-control mr-sm-2 p-2" id="" class="w-100 mb-10" wire:model.lazy='route_id'>
                         <option value="0"> </option>
                         @if (isset($routes))

@@ -11,11 +11,12 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\StaticTable;
 use App\Models\Company;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ContractClientImport;
 class ContractClients extends Component
 {
     use WithFileUploads;
-    public $ids,$showIndex,$showForm,$type;
+    public $ids,$showIndex,$showForm,$type,$excel,$company_export_id;
     public $name,$company_id,$start_date,$end_date,$number_of_routes,$serches,$chk,$company_id_search;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
@@ -29,7 +30,6 @@ class ContractClients extends Component
     {
         $results=ContractClient::whereAdminId(Auth::guard('admin')->id())->with('company');
         if ($this->company_id_search != null) {
-            // dd('ff');
             $results=$results->whereCompanyId($this->company_id_search);
         }
         $comapnies =Company::select('id','name')->get();
@@ -49,6 +49,20 @@ class ContractClients extends Component
         $this->company_id=$comp_defin->name;
         $this->serches=null;
         $this->chk=false;
+    }
+
+    public function import_file()
+    {
+        if ($this->excel == null) {
+            return session()->flash('alert-danger','plz check file!');
+        }
+        $data=[
+            'company_id'=>$this->company_export_id
+        ];
+        $dataa=new ContractClientImport($data);
+        Excel::import($dataa,$this->excel);
+
+        return redirect()->to('contract-client')->with('alert-info','تم الاضافه بنجاح');
     }
 
     public function store_update()

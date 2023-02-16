@@ -3,6 +3,7 @@
     @section('title')
        {{ $tittle }}
     @stop
+    
     @endsection
     @section('page-header')
         <!-- breadcrumb -->
@@ -24,10 +25,23 @@
                             @endif
                         @endforeach
 
+                        @if(isset($result_export))
+                            @foreach( $result_export as $result_exp)
+                                <div class="alert alert-danger">
+                                    the row that name is ({{ $result_exp[0] .',' .'code is ('.  $result_exp[1] .'),' .'shase number is (' .  $result_exp[2].') '}}) not added because data not complete
+                                </div>
+                            @endforeach
+                        @else
+                            
+                        @endif
+ 
                         <br><br>
                         <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
                             {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
-                            </button>
+                        </button>
+                        <button type="button" class="btn btn-success mb-10" data-toggle="modal" data-target="#importExcel">
+                            <i class="far fa-file-excel"></i> Excel
+                        </button>
 @if ($showForm == true)
     <livewire:buses.edit>
 @else
@@ -78,6 +92,46 @@
     </div>
     <!--  page of add_modal_city -->
     @include('livewire.driver-salaries.form')
+    <div wire:ignore.self class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
+                        add file
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- add_form -->
+                    <form wire:submit.prevent='import_file' enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-12">
+                                @foreach(['danger','warning','success','info'] as $msg)
+                                    @if(Session::has('alert-'.$msg))
+                                        <div class="alert alert-{{$msg}}">
+                                            {{Session::get('alert-'.$msg)}}
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                            <div class="col">
+                                <label for="file" class="mr-sm-2">{{ trans('cities_trans.file') }}:</label>
+                                {{-- <input type="text" name="test" value="test" id=""> --}}
+                                <input type="file" name="excel" wire:model.defer='excel'>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main_trans.close') }}</button>
+                            <button type="submit" class="btn btn-success">{{ trans('main_trans.submit') }}</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 @endif
     </div>
     @section('js')
@@ -96,6 +150,10 @@
             window.livewire.on('showDelete', () => {
                 console.log('good');
             $('#delete').modal('show');
+            });
+
+            window.livewire.on('remove_model_export', () => {
+                $('#importExcel').modal('hide');
             });
         });
         </script>

@@ -71,7 +71,12 @@ class Bus extends Model
 
     public function reminders()
     {
-        return $this->hasMany(Reminder::class,'bus_id');
+        return $this->hasMany(Reminder::class,'bus_id')->withSum('reminderHistories','total_paid');
+    }
+
+    public function reminder_histories()
+    {
+        return $this->hasManyThrough(ReminderHistory::class,Reminder::class,'bus_id','reminder_id','id','id');
     }
 
     public function penelties()
@@ -88,6 +93,12 @@ class Bus extends Model
     {
         return $this->hasMany(CarPayment::class,'bus_id')->with('car_payment_dates');
     }
+
+    public function payment_dates()
+    {
+        return $this->hasManyThrough(CarPaymentDate::class,CarPayment::class,'bus_id','car_payment_id','id','id');
+        // return $this->hasMany(CarPayment::class,'bus_id')->with('car_payment_dates');
+    }
     
     public function gas()
     {
@@ -102,6 +113,11 @@ class Bus extends Model
     public function location_tracker()
     {
         return $this->hasMany(LocationTracker::class,'bus_id','id');
+    }
+
+    public function fuel_type()
+    {
+        return $this->belongsTo(StaticTable::class,'gas_type_id')->whereType('gas_type');
     }
    /*** end relations ***/
 

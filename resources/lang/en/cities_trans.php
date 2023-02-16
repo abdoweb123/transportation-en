@@ -18,5 +18,6 @@ return [
     'warning_city' => 'Are You sure of process of Deleting ?',
     'city_name_ar_validation' => 'City Name in Arabic is required',
     'city_name_en_validation' => 'City Name in English is required',
+    'file' => 'file',
 
 ];

@@ -95,7 +95,7 @@ class ContractClientsEdit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('contract-client');
+            return redirect()->to('contract-client')->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

@@ -52,12 +52,18 @@
                             </div>
                         @endif
                     @endforeach
-
+                    @if (Session::has('dataa'))
+                        @foreach( Session::get('dataa') as  $value)
+                            <div class="alert alert-danger">
+                                the row that name is( {{ $value[0] }} ) and oracl id is ({{ $value[1] }}) not added because data not complete
+                            </div>
+                        @endforeach
+                    @endif
 
                     <a href="{{route('myEmployees.create')}}" class="button x-small">
                         Add Employee
                     </a>
-                    <button type="button" class="button x-small" >
+                    <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel">
                         <i class="far fa-file-excel"></i> Excel
                      </button>
                      <br><br>

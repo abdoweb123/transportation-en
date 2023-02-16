@@ -12,7 +12,8 @@ use Faker\Core\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\DriverImport;
 class DriverController extends Controller
 {
     /*** get all drivers ***/
@@ -77,6 +78,21 @@ class DriverController extends Controller
     }
 
 
+    public function import_file(Request $request)
+    {
+        if ($request->excel == null) {
+            return redirect()->back()->with('alert-danger','plz check file!');
+        }
+        // $data=[
+        //     'company_id'=> $request->company_id
+        //  ];
+        $dataa=new DriverImport();
+        Excel::import($dataa,$request->excel);
+        if($dataa->arr_inf_not_add){
+            return redirect()->route('getAllDrivers')->with([ 'dataa' => $dataa->arr_inf_not_add ]);
+        }
+        return redirect()->route('getAllDrivers')->with('alert-info','تم الاضافه بنجاح');
+    }
 
     /*** update drivers ***/
     public function update(DriverUpdateRequest $request)

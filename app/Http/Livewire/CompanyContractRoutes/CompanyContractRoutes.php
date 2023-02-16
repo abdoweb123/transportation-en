@@ -15,11 +15,12 @@ use App\Models\StaticTable;
 use App\Models\Company;
 use App\Models\Discount;
 use App\Models\contractDiscount;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ClientContractRouteImport;
 class CompanyContractRoutes extends Component
 {
     use WithFileUploads;
-    public $ids,$showIndex,$showForm,$type;
+    public $ids,$showIndex,$showForm,$type,$excel,$company_excel_id,$result_export,$charge_value;
     public $contracts_id,$company_id,$route_id,$bus_type_id,$service_type_id,$service_value,$contract_client_id,$discount_id,$payment_type,$rate_charge;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
@@ -31,6 +32,27 @@ class CompanyContractRoutes extends Component
         $this->showForm=false;
         $this->contracts_id=$contract_client_id;
     }
+
+    public function import_file()
+    {
+        if ($this->excel == null) {
+            return session()->flash('alert-danger','plz check file!');
+        }elseif ($this->company_excel_id == null) {
+            return session()->flash('alert-danger','plz check company filed!');
+        }
+
+        $data=[
+            'company_id'=> $this->company_excel_id
+         ];
+        $dataa=new ClientContractRouteImport($data);
+        Excel::import( $dataa,$this->excel);
+        if ($dataa->arr_inf_not_add) {
+          $this->result_export=$dataa->arr_inf_not_add;
+        }else{
+            return redirect()->to('company-contract-route/'.$this->contracts_id)->with('alert-info','تم الاضافه بنجاح');
+        }
+    }
+
     public function render()
     {
         $results=CpmanyContractRoute::where('contracts_id',$this->contracts_id)->paginate();
@@ -102,6 +124,7 @@ class CompanyContractRoutes extends Component
         $data->rate_charge=$this->rate_charge;
         $data->service_value=$this->service_value;
         $data->payment_type=$this->payment_type;
+        $data->charge_value=$this->charge_value;
         $check=$data->save();
 
         if ($check) {
@@ -143,6 +166,7 @@ class CompanyContractRoutes extends Component
         $this->payment_type=null;
         $this->discount_id=null;
         $this->rate_charge=null;
+        $this->charge_value=null;
     }
     public function active_ms($id)
     {

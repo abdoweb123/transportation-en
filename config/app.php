@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         \Laravel\Passport\PassportServiceProvider::class,
         // \Danjdewhurst\PassportFacebookLogin\FacebookLoginGrantProvider::class,
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -235,6 +236,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class, //excel
         'Carbon' => Illuminate\Support\Carbon::class,
+        'Image'     => Intervention\Image\Facades\Image::class
     ],
 
 ];

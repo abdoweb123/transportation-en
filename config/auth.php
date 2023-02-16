@@ -47,7 +47,11 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-
+        'admin-api' => [
+            'driver' => 'passport',
+            'provider' => 'admins',
+            'hash' => false,
+        ],
 //        'superVisor' => [
 //            'driver' => 'session',
 //            'provider' => 'superVisors',

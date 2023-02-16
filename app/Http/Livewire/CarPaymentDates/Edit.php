@@ -48,7 +48,7 @@ class Edit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('car-payment-dates/'.$this->car_payment_id);
+            return redirect()->to('car-payment-dates/'.$this->car_payment_id)->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

@@ -53,12 +53,18 @@
                             </div>
                         @endif
                     @endforeach
-
+                    @if (Session::has('dataa'))
+                        @foreach( Session::get('dataa') as  $value)
+                            <div class="alert alert-danger">
+                                the row that name is( {{ $value[0] }} ) and oracl id is ({{ $value[1] }}) not added because data not complete
+                            </div>
+                        @endforeach
+                    @endif
                     {{--  button of add_modal_office  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                         Add Route Station
                     </button>
-                    <button type="button" class="button x-small" >
+                    <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel">
                         <i class="far fa-file-excel"></i> Excel
                      </button>
                      <br><br>

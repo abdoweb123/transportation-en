@@ -57,17 +57,19 @@
                                     <th style="background-color:#000000; color:white">{{ trans('main_trans.client_name') }} </th>
                                     <th style="background-color:#000000; color:white">{{ trans('main_trans.bus_type') }}</th>
                                     <th style="background-color:#000000; color:white">{{ trans('main_trans.servic_type') }} </th>
-                                    <th style="background-color:#00b0f0; color:white">{{ trans('main_trans.service_value') }}</th>
+                                     <th style="background-color:#00b0f0; color:white">{{ trans('main_trans.service_value') }}</th>
                                     <th style="background-color:#00b0f0; color:white">{{ trans('main_trans.number_of_maintenance') }} </th>
-                                    <th style="background-color:#00b0f0; color:white">{{ trans('main_trans.total_maintenance_value') }} </th>
-                                    <th style="background-color:#01b070; color:white">{{ trans('main_trans.count_of_penelties') }} </th>
+                                     <th style="background-color:#00b0f0; color:white">{{ trans('main_trans.number_of_spare_parts_used') }} </th>
+                                     <th style="background-color:#00b0f0; color:white">{{ trans('main_trans.total_maintenance_value') }} </th>
+                                    <th style="background-color:#002060; color:white">{{ trans('main_trans.count_of_penelties') }} </th>
                                     <th style="background-color:#002060; color:white">{{ trans('main_trans.total_of_penelties') }} </th>
-                                    <th style="background-color:#002060; color:white">{{ trans('main_trans.Accident_Count') }}</th>
-                                    <th style="background-color:#002060; color:white">{{ trans('main_trans.insurance_Pay') }}</th>
-                                    <th style="background-color:#002060; color:white">{{ trans('main_trans.Company_pay') }}</th>
-                                    <th style="background-color:#002060; color:white">{{ trans('main_trans.fixing_Amount') }}</th>
-                                    <th style="background-color: #974706; color:white">{{ trans('main_trans.debt_Amount') }}</th>
-                                    <th style="background-color: #974706; color:white">{{ trans('main_trans.total_debt') }}</th>
+                                    <th style="background-color:#974706; color:white">{{ trans('main_trans.Accident_Count') }}</th>
+                                    <th style="background-color:#974706; color:white">{{ trans('main_trans.insurance_Pay') }}</th>
+                                    <th style="background-color:#974706; color:white">{{ trans('main_trans.Company_pay') }}</th>
+                                    <th style="background-color:#974706; color:white">{{ trans('main_trans.driver_pay') }}</th>
+                                    <th style="background-color:#974706; color:white">{{ trans('main_trans.fixing_Amount') }}</th>
+                                    <th style="background-color: #808080; color:white">{{ trans('main_trans.debt_Amount') }}</th>
+                                    <th style="background-color: #808080; color:white">{{ trans('main_trans.total_debt') }}</th>
                                     <th style="background-color:#808080; color:white">{{ trans('main_trans.driver_numbers') }}</th>
                                     <th style="background-color:#808080; color:white">{{ trans('main_trans.total_driver_amount') }} </th>
                                     <th style="background-color: #ffff00; color:white">{{ trans('main_trans.total_gas') }}</th>
@@ -77,6 +79,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($results as $index=>$result)
+                                    {{-- @dd($result) --}}
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>
@@ -87,24 +90,27 @@
                                             </td>
                                             <td>{{ @$result->busType->contract_route->contract->company->name }}</td>
                                             <td>{{ @$result->busType->name }}</td>
-                                            <td>{{ @$result->busType->contract_route->service_type->name }}</td>
+                                            <td>{{ trans('main_trans.payment_type')[@$result->busType->contract_route->payment_type] }}</td>
                                             <td>{{ @$result->busType->contract_route->service_value }}</td>
-                                            <td>{{ @$result->reminders->count() }}</td>
+                                            <td><a href="{{ url('maintance-details/'.$result->id) }}"> {{ @$result->reminders->count() }}</a></td>
+                                            <td><a href="{{ url('maintance-details/'.$result->id) }}">{{ @$result->reminders->count('reminderHistories') }}</a></td>
                                             <td>
-                                                {{-- {{ (@$result->reminders->count('reminderHistories') != null ? @$result->reminders->sum('reminderHistories','total_paid') : 0 )}} --}}
+                                                {{-- {{ (@$result->reminders->count('reminderHistories') != null ? @$result->reminders->withSum('reminderHistories','total_paid') : 0 )}} --}}
+                                                <a href="{{ url('maintance-details/'.$result->id) }}">{{ (@$result->reminders->sum('reminder_histories_sum_total_paid'))}}</a>
                                             </td>
-                                            <td>{{ @$result->penelties->count() }}</td>
-                                            <td>{{ @$result->penelties->sum('amount') }}</td>
-                                            <td>{{ @$result->accidents->count() }}</td>
-                                            <td>{{ @$result->accidents->sum('insurance_pay') }}</td>
-                                            <td>{{ @$result->accidents->sum('company_pay') }}</td>
-                                            <td>{{ @$result->accidents->sum('fixing_amount') }}</td>
-                                            <td>{{ @$result->payments->count("car_payment_dates") }}</td>
-                                            <td>{{ @$result->payments->sum('total_amount')}}</td>
+                                            <td><a href="{{ url('penalty-details/'.$result->id) }}">{{ @$result->penelties->count() }}</a></td>
+                                            <td><a href="{{ url('penalty-details/'.$result->id) }}">{{ @$result->penelties->sum('amount') }}</a></td>
+                                            <td><a href="{{ url('accident-details/'.$result->id) }}">{{ @$result->accidents->count() }}</a></td>
+                                            <td><a href="{{ url('accident-details/'.$result->id) }}">{{ @$result->accidents->sum('insurance_pay') }}</a></td>
+                                            <td><a href="{{ url('accident-details/'.$result->id) }}">{{ @$result->accidents->sum('company_pay') }}</a></td>
+                                            <td><a href="{{ url('accident-details/'.$result->id) }}">{{ @$result->accidents->sum('driver_pay') }}</a></td>
+                                            <td><a href="{{ url('accident-details/'.$result->id) }}">{{ @$result->accidents->sum('fixing_amount') }}</a></td>
+                                            <td><a href="{{ url('debt-details/'.$result->id) }}">{{ @$result->payments->count("car_payment_dates") }}</a></td>
+                                            <td><a href="{{ url('debt-details/'.$result->id) }}">{{ @$result->payments->sum('total_amount')}}</a></td>
                                             <td>{{ @$result->employee_run_trip_buses->count()}}</td>
                                             <td>{{ @$total_amount_driver }}</td>
-                                            <td>{{ @$result->gas->sum('amount')}}</td>
-                                            <td>{{ @$result->extera_fees->sum('amount')}}</td>
+                                            <td><a href="{{ url('fuel-details/'.$result->id) }}">{{ @$result->gas->sum('amount')}}</a></td>
+                                            <td><a href="{{ url('extera-fees/'.$result->id) }}">{{ @$result->extera_fees->sum('amount')}}</a></td>
                                             <td>{{ (@$result->payments->sum('total_amount') != null ? @$result->payments->sum('total_amount') : 0)+ @$result->penelties->sum('amount')  + @$result->extera_fees->sum('amount') + @$result->gas->sum('amount') }}</td>
                                         </tr>
                                     @endforeach

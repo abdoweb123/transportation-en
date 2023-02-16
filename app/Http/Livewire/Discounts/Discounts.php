@@ -8,11 +8,13 @@ use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\Discount;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\DiscountImport;
 
 class Discounts extends Component
 {
     use WithFileUploads;
-    public $ids,$showIndex,$showForm,$type;
+    public $ids,$showIndex,$showForm,$type,$excel;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
@@ -38,6 +40,17 @@ class Discounts extends Component
             $this->emit('getObject',$edit_object);
         }
     }
+
+    public function import_file()
+    {
+        if ($this->excel == null) {
+            return session()->flash('alert-danger','plz check file!');
+        }
+        Excel::import(new DiscountImport(),$this->excel);
+
+        return redirect()->route('discounts')->with('alert-info','تم الاضافه بنجاح');
+    }
+
     public function arrived($id)
     {
         $data=Discount::find($id);

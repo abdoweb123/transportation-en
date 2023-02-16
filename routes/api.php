@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\DriverController;
+use App\Http\Controllers\Api\StationController;
+use App\Http\Controllers\Api\PublicServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -78,3 +80,15 @@ Route::group(['middleware'=>'auth:api'], function () {
     Route::post('update/{id}', [UserController::class,'update']);
 
 }); //end of routes
+
+
+// admin auth
+Route::post('admin-login', [AdminController::class,'login']);
+Route::group(['middleware'=>'auth:admin-api'], function () {
+    // station
+    Route::get('get-stations', [StationController::class,'get_stations']);
+    Route::post('add-station', [StationController::class,'add_stations']);
+}); 
+
+// public service
+Route::get('cities', [PublicServiceController::class,'cities']);

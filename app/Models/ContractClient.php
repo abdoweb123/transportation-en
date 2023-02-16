@@ -21,3 +21,4 @@ class ContractClient extends Model
         return $this->hasMany(contractDiscount::class,'contract_client_id','id');
     }
 }
+ 

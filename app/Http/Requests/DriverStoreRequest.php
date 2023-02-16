@@ -17,7 +17,6 @@ class DriverStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'unique:drivers|email',
             'mobile' => 'required|numeric|digits:11',
             'password' => 'required|min:8',
             'image' => 'required',
@@ -31,8 +30,6 @@ class DriverStoreRequest extends FormRequest
     {
         return [
             'name.required' => 'الاسم مطلوب',
-            'email.email' => 'البريد الإلكتروني يجب أن يكون صالحا',
-            'email.unique' => 'هذا البريد موجود بالفعل',
             'mobile.required' => 'رقم الهاتف مطلوب',
             'mobile.numeric' => 'رقم الهاتف يجب أن يكون رقما',
             'mobile.digits' => 'رقم الهاتف يجب أن يتكون من 11 أحرف',

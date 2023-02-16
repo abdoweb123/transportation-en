@@ -30,6 +30,7 @@ class SwapRequests extends Component
     public function defin_booking_request($id)
     {
         $swap=SwapRequest::find($id);
+        // dd($swap);
         $this->swap_id=$id;
 
         $data=BookingRequest::find($swap->booking_request_id);
@@ -37,8 +38,8 @@ class SwapRequests extends Component
         $this->collection_point_to_id=$data->collection_point_to_id;
         $this->collection_point_from_id=$data->collection_point_from_id;
         $this->route_id=$data->route_id;
-        $this->date=$data->date;
-        $this->time=$data->time;
+        $this->date=$swap->date;
+        $this->time=$swap->time;
 
         $this->stations=Station::select('id','name')->get();
         $this->routes=Route::select('id','name')->get();
