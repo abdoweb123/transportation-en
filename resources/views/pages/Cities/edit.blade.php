@@ -26,7 +26,7 @@
                             <label for="Name_en" class="mr-sm-2">{{ trans('cities_trans.city_name_en') }}:</label>
                             <input type="text" class="form-control" value="{{ $item->getTranslation('name', 'en') }}" name="name_en" required>
                         </div>
-                        <div class="col">
+                        {{-- <div class="col">
                             <label class="mr-sm-2">companies</label>
                             <select name="company_id" class="form-control">
                                 <option value=" " selected>-- Choose --</option>
@@ -34,7 +34,7 @@
                                     <option value="{{$company->id}}" {{old('company_id') == $company->company_id ? 'selected' : ''}}>{{$company->name}}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <br><br>

@@ -36,15 +36,15 @@ class DriverImport implements ToCollection ,WithHeadingRow //, WithChunkReading,
     public function collection(Collection $rows)
     {   
         Validator::make($rows->toArray(), [
-            '*.license_type' => 'required',
-            '*.office' => 'required',
+            // '*.license_type' => 'required',
+            // '*.office' => 'required',
             '*.name' => 'required',
-            '*.email' => 'required',
+            // '*.email' => 'required',
             '*.phone' => 'required',
-            '*.job_description' => 'required',
-            '*.id_number' => 'required',
+            // '*.job_description' => 'required',
+            // '*.id_number' => 'required',
             '*.password' => 'required',
-            '*.license_expire_date' => 'required',
+            // '*.license_expire_date' => 'required',
         ])->validate();
         foreach ($rows as $row) {
             $insurance_kind=StaticTable::where('name',$row['license_type'])->whereType('insurance_kind')->first();
@@ -60,9 +60,14 @@ class DriverImport implements ToCollection ,WithHeadingRow //, WithChunkReading,
             }
 
             $office=Office::where(['name->ar'=>$row['office']])->orWhere('name->en',$row['office'])->first();
-
             if ($office != null) {
-                $check=Driver::where(['name'=>$row['name'],'email'=>$row['email'],'mobile'=>$row['phone']])->first();
+                $office_id=$office->id;
+            }else{
+                $office_id=0;
+            }
+
+            // if ($office != null) {
+                $check=Driver::where(['name'=>$row['name'],'mobile'=>$row['phone']])->first();
                 if ($check == null) {
                     $data=new Driver;
                 }else{
@@ -74,15 +79,15 @@ class DriverImport implements ToCollection ,WithHeadingRow //, WithChunkReading,
                 $data->mobile=$row['phone'];
                 $data->title=$row['job_description'];
                 $data->password=Hash::make($row['password']);
-                $data->office_id = $office->id;
+                $data->office_id = $office_id;
                 $data->national_id = $row['id_number'];
                 $data->insurance_kind_id = $insurance_kind_id;
                 $data->expiration_insurance_date =  Date::excelToDateTimeObject($row['license_expire_date'])->format('Y-m-d');
                 $data->save();
-            }else{
-                $this->infraction_notadd_count+=1;
-                array_push($this->arr_inf_not_add,[$row['name'],$row['email'],$row['phone']]);
-            }
+            // }else{
+            //     $this->infraction_notadd_count+=1;
+            //     array_push($this->arr_inf_not_add,[$row['name'],$row['email'],$row['phone']]);
+            // }
         }
     }
 

@@ -23,12 +23,12 @@
                                 </div>
                             @endif
                         @endforeach
-
-                        <br><br>
+                        <p > <h4 style="text-align:center">{{  $tittle  }}</h4> </p>
 
                         <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
-                            {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
+                            {{ $showForm == true ? 'show ' : 'add '}}
                             </button>
+                        
 @if ($showForm == true)
     <livewire:static-tables.edit :type="$type">
 @else

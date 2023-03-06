@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Auth;
 class Edit extends Component
 {
     use WithFileUploads;
-    public $ids,$name,$route_id,$driver_id,$date,$time,$fixing_amount,$driver_pay,$EmployeeRunTrip_type_id,$bus_id=[],$penelty_value,$service_value,$penalty_type_id,$company_id;
-   
+    public $ids,$name,$route_id,$driver_id,$date,$time,$fixing_amount,$driver_pay,$EmployeeRunTrip_type_id,$bus_id,$penelty_value,$service_value,$penalty_type_id,$company_id;
+    public $notes,$supplier_value;
     public $showIndex,$showForm;
     protected $listeners=[
         'getObject' => 'get_object'
@@ -45,6 +45,7 @@ class Edit extends Component
             'time'=>'required',
             'penalty_type_id'=>'required',
             'company_id'=>'required',
+            'penelty_value'=>'required',
         ]);
         if($this->ids != null){
             $data=EmployeeRunTrip::find($this->ids);
@@ -56,6 +57,9 @@ class Edit extends Component
         $data->driver_id=$this->driver_id;
         $data->penelty_value=$this->penelty_value;
         $data->service_value=$this->service_value;
+        $data->supplier_value=$this->supplier_value;
+        $data->bus_id=$this->bus_id;
+        $data->notes=$this->notes;
         $data->penalty_type_id=$this->penalty_type_id;
         $data->company_id=$this->company_id;
         $data->date=$this->date;
@@ -65,15 +69,15 @@ class Edit extends Component
         $check=$data->save();
 
         if ($check) {
-            foreach ($this->bus_id as $bus) {
-                $e_r_t_b=new EmployeeRunTripBus();
-                $e_r_t_b->bus_id=$bus;
-                $e_r_t_b->driver_id=$this->driver_id;
-                $e_r_t_b->employeeRunTrip_id=$data->id;
-                $e_r_t_b->admin_id=Auth::guard('admin')->id();
-                $e_r_t_b->active=1;
-                $e_r_t_b->save();
-            }
+            // foreach ($this->bus_id as $bus) {
+            //     $e_r_t_b=new EmployeeRunTripBus();
+            //     $e_r_t_b->bus_id=$bus;
+            //     $e_r_t_b->driver_id=$this->driver_id;
+            //     $e_r_t_b->employeeRunTrip_id=$data->id;
+            //     $e_r_t_b->admin_id=Auth::guard('admin')->id();
+            //     $e_r_t_b->active=1;
+            //     $e_r_t_b->save();
+            // }
 
             $this->resetInput();
             return redirect()->to('employeeRunTripsNew')->with('alert-success','تم حفظ البيانات بنجاح');
@@ -91,9 +95,12 @@ class Edit extends Component
         $this->service_value=$edit_object['service_value'];
         $this->penalty_type_id=$edit_object['penalty_type_id'];
         $this->company_id=$edit_object['company_id'];
-        if ($edit_object['id']) {
-            $this->bus_id=EmployeeRunTripBus::where('employeeRunTrip_id',$edit_object['id'])->pluck('bus_id');
-        }
+        $this->bus_id=$edit_object['bus_id'];
+        $this->supplier_value=$edit_object['supplier_value'];
+        $this->notes=$edit_object['notes'];
+        // if ($edit_object['id']) {
+        //     $this->bus_id=EmployeeRunTripBus::where('employeeRunTrip_id',$edit_object['id'])->pluck('bus_id');
+        // }
     }
 
     public function resetInput()
@@ -104,5 +111,7 @@ class Edit extends Component
         $this->date=null;
         $this->time=null;
         $this->bus_id=null;
+        $this->supplier_id=null;
+        $this->notes=null;
     }
 }

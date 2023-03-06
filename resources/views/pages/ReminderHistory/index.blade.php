@@ -54,7 +54,8 @@
                         @endif
                     @endforeach
 
-                    <br><br>
+                    <p > <h4 style="text-align:center">Preventive Maintence Reminder</h4> </p>
+
 
                     <div class="table-responsive">
                         <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"

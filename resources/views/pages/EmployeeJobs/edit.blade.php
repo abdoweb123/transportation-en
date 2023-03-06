@@ -21,6 +21,7 @@
                             <label for="name_en" class="mr-sm-2">Name :</label>
                             <input type="text" name="name" value="{{old('name',$item->name)}}" class="form-control" required>
                         </div>
+                        @if($type == 'company')
                         <div class="col-md-6">
                             <label class="mr-sm-2">companies</label>
                             <select name="company_id" class="form-control">
@@ -30,6 +31,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        @endif
                         <div class="col">
                             <label for="image" class="mr-sm-2">Status</label>
                             <select name="active" class="form-control">

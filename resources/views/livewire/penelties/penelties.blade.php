@@ -24,10 +24,11 @@
                             @endif
                         @endforeach
 
-                        <br><br>
+                        <p > <h4 style="text-align:center">Penalties Data</h4> </p>
+
 
                         <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
-                            {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
+                            {{ $showForm == true ? 'show ' : 'add ' }}
                             </button>
                             {{--  <a href="{{ url('penelties-edit/0') }}" class="btn btn-primary mb-10">{{ 'add ' . $tittle }}</a>  --}}
 @if ($showForm == true)

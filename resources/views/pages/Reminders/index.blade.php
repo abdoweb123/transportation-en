@@ -53,9 +53,10 @@
                         @endif
                     @endforeach
 
+                    <p > <h4 style="text-align:center">Repairs Data</h4> </p>
 
                     <a href="{{route('reminders.create')}}" class="button x-small">
-                        Add Reminder
+                        Add 
                     </a>
                     <br><br>
 
@@ -92,7 +93,8 @@
                                     <td>{{ $item->task}}</td>
                                     <td>{{ $item->active == 1 ? 'active' : 'un active'}}</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else _____ @endisset</td>
-                                    <td>
+                                    <td style="width: 18%">
+                                        <a href="{{ url('reminder-history?id='.$item->id) }}" class="btn btn-warning">history</a>
                                         <a href="{{route('reminders.edit',$item->id)}}" class="process">
                                            <i style="color:cadetblue; font-size:18px;" class="fa fa-edit"></i></a>
 

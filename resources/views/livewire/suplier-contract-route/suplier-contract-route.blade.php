@@ -57,7 +57,7 @@
                                                                     </select>
                                                                     @error('contracts_id')<span style="color: red"> {{ $message }}</span>@enderror
                                                                 </div> --}}
-                                                                <div class="col-md-6">
+                                                                {{-- <div class="col-md-6">
                                                                     <label for="suplier_id" class="mr-sm-2">supliers</label>
                                                                     <select name="suplier_id" id="" class="form-control mr-sm-2 p-2" wire:model.lazy='suplier_id'>
                                                                         <option value="0"> </option>
@@ -68,7 +68,7 @@
                                                                         @endif
                                                                     </select>
                                                                     @error('suplier_id')<span style="color: red"> {{ $message }}</span>@enderror
-                                                                </div>
+                                                                </div> --}}
                                                                 <div class="col-md-6">
                                                                     <label for="route_id" class="mr-sm-2">routes</label>
                                                                     <select name="route_id" id="" class="form-control mr-sm-2 p-2" wire:model.lazy='route_id'>

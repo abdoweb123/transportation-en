@@ -21,6 +21,10 @@ class Edit extends Component
     protected $listeners=[
         'getObject' => 'get_object'
     ];
+    public function mount($driver_id)
+    {
+        $this->driver_id=$driver_id;
+    }
     public function render()
     {
         $drivers=Driver::whereAdminId(Auth::guard('admin')->id())->select('id','name')->get();
@@ -32,7 +36,7 @@ class Edit extends Component
     public function store_update()
     {
         $validate=$this->validate([
-            'driver_id'=>'required|int',
+            // 'driver_id'=>'required|int',
             'payment_type'=>'required',
             'bus_type_id'=>'required|int',
             'route_id'=>'required|int',
@@ -50,7 +54,7 @@ class Edit extends Component
 
         if ($check) {
             $this->resetInput();
-            return redirect()->to('driver-salary')->with('alert-success','تم حفظ البيانات بنجاح');
+            return redirect()->to('driver-salary/'.$this->driver_id)->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     

@@ -20,7 +20,7 @@ class ContractSubliers extends Component
     ];
     public function mount()
     {
-        $this->tittle='Contract sublier';
+        $this->tittle='Suppliers Contracts';
         $this->showForm=false;
     }
     public function render()

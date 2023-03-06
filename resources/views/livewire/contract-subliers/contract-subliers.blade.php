@@ -24,14 +24,16 @@
                             @endif
                         @endforeach
 
-                        <br><br>
+                        {{-- <br><br> --}}
 
                         {{-- <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
                             {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
                             </button> --}}
-                            <a href="{{ url('contract-sublier-edit/0') }}" class="btn btn-primary mb-10">{{ 'add ' . $tittle }}</a>
+                    <p > <h4 style="text-align:center">{{ @$tittle }}</h4> </p>
 
-                            <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel"> 
+                            <a href="{{ url('contract-sublier-edit/0') }}" class="btn btn-primary mb-10">{{ trans('main_trans.add') }}</a>
+
+                            <button type="button" class="btn btn-success mb-10" data-toggle="modal" data-target="#importExcel"> 
                                 <i class="far fa-file-excel"></i> Excel
                              </button>
 

@@ -24,12 +24,12 @@
                             @endif
                         @endforeach
 
-                        <br><br>
+                        <p > <h4 style="text-align:center">{{ @$tittle }}</h4> </p>
                         <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
-                            {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
+                            {{ $showForm == true ? 'show ' : 'add ' }}
                             </button>
 @if ($showForm == true)
-    <livewire:driver-salaries.edit>
+    <livewire:driver-salaries.edit :driver_id="$driver_id">
 @else
                         <div class="table-responsive">
                             <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"

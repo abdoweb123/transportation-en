@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-md-6 mb-2">
                     <label for="shase_number" class="mr-sm-2">shase_number</label>
-                    <input id="shase_number" type="number" class="form-control" wire:model.lazy='shase_number'>
+                    <input id="shase_number" type="text" class="form-control" wire:model.lazy='shase_number'>
                     @error('shase_number')<span style="color: red"> {{ $message }}</span>@enderror
                 </div>
                 <div class="col-md-6 mb-2">

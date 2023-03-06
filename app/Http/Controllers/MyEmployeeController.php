@@ -41,7 +41,7 @@ class MyEmployeeController extends Controller
         $data['offices'] = Office::select('id','name')->get();
         $data['stations'] = Station::select('id','name')->get();
         $data['employeeJobs'] = EmployeeJob::select('id','name')->get();
-        $data['departments'] = Department::select('id','name')->get();
+        $data['departments'] = Department::where('type','company')->select('id','name')->get();
         $data['companies'] = Company::select('id','name')->get();
         return view('pages.MyEmployees.create', compact('data'));
     }
@@ -97,7 +97,7 @@ class MyEmployeeController extends Controller
         $data['offices'] = Office::select('id','name')->get();
         $data['stations'] = Station::select('id','name')->get();
         $data['employeeJobs'] = EmployeeJob::select('id','name')->get();
-        $data['departments'] = Department::select('id','name')->get();
+        $data['departments'] = Department::where('type','company')->select('id','name')->get();
         $data['companies'] = Company::select('id','name')->get();
         return view('pages.MyEmployees.edit', compact('data','myEmployee'));
     }

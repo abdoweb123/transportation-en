@@ -29,12 +29,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
 
     // ======================  Admin ======================
-    Route::group(['prefix' => 'branches'], function ()
-    {
-        Route::get('register/admin/view', [AdminController::class, 'registerView'])->name('registerView');
-        Route::post('register/test', [AdminController::class, 'registerTest'])->name('registerTest');
-        Route::get('/admin/dashboard', function (){ return view('admin.dashboard'); })->name('admin.dashboard');
-    });
+    // Route::group(['prefix' => 'branches'], function ()
+    // {
+    //     Route::get('register/admin/view', [AdminController::class, 'registerView'])->name('registerView');
+    //     Route::post('register/test', [AdminController::class, 'registerTest'])->name('registerTest');
+    //     Route::get('/admin/dashboard', function (){ return view('admin.dashboard'); })->name('admin.dashboard');
+    // });
 
 
 

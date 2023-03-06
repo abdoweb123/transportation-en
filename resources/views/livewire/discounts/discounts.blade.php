@@ -23,12 +23,11 @@
                                 </div>
                             @endif
                         @endforeach
-
-                        <br><br>
-                        <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
-                            {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
+                        <p > <h4 style="text-align:center">List Of {{  $tittle  }}</h4> </p>
+                        <button type="button" class="btn btn-primary btn-sm mb-10"  wire:click='switch'>
+                            {{ $showForm == true ? 'show ' : 'add' }}
                             </button>
-                            <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel">
+                            <button type="button" class="btn btn-success btn-sm mb-10" data-toggle="modal" data-target="#importExcel">
                                 <i class="far fa-file-excel"></i> Excel
                              </button>
 @if ($showForm == true)

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\StationImport;
+use App\Exports\StationExport;
+
 class StationController extends Controller
 {
 
@@ -28,8 +30,13 @@ class StationController extends Controller
         $request_company_id=request('company_id');
         return view('pages.Stations.index', compact('stations','cities','comapnies','request_company_id'));
     }
-
-
+    public function export_excel()
+    {
+        $stations = Station::whereAdminId(Auth::guard('admin')->id())->get();
+        // return Excel::download(new ExpensesExcel($this->results), 'ExpensesExcel.xlsx');
+        return Excel::download(new StationExport($stations), 'stations.xlsx');
+    }
+    
 
     /*** store function  ***/
     public function store(StoreRequestStation $request)
@@ -90,8 +97,8 @@ class StationController extends Controller
     {
         try {
             $station = Station::findOrFail($request->id);
-            $station->name = ['en' => $request->name_en, 'ar' => $request->name_ar];
-            $station->city_id = $request->city_id;
+            $station->name = ['name_en' => $request->name_en, 'ar' => $request->name_ar];
+            $station->city_id = $request->city_id; 
             $station->lat = $request->lat;
             $station->lon = $request->lon;
             // $station->company_id = $request->company_id;

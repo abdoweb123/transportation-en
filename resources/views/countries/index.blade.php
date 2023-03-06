@@ -30,7 +30,8 @@
     <!-- row -->
     <div class="row">
         <div class="col-xl-12 mb-30">
-            <div class="box">
+            <div class="card card-statistics h-100">
+                <div class="card-body">
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -50,16 +51,17 @@
                         @endif
                     @endforeach
                     <div class="box-header with-border">
+                        <p > <h4 style="text-align:center">List Of Governments</h4> </p>
 
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                            إضافة محافظه
+                            add 
                           </button>
                           {{-- <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#exampleModal" > إضافة محافظه </a> --}}
                     </div>
                     <br><br>
-                    <div class="box-body">
                         <div class="table-responsive">
-                            <table id="example5" class="table table-bordered table-striped" style="width:100%">
+                            <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
+                            style="text-align: center">
                                 <thead>
                                 <tr>
                                     <th>#</th>

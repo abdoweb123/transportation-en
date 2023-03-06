@@ -95,10 +95,16 @@ class BusImport implements ToModel ,WithHeadingRow //, WithChunkReading, ShouldQ
 
         $driver=Driver::where('name',$row['driver'])->first();
 
+        if($driver != null){
+            $driver_id=$driver->id;
+        }else{
+            $driver_id=0;
+        }
+
         $bus_type=BusType::where('name',$row['bus_type'])->first();
 
 
-       if ($bus_type != null && $driver != null ) {
+       if ($bus_type != null) {
             $check=Bus::where(['name'=>$row['name'],'code'=>$row['code'],'shase_number'=>$row['shase_number']])->first();
             if ($check == null) {
                 $data=new Bus;
@@ -112,7 +118,7 @@ class BusImport implements ToModel ,WithHeadingRow //, WithChunkReading, ShouldQ
             $data->gas_type_id=$gas_type_id;
             $data->motor_number=$row['motor_number'];
             $data->suplier_id=$supplier_id;
-            $data->driver_id=$driver->id;
+            $data->driver_id=$driver_id;
             $data->shase_number=$row['shase_number'];
             $data->bus_model_id=$bus_model_id;
             $data->insurance_company_id=$insurance_company_id;

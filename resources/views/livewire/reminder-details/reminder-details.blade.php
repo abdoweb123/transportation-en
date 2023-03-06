@@ -24,10 +24,12 @@
                             @endif
                         @endforeach
 
-                        <br><br>
+                        <p > <h4 style="text-align:center">Preventive Maintence Reminder</h4> </p>
+                    @if($reminder_id != null)
                         <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
-                            {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
-                            </button>
+                            {{ $showForm == true ? 'show ' : 'add ' }}
+                        </button>
+                    @endif
 @if ($showForm == true)
     <livewire:reminder-details.edit :id="$reminder_id">
 @else
@@ -38,7 +40,7 @@
         <tr>
             <th>#</th>
             <th>Reminder Id</th>
-            <th>Vendor Name</th>
+            <th>supplier Name</th>
             <th>Total Paid</th>
             <th>Cost Per Day</th>
             <th>Done</th>

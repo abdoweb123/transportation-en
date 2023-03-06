@@ -42,10 +42,11 @@
                             </div>
                         @endif
                     @endforeach
+                    <p > <h4 style="text-align:center">Bus Categories Issue</h4> </p>
 
                     {{--  button of add_modal_city  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                      Add Issue to Category
+                      Add
                     </button>
                     <br><br>
 

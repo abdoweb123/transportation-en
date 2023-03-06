@@ -70,7 +70,8 @@
                             @endif
                         @endforeach
 
-                        <br><br>
+                        <p > <h4 style="text-align:center">Fleet Installments</h4> </p>
+
 
                      
                         <div class="table-responsive">

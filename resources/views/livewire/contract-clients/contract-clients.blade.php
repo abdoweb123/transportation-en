@@ -85,7 +85,8 @@
                             @endif
                         @endforeach
 
-                        <br><br>
+                    <p > <h4 style="text-align:center">Customers Contract</h4> </p>
+
                         <div class="row mb-4" >
                             <div class="col-md-4">
                                 <select name="company_id" class="form-control mr-sm-2 p-2" wire:model='company_id_search'>
@@ -100,6 +101,7 @@
                              </button>
                            
                         </div>
+
                         {{-- <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
                             {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
                             </button> --}}
@@ -145,10 +147,8 @@
                                     @endforeach
                                 @endif
                             </table>
-                            <div>
-                                {{$results->links('pagination::bootstrap-4')}}
-                            </div>
                         </div>
+                        {{-- {{$results->links('pagination::bootstrap-4')}} --}}
                     </div>
                 </div>
 
@@ -182,7 +182,7 @@
                                     {{-- <input type="text" name="test" value="test" id=""> --}}
                                     <input type="file" name="excel" wire:model.defer='excel' required>
                                 </div>
-                                <div class="col">
+                                {{-- <div class="col">
                                     <label for="file" class="mr-sm-2">company:</label>
                                     <select name="company_id" class="form-control" wire:model.defer='company_export_id'>
                                         <option value=" ">-- Choose --</option>
@@ -190,7 +190,7 @@
                                             <option value="{{$company->id}}" >{{$company->name}}</option>
                                         @endforeach
                                     </select>
-                                   </div>
+                                   </div> --}}
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main_trans.close') }}</button>

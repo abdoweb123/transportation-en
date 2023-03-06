@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use App\Models\ContractClient;
+use App\Models\Company;
 use Illuminate\Support\Facades\Validator;
 class ContractClientImport implements ToCollection ,WithHeadingRow //, WithChunkReading, ShouldQueue
 {
@@ -30,23 +31,40 @@ class ContractClientImport implements ToCollection ,WithHeadingRow //, WithChunk
         Validator::make($rows->toArray(), [
             '*.name' => 'required',
             '*.start_date' => 'required',
+            '*.company' => 'required',
             '*.end_date' => 'required',
             '*.number_of_routes' => 'required',
         ])->validate();
+       
+
         foreach ($rows as $row) {
-            $check=ContractClient::where(['name'=>$row['name'],'company_id'=>$this->data['company_id']])->first();
-            if ($check == null) {
-                $data=new ContractClient;
-            }else{
-                $data=$check;
+
+            $company_check=Company::where('id',$row['company'])->orWhere('name',$row['company'])->first();
+            if ($company_check != null) {
+                $company_id=$company_check->id;
+            }else {
+                $company=new Company();
+                $company->name=$row['company'];
+                $company->admin_id=auth('admin')->user()->id;
+                $company->save();
+                $company_id=$company->id;
             }
-            $data->name = $row['name'];
-            $data->admin_id = auth('admin')->id();
-            $data->company_id=$this->data['company_id'];
-            $data->start_date =Date::excelToDateTimeObject($row['start_date'])->format('Y-m-d');
-            $data->end_date =Date::excelToDateTimeObject($row['end_date'])->format('Y-m-d');
-            $data->number_of_routes = $row['number_of_routes'];
-            $data->save();
+
+            $check=ContractClient::where(['name'=>$row['name'],'company_id'=>$company_id])->first();
+            if ($check == null) {
+                $data_new=new ContractClient();
+            }else{
+                $data_new=$check;
+            }
+          
+            $data_new->name = $row['name'];
+            $data_new->admin_id = auth('admin')->id();
+            $data_new->company_id=$company_id;
+            $data_new->start_date =Date::excelToDateTimeObject($row['start_date'])->format('Y-m-d');
+            $data_new->end_date =Date::excelToDateTimeObject($row['end_date'])->format('Y-m-d');
+            $data_new->number_of_routes = $row['number_of_routes'];
+            // dd($company_id);
+            $data_new->save();
         }
     }
 

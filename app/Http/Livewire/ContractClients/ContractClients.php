@@ -13,9 +13,11 @@ use App\Models\StaticTable;
 use App\Models\Company;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ContractClientImport;
+use Livewire\WithPagination;
 class ContractClients extends Component
 {
     use WithFileUploads;
+    use WithPagination;
     public $ids,$showIndex,$showForm,$type,$excel,$company_export_id;
     public $name,$company_id,$start_date,$end_date,$number_of_routes,$serches,$chk,$company_id_search;
     protected $listeners=[
@@ -32,9 +34,10 @@ class ContractClients extends Component
         if ($this->company_id_search != null) {
             $results=$results->whereCompanyId($this->company_id_search);
         }
+        $results=$results->get();
         $comapnies =Company::select('id','name')->get();
         return view('livewire.contract-clients.contract-clients',[
-            'results'=>$results->paginate(),
+            'results'=>$results,
             'comapnies'=>$comapnies,
         ])->extends('layouts.master');
     }
@@ -56,10 +59,10 @@ class ContractClients extends Component
         if ($this->excel == null) {
             return session()->flash('alert-danger','plz check file!');
         }
-        $data=[
-            'company_id'=>$this->company_export_id
-        ];
-        $dataa=new ContractClientImport($data);
+        // $data=[
+        //     'company_id'=>$this->company_export_id
+        // ];
+        $dataa=new ContractClientImport();
         Excel::import($dataa,$this->excel);
 
         return redirect()->to('contract-client')->with('alert-info','تم الاضافه بنجاح');

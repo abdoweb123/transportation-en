@@ -41,10 +41,11 @@
                             </div>
                         @endif
                     @endforeach
+                    <p > <h4 style="text-align:center">Vendors</h4> </p>
 
                     {{--  button of add_modal_city  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        Add Vendor
+                        Add 
                     </button>
                     <br><br>
 

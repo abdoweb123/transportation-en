@@ -58,6 +58,7 @@ use App\Http\Livewire\Accidents\Accidents;
 use App\Http\Livewire\CarPayments\CarPayments;
 use App\Http\Livewire\CarPaymentDates\CarPaymentDates;
 use App\Http\Livewire\DriverSalaries\DriverSalaries;
+use App\Http\Livewire\DriverSalaries\DriverContract;
 use App\Http\Livewire\Gases\Gases;
 use App\Http\Livewire\ExtraFees\ExtraFees;
 use App\Http\Livewire\Reports\Revenues;
@@ -74,6 +75,7 @@ use App\Http\Livewire\SwapRequests\SwapRequests;
 use App\Http\Livewire\EmployeeRunTrips\SeatBooking;
 use App\Http\Livewire\Reports\EmptySeatPerRoute;
 use App\Http\Livewire\Reports\PerContractRoute;
+use App\Http\Livewire\ExpenseExpens\ExpenseExpens;
 use App\Http\Livewire\ReportDetails\Maintance;
 use App\Http\Livewire\ReportDetails\PenaltyDetails;
 use App\Http\Livewire\ReportDetails\AccidentDetails;
@@ -158,6 +160,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('citiy-status',[CityController::class,'switch_status']);
     Route::resource('stations',StationController::class)->except('create','edit','show');
     Route::post('importStation',[StationController::class,'import_file']);
+    Route::get('export-excel',[StationController::class,'export_excel']);
 
     Route::get('stations-status',[StationController::class,'switch_status']);
     Route::resource('offices',OfficeController::class);
@@ -208,7 +211,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::resource('issues',IssueController::class)->except('create','show','edit');
     Route::resource('efficiencyFuels',EfficiencyFuelController::class)->except('create','show','edit');
     Route::resource('manuallyFuels',ManuallyFuelController::class)->except('create','show','edit');
+    Route::get('employeeJobs/{type}',[EmployeeJobController::class,'index']);
     Route::resource('employeeJobs',EmployeeJobController::class)->except('create','show','edit');
+    Route::get('departments/{type}',[DepartmentController::class,'index']);
     Route::resource('departments',DepartmentController::class)->except('create','show','edit');
     Route::resource('myEmployees',MyEmployeeController::class)->except('show');
     Route::post('importEmployees',[MyEmployeeController::class,'import_file']);
@@ -276,7 +281,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('car-payment-edit/{payment_id}',CarPaymentsEdit::class);
     Route::get('car-payment-dates/{car_payment_id}',CarPaymentDates::class)->name('car-payment-dates');
     // driver sallary
-    Route::get('driver-salary',DriverSalaries::class)->name('driver-salary');
+    Route::get('driver-contract',DriverContract::class)->name('driver-salary');
+    Route::get('driver-salary/{driver_id}',DriverSalaries::class)->name('driver-salary');
     Route::post('importDrivers',[DriverController::class,'import_file']);
 
     Route::get('gases',Gases::class)->name('gases');
@@ -319,6 +325,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     
     Route::get('empty-seat-per-route',EmptySeatPerRoute::class);
     Route::get('empty-contract-route',PerContractRoute::class);
+    Route::get('expense-expense',ExpenseExpens::class);
     
 
 }); //end of routes

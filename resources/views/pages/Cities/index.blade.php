@@ -110,10 +110,11 @@ input:checked + .slider:before {
                             </div>
                         @endif
                     @endforeach
+                    <p > <h4 style="text-align:center">List Of Cities</h4> </p>
 
                     {{--  button of add_modal_city  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        {{ trans('cities_trans.add_city') }}
+                        {{ trans('main_trans.add') }}
                     </button>
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel"> 
                        <i class="far fa-file-excel"></i> Excel

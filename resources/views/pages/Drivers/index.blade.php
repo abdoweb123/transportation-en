@@ -43,10 +43,10 @@
                             </div>
                         @endforeach
                     @endif
-
+                    <p > <h4 style="text-align:center">List Of Drivers</h4> </p>
                     {{--  button of add_modal_employee  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        إضافة سائق
+                        add 
                     </button>
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel">
                         <i class="far fa-file-excel"></i> Excel
@@ -67,6 +67,7 @@
                                 <th>المكتب التابع له</th>
                                 <th>الصلاحيات</th>
                                 <th>مدخل البيانات</th>
+                                <th> العقودات</th>
                                 <th>العمليات</th>
                             </tr>
                             </thead>
@@ -82,6 +83,9 @@
                                     <td>@isset($item->office->name)  {{ $item->office->name }} @else لا يوجد @endisset</td>
                                     <td>@if($item->role != 0)  {{ $item->role }} @else لا يوجد @endif</td>
                                     <td>@isset($item->admin->name)  {{ $item->admin->name }} @else لا يوجد @endisset</td>
+                                    <td>
+                                        <a href="{{ url('driver-salary/'.$item->id) }}" class="btn btn-primary">contracts</a>
+                                    </td>
                                     <td>
                                         <div class="dropdown show">
                                             <a class="btn btn-success btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -115,6 +119,51 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="importExcel" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
+                   add file
+               </h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body">
+               <!-- add_form -->
+               <form action="{{ url('importDrivers') }}" method="post" enctype="multipart/form-data">
+                   {{ method_field('post') }}
+                   @csrf
+                   <div class="row">
+                       <div class="col">
+                           <label for="file" class="mr-sm-2">{{ trans('cities_trans.file') }}:</label>
+                           {{-- <input type="text" name="test" value="test" id=""> --}}
+                           <input type="file" name="excel">
+                       </div>
+                       {{-- <div class="col">
+                            <label for="file" class="mr-sm-2">company:</label>
+                            <select name="company_id" class="form-control">
+                                <option value=" ">-- Choose --</option>
+                                @foreach($comapnies as $company)
+                                    <option value="{{$company->id}}" {{$request_company_id == $company->id ? 'selected' : ''}}>{{$company->name}}</option>
+                                @endforeach
+                            </select>
+                       </div> --}}
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('main_trans.close') }}</button>
+                       <button type="submit" class="btn btn-success">{{ trans('main_trans.submit') }}</button>
+                   </div>
+               </form>
+
+           </div>
+       </div>
+   </div>
+</div>
+
         </div>
 
 

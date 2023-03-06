@@ -35,9 +35,10 @@
                             
                         @endif
  
-                        <br><br>
+                        <p > <h4 style="text-align:center">{{ @$tittle }}</h4> </p>
+
                         <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
-                            {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
+                            {{ $showForm == true ? 'show ' : 'add ' }}
                         </button>
                         <button type="button" class="btn btn-success mb-10" data-toggle="modal" data-target="#importExcel">
                             <i class="far fa-file-excel"></i> Excel

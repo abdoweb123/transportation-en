@@ -59,9 +59,10 @@
                             </div>
                         @endforeach
                     @endif
+                    <p > <h4 style="text-align:center">List Of Employees</h4> </p>
 
                     <a href="{{route('myEmployees.create')}}" class="button x-small">
-                        Add Employee
+                        Add
                     </a>
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel">
                         <i class="far fa-file-excel"></i> Excel

@@ -10,13 +10,14 @@ class EmployeeJobController extends Controller
 {
 
     /*** index function  ***/
-    public function index()
+    public function index($type)
     {
-        $employeeJobs = EmployeeJob::whereAdminId(Auth::guard('admin')->id());
+        $employeeJobs = EmployeeJob::whereType($type)->whereAdminId(Auth::guard('admin')->id());
         $comapnies=Company::select('id','name')->get();
         $employeeJobs=$employeeJobs->latest()->paginate(10);
         $request_company_id=request('company_id');
-        return view('pages.EmployeeJobs.index', compact('employeeJobs','comapnies','request_company_id'));
+        $type=$type;
+        return view('pages.EmployeeJobs.index', compact('employeeJobs','comapnies','request_company_id','type'));
     }
 
 
@@ -36,10 +37,11 @@ class EmployeeJobController extends Controller
         $employeeJob = new EmployeeJob();
         $employeeJob->name = $request['name'];
         $employeeJob->company_id = $request['company_id'];
+        $employeeJob->type = $request['type'];
         $employeeJob->admin_id = auth('admin')->id();
         $employeeJob->active = 1;
         $employeeJob->save();
-        return redirect()->route('employeeJobs.index')->with('alert-success','Data is stored successfully');
+        return redirect()->to('employeeJobs/'.$request['type'])->with('alert-success','Data is stored successfully');
     }
 
 
@@ -61,7 +63,7 @@ class EmployeeJobController extends Controller
         $employeeJob->admin_id = auth('admin')->id();
         $employeeJob->active = $request['active'];
         $employeeJob->update();
-        return redirect()->route('employeeJobs.index')->with('alert-success','Data is updated successfully');
+        return redirect()->to('employeeJobs/'.$employeeJob->type)->with('alert-success','Data is updated successfully');
 
     }
 
@@ -71,7 +73,7 @@ class EmployeeJobController extends Controller
     public function destroy(EmployeeJob $employeeJob)
     {
         $employeeJob->delete();
-        return redirect()->route('employeeJobs.index')->with('alert-success','Data is deleted successfully');
+        return back()->with('alert-success','Data is deleted successfully');
     }
 
 } //end of class

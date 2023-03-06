@@ -12,20 +12,19 @@ use Illuminate\Support\Facades\Auth;
 class DriverSalaries extends Component
 {
     use WithFileUploads;
-    public $ids,$showIndex,$showForm,$type;
+    public $ids,$showIndex,$showForm,$type,$driver_id;
     protected $listeners=[
         'objectEdit'=>'refresh_edited'
     ];
-    public function mount()
+    public function mount($driver_id)
     {
-        $this->tittle='Driver Salaries';
+        $this->driver_id=$driver_id;
+        $this->tittle='Driver Contracts';
         $this->showForm=false;
     }
     public function render()
     {
-        $results=DriverSalary::whereHas('driver',function($driver){
-            $driver->where('admin_id',Auth::guard('admin')->id());
-        })->with('driver','bus_type','route')->paginate();
+        $results=DriverSalary::where('driver_id',$this->driver_id)->paginate();
         return view('livewire.driver-salaries.driver-salaries',[
             'results'=>$results,
         ])->extends('layouts.master');

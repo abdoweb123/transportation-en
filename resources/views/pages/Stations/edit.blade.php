@@ -71,7 +71,7 @@
                         </div>
                         <div class="col">
                             <label for="Name_en" class="mr-sm-2">{{ trans('stations_trans.station_name_en') }}:</label>
-                            <input type="text" class="form-control" value="{{ $item->getTranslation('name', 'en') }}" name="name_en" required>
+                            <input type="text" class="form-control" value="{{ $item->getTranslation('name', 'name_en') }}" name="name_en" required>
                         </div>
                     </div>
                     <div class="row">

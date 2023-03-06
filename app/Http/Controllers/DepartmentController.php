@@ -11,13 +11,14 @@ class DepartmentController extends Controller
 {
 
     /*** index function  ***/
-    public function index()
+    public function index($type)
     {
-        $departments = Department::whereAdminId(Auth::guard('admin')->id());
+        $departments = Department::where('type',$type)->whereAdminId(Auth::guard('admin')->id());
         $comapnies=Company::select('id','name')->get();
         $departments=$departments->latest()->paginate(10);
         $request_company_id=request('company_id');
-        return view('pages.Departments.index', compact('departments','comapnies','request_company_id'));
+        $type=$type;
+        return view('pages.Departments.index', compact('departments','comapnies','request_company_id','type'));
     }
 
 
@@ -37,10 +38,11 @@ class DepartmentController extends Controller
         $department = new Department();
         $department->name = $request['name'];
         $department->company_id= $request['company_id'];
+        $department->type= $request['type'];
         $department->admin_id = auth('admin')->id();
         $department->active = 1;
         $department->save();
-        return redirect()->route('departments.index')->with('alert-success','Data is stored successfully');
+        return redirect()->to('departments/'.$request['type'])->with('alert-success','Data is stored successfully');
     }
 
 
@@ -63,7 +65,7 @@ class DepartmentController extends Controller
 
         $department->active = $request['active'];
         $department->update();
-        return redirect()->route('departments.index')->with('alert-success','Data is updated successfully');
+        return redirect()->to('departments/'.$department->type)->with('alert-success','Data is updated successfully');
 
     }
 
@@ -73,7 +75,7 @@ class DepartmentController extends Controller
     public function destroy(Department $department)
     {
         $department->delete();
-        return redirect()->route('departments.index')->with('alert-success','Data is deleted successfully');
+        return back()->with('alert-success','Data is deleted successfully');
     }
 
 } //end of class

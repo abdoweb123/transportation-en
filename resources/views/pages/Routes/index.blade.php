@@ -53,10 +53,11 @@
                             </div>
                         @endif
                     @endforeach
+                    <p > <h4 style="text-align:center">List Of Routes</h4> </p>
 
                     {{--  button of add_modal_office  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        Add Route
+                        Add
                     </button>
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel">
                         <i class="far fa-file-excel"></i> Excel

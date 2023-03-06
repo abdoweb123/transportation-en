@@ -54,9 +54,10 @@
                         @endif
                     @endforeach
 
-                    {{--  button of add_modal_office  --}}
+                    <p > <h4 style="text-align:center">List Of Offices</h4> </p>
+
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        Add Office
+                        {{ trans('main_trans.add') }}
                     </button>
                     {{-- <button type="button" class="button x-small" >
                         <i class="far fa-file-excel"></i> Excel

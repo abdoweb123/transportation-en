@@ -21,6 +21,38 @@ class StaticTables extends Component
     {
         $this->type=$type;
         $this->tittle=$type;
+        if ($this->type == 'discount_type') {
+            $this->tittle='List Of Discount Types';
+        }elseif ($this->type == 'insurance_kind') {
+            $this->tittle='List Of Driving Licences';
+        }elseif ($this->type == 'service') {
+            $this->tittle='List Of Service Types';
+        }elseif ($this->type == 'supplier_type') {
+            $this->tittle='List Of Supplier Types';
+        }elseif ($this->type == 'suppliers') {
+            $this->tittle='List Of Supplier';
+        }elseif ($this->type == 'penalty_type') {
+            $this->tittle='List Of Penalty Types';
+        }elseif ($this->type == 'accident_type') {
+            $this->tittle='List Of Accident Types';
+        }elseif ($this->type == 'gas_type') {
+            $this->tittle='List Of Fuel Types';
+        }elseif ($this->type == 'gudget_brand') {
+            $this->tittle='List Of Sapre Parts';
+        }elseif ($this->type == 'gudget_type') {
+            $this->tittle='List Of Sapre Part Types';
+        }elseif ($this->type == 'extra_fees_type') {
+            $this->tittle='Exter Fees Types';
+        }elseif ($this->type == 'vendor_type') {
+            $this->tittle='vendor Types';
+        }elseif ($this->type == 'borrow_type') {
+            $this->tittle='Borrow Types';
+        }elseif ($this->type == 'insurance_company') {
+            $this->tittle='insurance Companies';
+        }elseif ($this->type == 'bus_model') {
+            $this->tittle='List Of Models';
+        }
+        
         $this->showForm=false;
     }
     public function render()

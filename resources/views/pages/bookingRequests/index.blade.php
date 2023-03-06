@@ -54,11 +54,13 @@
                         @endif
                     @endforeach
 
+                    <p > <h4 style="text-align:center">Booking List</h4> </p>
+<br>
                     {{--  button of add_modal_office  --}}
                     <div class="row">
                         <div class="col-md-4">
                             <a href="{{route('getAddBooking')}}" class="button x-small">
-                                Add Booking
+                                Add
                             </a>
                             <a href="{{route('bookingRequestsData')}}" class="button x-small">
                                 Next

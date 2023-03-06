@@ -49,8 +49,8 @@ login-->
                 <div class="col-lg-4 col-md-6 login-fancy-bg bg"
                      style="background-image: url('{{ asset('assets/images/login-inner-bg.jpg')}}');">
                     <div class="login-fancy">
-                        <h2 class="text-white mb-20 font-weight-bold">Wassalny!</h2>
-                        <p class="mb-20 text-white">Welcome to Wassalny for transportation</p>
+                        <h2 class="text-white mb-20 font-weight-bold">Submarine!</h2>
+                        <p class="mb-20 text-white">Welcome to Submarine for transportation</p>
 {{--                        <p class="mb-20 text-white">أهلا بكم في تطبيق وصلني لخدمات النقل والرحلات</p>--}}
 {{--                        <p class="mb-20 text-white">نقدم لكم خدمات النقل والرحلات بأفضل جودة</p>--}}
                         <ul class="list-unstyled  pos-bot pb-30">

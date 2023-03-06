@@ -34,7 +34,7 @@ class RouteStationImport implements ToCollection ,WithHeadingRow //, WithChunkRe
         Validator::make($rows->toArray(), [
             '*.route' => 'required',
             '*.station' => 'required',
-            '*.status' => 'required',
+            // '*.status' => 'required',
         ])->validate();
         foreach ($rows as $row) {
             $route=Route::where('name',$row['route'])->first();
@@ -51,7 +51,7 @@ class RouteStationImport implements ToCollection ,WithHeadingRow //, WithChunkRe
                 $route_id=$route->id;
             }
 
-            $station=Station::where('name',$row['station'])->first();
+            $station=Station::where('name->ar',$row['station'])->orWhere('name->name_en',$row['station'])->first();
             if ($station != null) {
                 $check=RouteStation::where(['route_id'=>$route->id,'station_id'=>$station->id])->first();
                 if ($check == null) {

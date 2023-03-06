@@ -23,7 +23,7 @@ class EmployeeRunTrips extends Component
         $this->showForm=false;
     }
     public function render()
-    {
+    { 
         $employeeRunTrips=EmployeeRunTripBus::with('employeeRunTrip','bus')->whereAdminId(Auth::guard('admin')->id())->paginate();
         // $employeeRunTrips=EmployeeRunTrip::whereAdminId(Auth::guard('admin')->id())->paginate();
         return view('livewire.employee-run-trips.employee-run-trips',[

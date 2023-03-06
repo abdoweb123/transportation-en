@@ -291,7 +291,7 @@
       </div>
     </div>
   </div>
-    </div>
+    </div> 
 
       @section('js')
       @toastr_js

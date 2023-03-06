@@ -2,7 +2,7 @@
     <form wire:submit.prevent='store_update'>
         <div class="card-body col-md-8 offset-2">
             <div class="form-group row">
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <label for="driver_id" class="mr-sm-2">drivers <span style="color:red">*</span></label>
                     <select name="driver_id" class="form-control mr-sm-2 p-2" id="" class="w-100 mb-10" wire:model.lazy='driver_id'>
                         <option value="0"> </option>
@@ -13,7 +13,7 @@
                         @endif
                     </select>
                     @error('driver_id')<span style="color: red"> {{ $message }}</span>@enderror
-                </div>
+                </div> --}}
                 <div class="col-md-6">
                     <label for="payment_type" class="mr-sm-2">payment types <span style="color:red">*</span></label>
                     <select name="payment_type" class="form-control mr-sm-2 p-2" id="" class="w-100 mb-10" wire:model.lazy='payment_type'>

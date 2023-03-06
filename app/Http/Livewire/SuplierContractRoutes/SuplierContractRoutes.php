@@ -14,9 +14,11 @@ use App\Models\BusType;
 use App\Models\StaticTable;
 use App\Models\Discount;
 use App\Models\Company;
+use App\Models\ContractSublier;
 use App\Models\contractDiscount;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SupplierContractRouteImport;
+
 class SuplierContractRoutes extends Component
 {
     use WithFileUploads;
@@ -30,11 +32,11 @@ class SuplierContractRoutes extends Component
     {
         $this->tittle='suplier Contract Routes';
         $this->showForm=false;
-        // // $this->suplier_contract_id=$suplier_contract_id;
+        $this->suplier_contract_id=$suplier_contract_id;
     }
     public function render()
     { 
-        $results=SublierCotractRoute::with('suplier_contract')->paginate();
+        $results=SublierCotractRoute::with('suplier_contract')->where('suplier_contract_id',$this->suplier_contract_id)->paginate();
 
         $supliers=StaticTable::select('id','name')->whereType('suppliers')->get();
         $routes=Route::select('id','name')->get();
@@ -131,7 +133,7 @@ class SuplierContractRoutes extends Component
     {
         $validate=$this->validate([
             // 'suplier_contract_id'=>'required',
-            'suplier_id'=>'required',
+            // 'suplier_id'=>'required',
             'route_id'=>'required',
             'bus_type_id'=>'required',
             'service_type_id'=>'required'
@@ -142,8 +144,10 @@ class SuplierContractRoutes extends Component
             $data= new SublierCotractRoute();
             $data->operations_number=SublierCotractRoute::count()+1;
         }
+        $suplier_contract=ContractSublier::find($this->suplier_contract_id);
+
         $data->suplier_contract_id=$this->suplier_contract_id;
-        $data->suplier_id=$this->suplier_id;
+        $data->suplier_id=$suplier_contract->sublier_id;
         $data->route_id=$this->route_id;
         $data->bus_type_id=$this->bus_type_id;
         $data->service_type_id=$this->service_type_id;

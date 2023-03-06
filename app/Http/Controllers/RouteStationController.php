@@ -381,6 +381,11 @@ class RouteStationController extends Controller
         if ($request->excel == null) {
             return redirect()->back()->with('alert-danger','plz check file!');
         }
+        if($request->company_id != null){
+            $company_id=$request->company_id;
+        }else{
+            $company_id=0;
+        }
         $data=[
             'company_id'=> $request->company_id
          ];

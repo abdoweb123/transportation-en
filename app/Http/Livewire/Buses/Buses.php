@@ -21,7 +21,7 @@ class Buses extends Component
     ];
     public function mount()
     {
-        $this->tittle='Buses';
+        $this->tittle='List Of Buses';
         $this->showForm=false;
     }
     public function render()

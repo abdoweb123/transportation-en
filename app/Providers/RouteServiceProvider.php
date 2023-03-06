@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/dashboard';
     public const SUPERVISOR = '/superVisor/dashboard';
-    public const ADMIN = '/admin/dashboard';
+    public const ADMIN = '/dashboard';
     public const EMPLOYEE = '/employee/dashboard';
 
     /**
@@ -51,15 +51,15 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
 
             Route::middleware('web')
-                ->namespace($this->namespace)
+                // ->namespace($this->namespace)
                 ->group(base_path('routes/superVisor.php'));
 
             Route::middleware('web')
-                ->namespace($this->namespace)
+                // ->namespace($this->namespace)
                 ->group(base_path('routes/admin.php'));
 
             Route::middleware('web')
-                ->namespace($this->namespace)
+                // ->namespace($this->namespace)
                 ->group(base_path('routes/employee.php'));
         });
     }

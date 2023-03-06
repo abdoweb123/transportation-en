@@ -146,6 +146,7 @@ class Edit extends Component
     
     public function get_object($edit_object)
     {
+        // dd($edit_object['insurance_insurance_to']);
         $this->ids=$edit_object['id'];
         $this->name=$edit_object['name'];
         $this->code=$edit_object['code'];

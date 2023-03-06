@@ -68,13 +68,16 @@
                         @endif
                     @endforeach
 
-                    {{--  button of add_modal_station  --}}
+                    <p > <h4 style="text-align:center">List Of Stations</h4> </p>
+
+                    {{--  button of add_modal_city  --}}
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        {{ trans('stations_trans.add_station') }}
+                        {{ trans('main_trans.add') }}
                     </button>
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#importExcel">
-                        <i class="far fa-file-excel"></i> Excel
+                        <i class="far fa-file-excel"></i> Import Excel
                      </button>
+                     <a href="{{ url('export-excel') }}"  class="button x-small" >Export excel</a>
                      <br><br>
  
                          {{-- <form action="stations" method="GET">
@@ -112,9 +115,9 @@
                             <tbody>
                             @foreach ($stations as $item)
                                 <tr>
-                                    <td>{{ $loop->index+1 }}</td>
+                                    <td>{{ $item->id }}</td>
                                     <td>{{ $item->getTranslation('name', 'ar')  }}</td>
-                                    <td>{{ $item->getTranslation('name', 'en')  }}</td>
+                                    <td>{{ $item->getTranslation('name', 'name_en')  }}</td>
                                     <td>@isset($item->city->name)  {{ $item->city->name }} @else _____ @endisset</td>
                                     <td>@isset($item->lat)  {{ $item->lat }} @else _____ @endisset</td>
                                     <td>@isset($item->lon)  {{ $item->lon }} @else _____ @endisset</td>

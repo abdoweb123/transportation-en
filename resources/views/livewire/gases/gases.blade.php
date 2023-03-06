@@ -24,9 +24,10 @@
                             @endif
                         @endforeach
 
-                        <br><br>
+                        <p > <h4 style="text-align:center">Fuels Data</h4> </p>
+
                         <button type="button" class="btn btn-primary mb-10"  wire:click='switch'>
-                            {{ $showForm == true ? 'show ' : 'add ' . $tittle }}
+                            {{ $showForm == true ? 'show ' : 'add ' }}
                             </button>
 @if ($showForm == true)
     <livewire:gases.edit>

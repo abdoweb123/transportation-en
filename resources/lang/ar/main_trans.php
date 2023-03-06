@@ -23,6 +23,7 @@ return [
     'processes' => 'العمليات',
     'year' => 'السنه',
     'month'=>'شهر',
+    'add'=>'اضافه',
 'client_name' =>'اسم العميل',
 'bus_type' =>' نوع الاتوبيس',
 'servic_type'=> ' نوع الخدمه',
@@ -50,11 +51,15 @@ return [
 'number_of_contracted_lines'=>'عدد الخطوط المتعاقد عليها',
 'bus_type'=>' اسم الخط',
 'bus_type'=>'نوع السياره',
+'bus_category'=>'فئات قطع الغيار',
+'bus_category_issue'=>'قطع الغيار الفئات الفرعية',
 'services_type'=>'نوع الخدمه',
 'services_value'=>'قيمه الخدمه',
 'number_of_runs'=>'عدد التشغيلات',
 'total_of_revenues'=>'اجمالي الايرادات',
 'count_of_discounts'=>'عدد الخصومات',
+'extera_expenses_type'=>'انواع المصاريف الاخري',
+'extera_expenses'=>'المصاريف الاخري',
 'total_of_discounts'=>'اجمالي الخصومات',
 'net_revenue'=>'صافي الايرادات', 
 'payment_type'=>[
@@ -74,6 +79,8 @@ return [
 
 'hr_system_code'=>'نظام شئون العاملين',
 'list_of_depart'=>' دليل الإدارات',
+'list_of_depart_customer'=>'دليل اقسام/العملاء',
+'list_of_job_customer'=>'دليل وظائف /العملاء',
 'list_of_jod'=>'دليل الوظائف',
 
 'booking_system_codes'=>'أكواد نظام الحجز',

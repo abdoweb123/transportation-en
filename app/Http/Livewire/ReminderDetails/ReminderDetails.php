@@ -31,6 +31,9 @@ class ReminderDetails extends Component
     public function render()
     {
         $results=ReminderHistory::paginate();
+        if ($this->reminder_id != null) {
+            $results=ReminderHistory::where('reminder_id',$this->reminder_id)->paginate();
+        }
         return view('livewire.reminder-details.reminder-details',compact('results'))->extends('layouts.master');
     }
   

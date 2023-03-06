@@ -17,11 +17,11 @@ class Edit extends Component
 {
     use WithFileUploads;
     public $ids,$reminder_id,
-    $vendor_id,$total_paid,
+    $supplier_id,$total_paid,
     $cost_per_day,$admin_id
     ,$gudget_brand_id,$gudget_type_id,
-    $number_of_gudgets
-    ,$cost_of_gudget,$fixing_cost;
+    $number_of_gudgets=0
+    ,$cost_of_gudget=0,$fixing_cost=0;
    
     public $showIndex,$showForm;
     protected $listeners=[
@@ -33,28 +33,35 @@ class Edit extends Component
     }
     public function render()
     {
-        $vendors=Vendor::select('id','name')->get();
+        $suppliers=StaticTable::select('id','name')->where('is_active','Y')->whereType('suppliers')->get();
         $admins=Admin::select('id','name')->get();
         $gudget_brands=StaticTable::select('id','name')->whereType('gudget_brand')->get();
         $gudget_types=StaticTable::select('id','name')->whereType('gudget_type')->get();
-        return view('livewire.reminder-details.edit',compact('vendors','admins','gudget_types','gudget_brands'))->extends('layouts.master');
+        return view('livewire.reminder-details.edit',compact('suppliers','admins','gudget_types','gudget_brands'))->extends('layouts.master');
     }
-
+    public function total_apied()
+    {
+        $this->total_paid=$this->number_of_gudgets + $this->cost_of_gudget + $this->fixing_cost;
+    }
     public function store_update()
     {
-        // $validate=$this->validate([
-        //     'driver_id'=>'required|int',
-        //     'bus_type_id'=>'required|int',
-        //     'route_id'=>'required|int',
-        //     'bus_id'=>'required|int',
-        // ]);
+        $validate=$this->validate([
+            'supplier_id'=>'required|int',
+            'total_paid'=>'required|int',
+            'cost_per_day'=>'required|int',
+            'gudget_brand_id'=>'required|int',
+            'gudget_type_id'=>'required|int',
+            'number_of_gudgets'=>'required|int',
+            'cost_of_gudget'=>'required|int',
+            'fixing_cost'=>'required|int',
+        ]);
         if($this->ids != null){
             $data=ReminderHistory::find($this->ids);
         }else{
             $data= new ReminderHistory();
         }
         $data->reminder_id=$this->reminder_id;
-        $data->vendor_id=$this->vendor_id;
+        $data->supplier_id=$this->supplier_id;
         $data->total_paid=$this->total_paid;
         $data->cost_per_day=$this->cost_per_day;
         $data->done=1;
@@ -72,7 +79,7 @@ class Edit extends Component
             $reminder->start_date=date('Y-m-d');
             $reminder->save();
             $this->resetInput();
-            return redirect()->to('reminder-history')->with('alert-success','تم حفظ البيانات بنجاح');
+            return redirect()->to('reminder-history?id='.$this->reminder_id)->with('alert-success','تم حفظ البيانات بنجاح');
         }
     }
     
@@ -80,7 +87,7 @@ class Edit extends Component
     {
         $this->ids=$edit_object['id'];
         $this->reminder_id=$edit_object['reminder_id'];
-        $this->vendor_id=$edit_object['vendor_id'];
+        $this->supplier_id=$edit_object['supplier_id'];
         $this->total_paid=$edit_object['total_paid'];
         $this->cost_per_day=$edit_object['cost_per_day'];
         $this->admin_id=$edit_object['admin_id'];

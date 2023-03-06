@@ -19,16 +19,20 @@
                         <div class="col">
                             <label for="name_en" class="mr-sm-2">Name :</label>
                             <input type="text" name="name" value="{{old('name')}}" class="form-control" required>
+                            <input type="hidden" name="type" value="{{ $type }}">
                         </div>
-                        <div class="col">
-                            <label class="mr-sm-2">companies</label>
-                            <select name="company_id" class="form-control">
-                                <option value=" " selected>-- Choose --</option>
-                                @foreach($comapnies as $company)
-                                    <option value="{{$company->id}}" {{old('company_id') == $company->id ? 'selected' : ''}}>{{$company->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        @if($type == 'company')
+                            <div class="col">
+                                <label class="mr-sm-2">companies</label>
+                                <select name="company_id" class="form-control">
+                                    <option value=" " selected>-- Choose --</option>
+                                    @foreach($comapnies as $company)
+                                        <option value="{{$company->id}}" {{old('company_id') == $company->id ? 'selected' : ''}}>{{$company->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
+
                     </div>
                     <br><br>
 
